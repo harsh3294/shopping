@@ -5,10 +5,11 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
+
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import "./Header.css";
+import SideBar from "./SideBar";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -38,7 +39,8 @@ export default function ButtonAppBar() {
             color="inherit"
             aria-label="menu"
           >
-            <MenuIcon />
+            {/* <MenuIcon /> */}
+            <SideBar />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
             Shoppers
