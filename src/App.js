@@ -4,6 +4,7 @@ import Header from "../src/user/Header";
 import Carousel from "./user/Carousel";
 import Example from "./user/Example";
 import Login from "./user/Login/Login";
+import SignUp from "./user/SignUp/SignUp";
 function App() {
   return (
     <div className="app">
@@ -20,7 +21,8 @@ function App() {
       <br />
       <br />
       <br /> */}
-      <Login />
+      {/* <Login /> */}
+      <SignUp />
     </div>
   );
 }
