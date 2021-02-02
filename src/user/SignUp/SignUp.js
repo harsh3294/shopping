@@ -5,6 +5,7 @@ import Background from "./background.jpg";
 import PermIdentityIcon from "@material-ui/icons/PermIdentity";
 import LockIcon from "@material-ui/icons/Lock";
 import CreateIcon from "@material-ui/icons/Create";
+import { Divider } from "@material-ui/core";
 function Login() {
   return (
     <div className="limiter">
@@ -87,9 +88,10 @@ function Login() {
                 <button className="login100-form-btn">Sign Up</button>
               </div>
             </div>
+            <Divider style={{ marginTop: "40px" }} />
             <div
               className="txt1 text-center"
-              style={{ paddingBottom: "20px", paddingTop: "54px" }}
+              style={{ paddingBottom: "20px", paddingTop: "20px" }}
             >
               <span>Already a user?</span>
               <br />
