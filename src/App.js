@@ -8,7 +8,7 @@ import SignUp from "./user/SignUp/SignUp";
 function App() {
   return (
     <div className="app">
-      {/* <Header />
+      <Header />
       <br />
       <br />
       <br />
@@ -20,8 +20,8 @@ function App() {
       <Example />
       <br />
       <br />
-      <br /> */}
-      <Login />
+      <br />
+      {/* <Login /> */}
       {/* <SignUp /> */}
     </div>
   );
