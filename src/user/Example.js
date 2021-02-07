@@ -6,7 +6,7 @@ import OutlinedCard from "./OutlinedCard";
 class Example extends Component {
   render() {
     return (
-      <Carousel height={350} width={280} id={5}>
+      <Carousel height={400} width={280} id={5}>
         <OutlinedCard />
         <OutlinedCard />
         <OutlinedCard />

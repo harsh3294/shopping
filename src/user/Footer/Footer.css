@@ -1,0 +1,188 @@
+@import url("https://fonts.googleapis.com/css2?family=Lemonada&display=swap");
+.MuiDivider-root {
+  height: 0.5px;
+  margin: 0;
+  flex-shrink: 0;
+  background-color: rgba(255, 255, 255, 0.5) !important;
+}
+.footer {
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(26, 26, 26);
+  color: white;
+  flex-grow: 1;
+}
+.footer__row1 {
+  flex-wrap: wrap;
+  align-content: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+}
+.footer__row2 {
+  display: flex;
+  flex-direction: row;
+  background-color: #5cdb95;
+  width: 100%;
+}
+.footer__shopper {
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: row;
+}
+.footer__shopperBody {
+  margin-left: 10px;
+  margin-top: 5px;
+}
+.footer__shop {
+  display: flex;
+  flex-direction: column;
+  margin-right: 200px;
+}
+.footer__shopTitle {
+  font-size: 1.3rem;
+  font-weight: 800;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  letter-spacing: 2px;
+  font-family: "Lobster", cursive;
+  text-align: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+.footer__shopBody__Title {
+  font: 1rem;
+  font-weight: lighter;
+  letter-spacing: 2px;
+}
+.footer__support {
+  display: flex;
+  flex-direction: column;
+  margin-right: 200px;
+}
+.footer__supportTitle {
+  font-size: 1.3rem;
+  font-weight: 800;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  letter-spacing: 2px;
+  font-family: "Lobster", cursive;
+  text-align: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+.footer__supportBody {
+  font: 1rem;
+  font-weight: lighter;
+  letter-spacing: 1px;
+}
+.footer__contact {
+  display: flex;
+  flex-direction: column;
+}
+.footer__contactTitle {
+  font-size: 1.3rem;
+  font-weight: 800;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  letter-spacing: 2px;
+  font-family: "Lobster", cursive;
+  text-align: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+.footer__contactEmail {
+  font: 1rem;
+  font-weight: lighter;
+  letter-spacing: 1px;
+  padding: 10px;
+}
+.footer__email {
+  font-size: 0.756rem;
+  font-weight: 300;
+  margin-left: 20px;
+  margin-top: 5px;
+  color: rgba(255, 196, 0, 0.438);
+}
+.footer__contactTelephone {
+  font: 1rem;
+  font-weight: lighter;
+  letter-spacing: 1px;
+  padding: 10px;
+}
+.footer__telephone {
+  font-size: 0.756rem;
+  font-weight: 300;
+  margin-left: 20px;
+  margin-top: 5px;
+  color: rgba(255, 196, 0, 0.438);
+}
+.footer__contactAddress {
+  font: 1rem;
+  font-weight: lighter;
+  letter-spacing: 1px;
+  padding: 10px;
+}
+.footer__address {
+  font-size: 0.756rem;
+  font-weight: 300;
+  margin-left: 20px;
+  margin-top: 5px;
+  color: rgba(255, 196, 0, 0.438);
+}
+.footer__contactHours {
+  font: 1rem;
+  font-weight: lighter;
+  letter-spacing: 1px;
+  padding: 10px;
+}
+.footer__hours {
+  font-size: 0.756rem;
+  font-weight: 300;
+  margin-left: 20px;
+  margin-top: 5px;
+  color: rgba(255, 196, 0, 0.438);
+}
+@media (max-width: 990px) {
+  .footer {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: stretch;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+  }
+  .footer__shop {
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+  }
+  .footer__contact {
+    padding-top: 50px;
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+  }
+  .footer__support {
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+  }
+}
