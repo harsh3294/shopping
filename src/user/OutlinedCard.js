@@ -5,11 +5,12 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
+import Rating from "@material-ui/lab/Rating";
 
 const useStyles = makeStyles({
   root: {
     minWidth: 250,
-    minHeight: 200,
+    minHeight: 300,
     border: "0.3px solid rgba(0,0,0,0.4)",
   },
   bullet: {
@@ -18,22 +19,34 @@ const useStyles = makeStyles({
     transform: "scale(0.8)",
   },
   title: {
+    fontFamily: "Quicksand, sans-serif",
     fontSize: 14,
+    fontWeight: 800,
+    marginTop: 10,
+    color: "black",
+    textAlign: "center",
   },
   pos: {
-    marginBottom: 12,
+    fontSize: 12,
+    textAlign: "center",
+    fontWeight: 600,
+    color: "black",
+    fontFamily: "Times New Roman",
+    background: "transparent",
   },
 });
+function truncate(string, n) {
+  return string?.length > n ? string.substr(0, n - 1) + "..." : string;
+}
 
-export default function OutlinedCard() {
+export default function OutlinedCard({ id, name, rating, price, img }) {
   const classes = useStyles();
-  const bull = <span className={classes.bullet}>•</span>;
 
   return (
     <Card className={classes.root} variant="outlined">
       <CardContent>
         <img
-          src="https://i.guim.co.uk/img/media/abffc68f38357082e669f2227a6310740d982f25/0_214_2710_1626/master/2710.jpg?width=445&quality=45&auto=format&fit=max&dpr=2&s=7340d7f149a7f15e95df155dfda0cc3a"
+          src={img}
           // height="250px"
           // width="220px"
           className="card__img"
@@ -43,14 +56,17 @@ export default function OutlinedCard() {
           color="textSecondary"
           gutterBottom
         >
-          Word of the Day
+          {truncate(name, 50)}
         </Typography>
-        <Typography variant="h5" component="h2">
-          be{bull}nev{bull}o{bull}lent
-        </Typography>
-        <Typography className={classes.pos} color="textSecondary">
-          adjective
-        </Typography>
+        <div className="detail">
+          <Typography variant="h5" component="h2">
+            <Rating name="read-only" value={rating} readOnly />
+          </Typography>
+          <Typography className={classes.pos} color="textSecondary">
+            {price}
+          </Typography>
+        </div>
+
         {/* <Typography variant="body2" component="p">
           well meaning and kindly.
           <br />

@@ -1,10 +1,18 @@
 .carousel {
   height: 400px;
-  width: 280px;
+  width: 250px;
 }
 .card__img {
   height: 250px;
-  width: 268px;
+  width: 200px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  background: "transparent";
+}
+.detail {
+  text-align: center;
 }
 @media (max-width: 991px) {
   .template-carousel {
@@ -15,5 +23,10 @@
   .card__img {
     height: 250px;
     width: 220px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    background: "transparent";
+    width: 50%;
   }
 }
