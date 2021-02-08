@@ -8,8 +8,9 @@ import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles({
   root: {
-    minWidth: 200,
-    minHeight: 400,
+    minWidth: 250,
+    minHeight: 200,
+    border: "0.3px solid rgba(0,0,0,0.4)",
   },
   bullet: {
     display: "inline-block",
@@ -33,8 +34,9 @@ export default function OutlinedCard() {
       <CardContent>
         <img
           src="https://i.guim.co.uk/img/media/abffc68f38357082e669f2227a6310740d982f25/0_214_2710_1626/master/2710.jpg?width=445&quality=45&auto=format&fit=max&dpr=2&s=7340d7f149a7f15e95df155dfda0cc3a"
-          height="250px"
-          width="250px"
+          // height="250px"
+          // width="220px"
+          className="card__img"
         />
         <Typography
           className={classes.title}

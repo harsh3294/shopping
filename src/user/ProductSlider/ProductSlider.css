@@ -1,0 +1,21 @@
+.rcs_right {
+  position: absolute;
+  right: 55px;
+  top: 50%;
+  color: rgb(192, 192, 192);
+  border-radius: 999px;
+  background-color: rgba(192, 192, 192, 0.5);
+  transform: translate(60px, -51%) !important;
+}
+.rcs_left {
+  position: absolute;
+  left: 55px;
+  top: 50%;
+  color: rgb(255, 0, 0);
+  border-radius: 999px;
+  background-color: rgba(192, 192, 192, 0.5);
+  transform: translate(-60px, -51%) !important;
+}
+.App {
+  background-color: whitesmoke;
+}

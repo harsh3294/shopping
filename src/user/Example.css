@@ -1,0 +1,19 @@
+.carousel {
+  height: 400px;
+  width: 280px;
+}
+.card__img {
+  height: 250px;
+  width: 268px;
+}
+@media (max-width: 991px) {
+  .template-carousel {
+    height: 400px !important;
+    /* width: 280px !important; */
+  }
+
+  .card__img {
+    height: 250px;
+    width: 220px;
+  }
+}

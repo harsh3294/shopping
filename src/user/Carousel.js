@@ -1,27 +1,23 @@
 import React, { useState } from "react";
 import CarouselSlider from "react-carousel-slider";
-
+import "./Carousel.css";
 function Carousel() {
   const [image, setImage] = useState([
     {
       imgSrc:
         "https://images-eu.ssl-images-amazon.com/images/G/31/img21/Wireless/Xiaomi/RedmiNote9Series/Mob_Hero_1242x450._CB660800169_SY250_.jpg",
-      width: "90%",
     },
     {
       imgSrc:
         "https://images-eu.ssl-images-amazon.com/images/G/31/img20/Wireless/WLA/Jan21/Headset/D20517472_WLA_BAU_OnePlus_Buds_Z_Mobile_hero_1242x450._CB660829695_SY250_.jpg",
-      width: "90%",
     },
     {
       imgSrc:
         "https://images-eu.ssl-images-amazon.com/images/G/31/img20/Wireless/JanART21/TailBrands/mobhero_1242x450._CB660604674_SY250_.jpg",
-      width: "90%",
     },
     {
       imgSrc:
         "https://images-eu.ssl-images-amazon.com/images/G/31/img20/Wireless/Xiaomi/Redmi_9Power/PostJanArt/D19338206_WLM_Redmi_9Power_Launch_mobhero._CB662599013_SY250_.jpg",
-      width: "90%",
     },
   ]);
   let manner = {
@@ -30,7 +26,7 @@ function Carousel() {
   };
   let itemsStyle = {
     height: "300px",
-    width: "100%",
+    width: "100vw",
     background: "transparent",
     border: "1px solid #e1e4e8",
     borderRadius: "2px",
@@ -39,7 +35,9 @@ function Carousel() {
   //   let accEleSetting;
   let sliderBoxStyle = {
     height: "320px",
-    width: "95%",
+    // marginLeft: "10px",
+    // marginRight: "10px",
+    width: "98%",
     background: "transparent",
     border: "1px solid #e1e4e8",
   };
@@ -64,9 +62,16 @@ function Carousel() {
       },
     },
   };
+  let rcs_sliderBox = {
+    height: "150px",
+    transform: "translateX(-2500px)",
+    transition: " transform 2s ease 0s",
+  };
   return (
     <div>
       <CarouselSlider
+        className="carouselSlider"
+        style={rcs_sliderBox}
         slideItems={image}
         manner={manner}
         sliderBoxStyle={sliderBoxStyle}
