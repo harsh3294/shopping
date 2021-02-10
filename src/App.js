@@ -7,20 +7,24 @@ import Login from "./user/Login/Login";
 import SignUp from "./user/SignUp/SignUp";
 import Footer from "./user/Footer/Footer";
 import ProductSlider from "./user/ProductSlider/ProductSlider";
+import Description from "./user/Description/Description";
 function App() {
   return (
     <div className="app">
       <Header />
+      {/* <Header />
       <br />
       <br />
       <br />
       <Carousel />
       <br />
 
-      <Example />
+      <Example /> */}
       {/* <Login /> */}
       {/* <SignUp /> */}
-      <ProductSlider />
+      {/* <ProductSlider />
+      <Footer /> */}
+      <Description />
       <Footer />
     </div>
   );
