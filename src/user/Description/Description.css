@@ -1,4 +1,16 @@
 @import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap");
+.read-more-less--more,
+.read-more-less--less {
+  color: #999;
+}
+.content-css {
+  width: 100%;
+}
+.my-anchor-css-class {
+  overflow-wrap: break-word !important;
+  /* word-wrap: break-word !important; */
+  hyphens: auto !important;
+}
 .description {
   display: flex;
   flex-direction: row;
@@ -125,8 +137,12 @@
 .desc {
   display: flex;
   flex-direction: row;
+  margin-bottom: 10px;
 }
-
+.product__description > h2 {
+  letter-spacing: 1.2px;
+  font-size: 24px;
+}
 .divider {
   margin-top: 10px !important;
   margin-bottom: 10px !important;

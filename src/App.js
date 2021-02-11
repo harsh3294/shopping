@@ -8,6 +8,7 @@ import SignUp from "./user/SignUp/SignUp";
 import Footer from "./user/Footer/Footer";
 import ProductSlider from "./user/ProductSlider/ProductSlider";
 import Description from "./user/Description/Description";
+import DisplayList from "./user/List/DisplayList";
 function App() {
   return (
     <div className="app">
@@ -24,7 +25,8 @@ function App() {
       {/* <SignUp /> */}
       {/* <ProductSlider />
       <Footer /> */}
-      <Description />
+      {/* <Description /> */}
+      <DisplayList />
       <Footer />
     </div>
   );

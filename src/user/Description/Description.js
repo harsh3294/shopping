@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import "./Description.css";
 import Rating from "@material-ui/lab/Rating";
+import ShowMoreText from "react-show-more-text";
 import { Divider } from "@material-ui/core";
 import IconReturn from "./../../assets/images/IconReturn.png";
 import IconDelivered from "./../../assets/images/IconDelivered.png";
 import IconNoContact from "./../../assets/images/IconNoContactDelivery.png";
 import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
 import IconWaranty from "./../../assets/images/IconWarranty.png";
+import ReactReadMoreReadLess from "react-read-more-read-less";
 function Description() {
   const [description, setDescription] = useState([
-    "Triple Camera Setup - 48MP (F2.0) Main Camera +8MP (F2.2) Ultra Wide Camera +5MP(F2.2) Depth Camera and 20MP (F2.2) front facing Punch Hole Camera",
+    `Triple Camera Setup - 48MP (F2.0) Main Camera +8MP (F2.2) Ultra Wide Camera +5MP(F2.2) Depth Camera and 20MP (F2.2) front facing Punch Hole Camera`,
     "6.4-inch(16.21 centimeters) Super Amoled - Infinity U Cut Display , FHD+ Resolution (2340 x 1080) , 404 ppi pixel density and 16M color support",
     "Android 10.0 operating system with Exynos 9611,2.3GHz,1.7GHz Octa-Core processor, 6GB RAM, 128GB internal memory expandable up to 512GB and dual SIM",
     "6000 mAh Battery",
@@ -71,14 +73,35 @@ function Description() {
         <div className="product__outOfStock">Out Of Stock</div>
         <br />
         <div className="product__description">
-          <h2>Description</h2>
+          <h2>Specification</h2>
           <Divider light className="divider" />
-          {description.map((item) => (
+          <div className="content-css">
+            <ShowMoreText
+              /* Default options */
+              lines={3}
+              className="content-css"
+              anchorClass="my-anchor-css-class"
+              more="Read more ▼"
+              less="Read less ▲"
+              className="content-css"
+              expanded={false}
+            >
+              {" "}
+              {description.map((item) => (
+                <div className="desc">
+                  <FiberManualRecordIcon className="dot__icon" />
+                  {item}
+                </div>
+              ))}
+            </ShowMoreText>
+          </div>
+          {/* {description.map((item) => (
             <div className="desc">
               <FiberManualRecordIcon className="dot__icon" />
-              <p className="item">{item}</p>
+
+              {item}
             </div>
-          ))}
+          ))} */}
         </div>
       </div>
     </div>
@@ -86,3 +109,12 @@ function Description() {
 }
 
 export default Description;
+{
+  /* <ReactReadMoreReadLess
+                charLimit={200}
+                readMoreText={"Read more ▼"}
+                readLessText={"Read less ▲"}
+                readMoreClassName="read-more-less--more"
+                readLessClassName="read-more-less--less"
+              ></ReactReadMoreReadLess> */
+}
