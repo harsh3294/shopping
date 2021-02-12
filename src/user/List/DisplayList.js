@@ -5,17 +5,23 @@ import ListItem from "@material-ui/core/ListItem";
 import Divider from "@material-ui/core/Divider";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
+import Rating from "@material-ui/lab/Rating";
+import "./DisplayProduct.css";
 import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
-    top: 80,
     backgroundColor: theme.palette.background.paper,
   },
   inline: {
     display: "inline",
+    marginTop: 10,
+    paddingTop: 10,
+  },
+  list: {
+    paddingLeft: 40,
   },
 }));
 
@@ -26,21 +32,46 @@ export default function DisplayList() {
     <List className={classes.root}>
       <ListItem alignItems="flex-start">
         <ListItemAvatar>
-          <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+          <div className="product__image">
+            <img
+              src="https://images-na.ssl-images-amazon.com/images/I/71QLvGIAq5L._SL1500_.jpg"
+              alt=""
+              width={100}
+              height={150}
+              className="product__image"
+            />
+          </div>
         </ListItemAvatar>
         <ListItemText
-          primary="Brunch this weekend?"
+          className={classes.list}
+          primary="Brunch this weekend?Brunch this weekend?Brunch this weekend?"
           secondary={
             <React.Fragment>
+              <Rating
+                name="read-only"
+                value={4}
+                readOnly
+                style={{ marginTop: "10px" }}
+              />
+              <div className="product__price">
+                <div className="productPrice">
+                  <span className="price"> ₹ 13,999.00</span>
+                </div>
+                <strike className="mrp">₹ 15,999.00</strike>
+                <div className="product__priceSave">
+                  You Save : <span className="price"> ₹ 2,000</span>
+                </div>
+              </div>
+              <div style={{ marginTop: "10px" }} />
               <Typography
                 component="span"
                 variant="body2"
                 className={classes.inline}
                 color="textPrimary"
               >
-                Ali Connors
+                Brand :
               </Typography>
-              {" — I'll be in your neighborhood doing errands this…"}
+              {" Samsung "}
             </React.Fragment>
           }
         />
@@ -48,43 +79,94 @@ export default function DisplayList() {
       <Divider variant="inset" component="li" />
       <ListItem alignItems="flex-start">
         <ListItemAvatar>
-          <Avatar alt="Travis Howard" src="/static/images/avatar/2.jpg" />
+          <div className="product__image">
+            <img
+              src="https://images-na.ssl-images-amazon.com/images/I/71QLvGIAq5L._SL1500_.jpg"
+              alt=""
+              width={100}
+              height={150}
+              className="product__image"
+            />
+          </div>
         </ListItemAvatar>
         <ListItemText
-          primary="Summer BBQ"
+          className={classes.list}
+          primary="Brunch this weekend?Brunch this weekend?Brunch this weekend?"
           secondary={
             <React.Fragment>
+              <Rating
+                name="read-only"
+                value={4}
+                readOnly
+                style={{ marginTop: "10px" }}
+              />
+              <div className="product__price">
+                <div className="productPrice">
+                  <span className="price"> ₹ 13,999.00</span>
+                </div>
+                <strike className="mrp">₹ 15,999.00</strike>
+                <div className="product__priceSave">
+                  You Save : <span className="price"> ₹ 2,000</span>
+                </div>
+              </div>
+              <div style={{ marginTop: "10px" }} />
               <Typography
                 component="span"
                 variant="body2"
                 className={classes.inline}
                 color="textPrimary"
               >
-                to Scott, Alex, Jennifer
+                Brand :
               </Typography>
-              {" — Wish I could come, but I'm out of town this…"}
+              {" Samsung "}
             </React.Fragment>
           }
         />
       </ListItem>
+
       <Divider variant="inset" component="li" />
       <ListItem alignItems="flex-start">
         <ListItemAvatar>
-          <Avatar alt="Cindy Baker" src="/static/images/avatar/3.jpg" />
+          <div className="product__image">
+            <img
+              src="https://images-na.ssl-images-amazon.com/images/I/71QLvGIAq5L._SL1500_.jpg"
+              alt=""
+              width={100}
+              height={150}
+              className="product__image"
+            />
+          </div>
         </ListItemAvatar>
         <ListItemText
-          primary="Oui Oui"
+          className={classes.list}
+          primary="Brunch this weekend?Brunch this weekend?Brunch this weekend?"
           secondary={
             <React.Fragment>
+              <Rating
+                name="read-only"
+                value={4}
+                readOnly
+                style={{ marginTop: "10px" }}
+              />
+              <div className="product__price">
+                <div className="productPrice">
+                  <span className="price"> ₹ 13,999.00</span>
+                </div>
+                <strike className="mrp">₹ 15,999.00</strike>
+                <div className="product__priceSave">
+                  You Save : <span className="price"> ₹ 2,000</span>
+                </div>
+              </div>
+              <div style={{ marginTop: "10px" }} />
               <Typography
                 component="span"
                 variant="body2"
                 className={classes.inline}
                 color="textPrimary"
               >
-                Sandra Adams
+                Brand :
               </Typography>
-              {" — Do you have Paris recommendations? Have you ever…"}
+              {" Samsung "}
             </React.Fragment>
           }
         />

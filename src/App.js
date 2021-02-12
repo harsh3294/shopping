@@ -9,6 +9,7 @@ import Footer from "./user/Footer/Footer";
 import ProductSlider from "./user/ProductSlider/ProductSlider";
 import Description from "./user/Description/Description";
 import DisplayList from "./user/List/DisplayList";
+import DisplayProduct from "./user/List/DisplayProduct";
 function App() {
   return (
     <div className="app">
@@ -26,7 +27,8 @@ function App() {
       {/* <ProductSlider />
       <Footer /> */}
       {/* <Description /> */}
-      <DisplayList />
+      {/* <DisplayList /> */}
+      <DisplayProduct />
       <Footer />
     </div>
   );
