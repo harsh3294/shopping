@@ -94,7 +94,7 @@ function Cart() {
                     <div className="cart__addRemoveButton">
                       <Button
                         onClick={decrementCounter}
-                        disabled={cartValue != 1 ? false : true}
+                        disabled={cartValue !== 1 ? false : true}
                       >
                         -
                       </Button>
@@ -161,7 +161,7 @@ function Cart() {
                     <div className="cart__addRemoveButton">
                       <Button
                         onClick={decrementCounter}
-                        disabled={cartValue != 1 ? false : true}
+                        disabled={cartValue !== 1 ? false : true}
                       >
                         -
                       </Button>

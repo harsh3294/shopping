@@ -1,10 +1,17 @@
 .MuiToolbar-root {
   background-color: #5cdb95;
 }
+.MuiButton-label {
+  font-size: 14px !important;
+}
 .header__login {
+  font-size: 14px !important;
   /* background-color: #05386b !important; */
   color: #164138 !important;
   font-weight: bold !important;
+}
+.MuiButton-text {
+  font-size: 14px !important;
 }
 .header__cart {
   font-weight: bold;
