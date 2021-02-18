@@ -1,26 +1,50 @@
-import React, { Component } from "react";
+import React, { Component, useState, useEffect } from "react";
 import { Carousel } from "react-circular-carousel";
 import "react-circular-carousel/dist/index.css";
 import OutlinedCard from "./OutlinedCard";
 import "./Example.css";
 import { DATA } from "./DATA";
+import axios from "../axios";
 
-class Example extends Component {
-  render() {
-    return (
-      <Carousel height={400} width={300} id={0} className="carousel">
-        {DATA.map((item) => (
-          <OutlinedCard
-            id={item.id}
-            img={item.img}
-            name={item.name}
-            rating={item.rating}
-            price={item.price}
-          />
-        ))}
-      </Carousel>
-    );
+function Example() {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    let unmounted = false;
+
+    async function fetchData() {
+      const req = await axios
+        .get("/products")
+        .then((res) => {
+          if (!unmounted) {
+            setProducts(res.data);
+          }
+          setLoading(false);
+        })
+        .catch((error) => alert(error));
+    }
+    fetchData();
+
+    return () => {
+      unmounted = true;
+    };
+  }, []);
+  if (loading) {
+    return <h1>Loading</h1>;
   }
+  return (
+    <Carousel height={400} width={300} id={0} className="carousel">
+      {products.map((item) => (
+        <OutlinedCard
+          id={item?._id}
+          img={item?.img}
+          name={item?.name}
+          rating={item?.rating}
+          price={item?.originalPrice}
+        />
+      ))}
+    </Carousel>
+  );
 }
 
 export default Example;

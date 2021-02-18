@@ -14,18 +14,18 @@ import Cart from "./user/Cart/Cart";
 function App() {
   return (
     <div className="app">
-      <Header />
+      {/* <Header /> */}
       {/* <Header />
       <br />
       <br />
       <br />
       <Carousel />
-      <br />
-      <Example /> */}
+      <br /> */}
+      <Example />
       {/* <Login /> */}
       {/* <SignUp /> */}
-      {/* <ProductSlider /> */}
-      {/* <Footer /> */}
+      {/* <ProductSlider />
+      <Footer /> */}
       {/* <Description /> */}
       {/* <DisplayList /> */}
       {/* <DisplayProduct /> */}
