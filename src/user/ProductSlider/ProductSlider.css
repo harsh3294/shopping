@@ -19,3 +19,9 @@
 .App {
   background-color: whitesmoke;
 }
+.itemWrapper div {
+  width: 200px !important;
+}
+/* .rcs_slideCon .itemWrapper div {
+  width: 200px !important;
+} */

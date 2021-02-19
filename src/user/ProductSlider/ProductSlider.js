@@ -1,25 +1,54 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import CarouselSlider from "react-carousel-slider";
 import "./ProductSlider.css";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { DATA } from "../DATA";
+import axios from "../../axios";
 import Rating from "@material-ui/lab/Rating";
 // import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
 function ProductSlider() {
+  const [mobiles, setMobiles] = useState([]);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    let unmounted = false;
+
+    async function fetchData() {
+      const req = await axios
+        .get("/products/mobiles")
+        .then((res) => {
+          if (!unmounted) {
+            setMobiles(res.data);
+          }
+          setLoading(false);
+        })
+        .catch((error) => alert(error));
+    }
+    fetchData();
+
+    return () => {
+      unmounted = true;
+    };
+  }, []);
+
   let itemsStyle = {
     padding: "0px",
     background: "white",
-    marginLeft: "4px",
-    marginRight: "10px",
-    boxShadow: "1px 1px 1px 1px #9E9E9E",
-    borderRadius: "4px",
+    marginLeft: "20px",
+    marginRight: "20px",
+    boxShadow: "1px 1px #9E9E9E",
+    borderRadius: "15px",
+    border: "1px solid black",
   };
 
   let imgStyle = {
     height: "60%",
     padding: "10px",
     width: "150px",
+    left: 0,
+    right: 0,
+    marginLeft: "auto",
+    marginRight: "auto",
     borderBottom: "1px solid #9E9E9E",
   };
 
@@ -52,16 +81,25 @@ function ProductSlider() {
     fontWeight: "600",
   };
   let rating = {
-    marginLeft: "16px",
+    marginLeft: "40px",
     top: "80px",
   };
 
-  let scientists = DATA.map((item) => (
-    <div key={item.id}>
+  // let scientists = DATA.map((item) => (
+  //   <div key={item.id}>
+  //     <img style={imgStyle} src={item.img}></img>
+  //     <p style={textBoxStyle}>{truncate(item.name, 50)}</p>
+  //     <Rating style={rating} name="read-only" value={item.rating} readOnly />
+  //     <p style={textBoxStyle2}>{item.price}</p>
+  //   </div>
+  //   // <MediaCard image={item.imgSrc} p1={item.name} p2={item.des} />
+  // ));
+  let scientists = mobiles.map((item) => (
+    <div key={item._id}>
       <img style={imgStyle} src={item.img}></img>
       <p style={textBoxStyle}>{truncate(item.name, 50)}</p>
       <Rating style={rating} name="read-only" value={item.rating} readOnly />
-      <p style={textBoxStyle2}>{item.price}</p>
+      <p style={textBoxStyle2}>{item.Originalprice}</p>
     </div>
     // <MediaCard image={item.imgSrc} p1={item.name} p2={item.des} />
   ));
@@ -114,6 +152,9 @@ function ProductSlider() {
       lBtnCpnt={lBtnCpnt}
     />
   );
+  if (loading) {
+    return <h1>Loading</h1>;
+  }
   return (
     <>
       <div

@@ -9,9 +9,11 @@ import Rating from "@material-ui/lab/Rating";
 
 const useStyles = makeStyles({
   root: {
+    borderRadius: 15,
     minWidth: 250,
-    minHeight: 300,
-    border: "0.3px solid rgba(0,0,0,0.4)",
+    minHeight: 370,
+    outline: "none",
+    border: "1px solid rgba(0,0,0,9)",
   },
   bullet: {
     display: "inline-block",
@@ -21,7 +23,7 @@ const useStyles = makeStyles({
   title: {
     fontFamily: "Quicksand, sans-serif",
     fontSize: 14,
-    fontWeight: 800,
+    fontWeight: 750,
     marginTop: 10,
     color: "black",
     textAlign: "center",
@@ -51,31 +53,29 @@ export default function OutlinedCard({ id, name, rating, price, img }) {
           // width="220px"
           className="card__img"
         />
-        <Typography
-          className={classes.title}
-          color="textSecondary"
-          gutterBottom
-        >
-          {truncate(name, 50)}
-        </Typography>
-        <div className="detail">
-          <Typography variant="h5" component="h2">
-            <Rating name="read-only" value={rating} readOnly />
+        <div className="product__detail">
+          <Typography
+            className={classes.title}
+            color="textSecondary"
+            gutterBottom
+          >
+            {truncate(name, 45)}
           </Typography>
-          <Typography className={classes.pos} color="textSecondary">
-            {price}
-          </Typography>
+          <div className="detail">
+            <Typography variant="h5" component="h2">
+              <Rating
+                name="read-only"
+                value={rating}
+                precision={0.1}
+                readOnly
+              />
+            </Typography>
+            <Typography className={classes.pos} color="textSecondary">
+              ₹ {price}
+            </Typography>
+          </div>
         </div>
-
-        {/* <Typography variant="body2" component="p">
-          well meaning and kindly.
-          <br />
-          {'"a benevolent smile"'}
-        </Typography> */}
       </CardContent>
-      {/* <CardActions>
-        <Button size="small">Learn More</Button>
-      </CardActions> */}
     </Card>
   );
 }

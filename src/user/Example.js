@@ -33,9 +33,10 @@ function Example() {
     return <h1>Loading</h1>;
   }
   return (
-    <Carousel height={400} width={300} id={0} className="carousel">
+    <Carousel height={410} width={300} id={0} className="carousel">
       {products.map((item) => (
         <OutlinedCard
+          key={item?._id}
           id={item?._id}
           img={item?.img}
           name={item?.name}
