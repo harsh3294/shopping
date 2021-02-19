@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import Products from "./products.js";
 import Cors from "cors";
+import Mobiles from "./products/mobiles.js";
 //APP config
 
 const app = express();
@@ -44,5 +45,25 @@ app.get("/products", (req, res) => {
   });
 });
 
+app.post("/products/mobiles", (req, res) => {
+  const product = req.body;
+  Mobiles.create(product, (err, data) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(201).send(data);
+    }
+  });
+});
+
+app.get("/products/mobiles", (req, res) => {
+  Mobiles.find((err, data) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(200).send(data);
+    }
+  });
+});
 //Listener
 app.listen(port, () => console.log(` listening on localhost : ${port}`));

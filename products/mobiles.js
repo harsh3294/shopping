@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-const productSchema = mongoose.Schema({
+const mobileSchema = mongoose.Schema({
   name: String,
   description: Array,
   img: String,
@@ -11,4 +11,4 @@ const productSchema = mongoose.Schema({
   totalStock: Number,
   category: String,
 });
-export default mongoose.model("products", productSchema);
+export default mongoose.model("mobile", mobileSchema);
