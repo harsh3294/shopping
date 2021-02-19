@@ -11,27 +11,45 @@ import Description from "./user/Description/Description";
 import DisplayList from "./user/List/DisplayList";
 import DisplayProduct from "./user/List/DisplayProduct";
 import Cart from "./user/Cart/Cart";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+
 function App() {
   return (
-    <div className="app">
-      {/* <Header /> */}
-      <Header />
-      <br />
-      <br />
-      <br />
-      <Carousel />
-      <br />
-      <Example />
-      {/* <Login /> */}
-      {/* <SignUp /> */}
-      <ProductSlider />
-      <Footer />
-      {/* <Description /> */}
-      {/* <DisplayList /> */}
-      {/* <DisplayProduct /> */}
-      {/* <Cart /> */}
-      {/* <Footer /> */}
-    </div>
+    <Router>
+      <Switch>
+        <Route path="/login">
+          <Login />
+        </Route>
+        <Route path="/sign-up">
+          <SignUp />
+        </Route>
+        <div>
+          <Header />
+          <Switch>
+            <Route path="/product">
+              <DisplayProduct />
+            </Route>
+            <Route path="/cart">
+              <Cart />
+            </Route>
+            <Route path="/product-detail">
+              <Description />
+            </Route>
+            <Route path="/">
+              <br />
+              <br />
+              <br />
+              <Carousel />
+              <br />
+              <Example />
+              <br />
+              <ProductSlider />
+            </Route>
+          </Switch>
+          <Footer />
+        </div>
+      </Switch>
+    </Router>
   );
 }
 

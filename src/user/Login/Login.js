@@ -5,6 +5,7 @@ import Background from "./background.jpg";
 import PermIdentityIcon from "@material-ui/icons/PermIdentity";
 import LockIcon from "@material-ui/icons/Lock";
 import { Divider } from "@material-ui/core";
+import { Link } from "react-router-dom";
 function Login() {
   return (
     <div className="limiter">
@@ -87,7 +88,10 @@ function Login() {
             >
               <span>Or SignUp Using</span>
               <br />
-              <span className="txt2">SignUp</span>
+              <Link to="/sign-up">
+                <span className="txt2">SignUp</span>
+              </Link>
+
               {/* <a className="txt2">Sign Up</a> */}
             </div>
           </form>

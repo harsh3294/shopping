@@ -9,6 +9,7 @@ import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import "./Header.css";
 import SideBar from "../Sidebar/SideBar";
+import { Link } from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -44,18 +45,22 @@ export default function ButtonAppBar() {
           <Typography variant="h6" className={classes.title}>
             Shoppers
           </Typography>
-          <IconButton>
-            <ShoppingCartIcon className="header__cart" />
-            <span className="header__cartCount">0</span>
-          </IconButton>
+          <Link to="/cart">
+            <IconButton>
+              <ShoppingCartIcon className="header__cart" />
+              <span className="header__cartCount">0</span>
+            </IconButton>
+          </Link>
 
-          <Button
-            color="inherit"
-            className="header__login"
-            endIcon={<ExitToAppIcon />}
-          >
-            Login
-          </Button>
+          <Link to="/login">
+            <Button
+              color="inherit"
+              className="header__login"
+              endIcon={<ExitToAppIcon />}
+            >
+              Login
+            </Button>
+          </Link>
         </Toolbar>
       </AppBar>
     </div>

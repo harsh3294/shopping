@@ -25,7 +25,7 @@
 }
 .cart__addRemoveButton > input,
 .cartValue {
-  width: 30px;
+  width: 50px;
   border: none;
   outline: none;
   align-items: center;
