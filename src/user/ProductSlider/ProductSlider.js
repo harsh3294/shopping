@@ -5,6 +5,7 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { DATA } from "../DATA";
 import axios from "../../axios";
+import numeral from "numeral";
 import Rating from "@material-ui/lab/Rating";
 // import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
 function ProductSlider() {
@@ -77,8 +78,8 @@ function ProductSlider() {
     color: "black",
     fontFamily: "Times New Roman",
     background: "transparent",
-    fontSize: "12px",
-    fontWeight: "600",
+    fontSize: "13px",
+    fontWeight: "700",
   };
   let rating = {
     marginLeft: "40px",
@@ -99,7 +100,10 @@ function ProductSlider() {
       <img style={imgStyle} src={item.img}></img>
       <p style={textBoxStyle}>{truncate(item.name, 50)}</p>
       <Rating style={rating} name="read-only" value={item.rating} readOnly />
-      <p style={textBoxStyle2}>{item.Originalprice}</p>
+      <p style={textBoxStyle2}>
+        {" "}
+        ₹ {numeral(item.originalPrice).format("0,0")}
+      </p>
     </div>
     // <MediaCard image={item.imgSrc} p1={item.name} p2={item.des} />
   ));

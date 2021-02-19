@@ -12,6 +12,7 @@
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.21.1",
     "firebase": "^8.2.4",
+    "numeral": "^2.0.6",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "react-carousel-slider": "^2.0.13",

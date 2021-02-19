@@ -6,6 +6,7 @@ import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Rating from "@material-ui/lab/Rating";
+import numeral from "numeral";
 
 const useStyles = makeStyles({
   root: {
@@ -71,7 +72,7 @@ export default function OutlinedCard({ id, name, rating, price, img }) {
               />
             </Typography>
             <Typography className={classes.pos} color="textSecondary">
-              ₹ {price}
+              ₹ {numeral(price).format("0,0")}
             </Typography>
           </div>
         </div>
