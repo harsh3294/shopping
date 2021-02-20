@@ -22,6 +22,13 @@
 .itemWrapper div {
   width: 200px !important;
 }
+.loading {
+  display: block !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  width: 100px !important;
+  height: 100px !important;
+}
 /* .rcs_slideCon .itemWrapper div {
   width: 200px !important;
 } */

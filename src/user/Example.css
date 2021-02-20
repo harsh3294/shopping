@@ -29,6 +29,14 @@
   margin: 10px;
   padding-top: 5px;
 }
+.loading {
+  display: block !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  width: 100px !important;
+  height: 100px !important;
+}
+
 @media (max-width: 991px) {
   .template-carousel {
     height: 400px !important;

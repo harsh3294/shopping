@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Description.css";
 import Rating from "@material-ui/lab/Rating";
 import ShowMoreText from "react-show-more-text";
@@ -9,45 +9,94 @@ import IconNoContact from "./../../assets/images/IconNoContactDelivery.png";
 import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
 import IconWaranty from "./../../assets/images/IconWarranty.png";
 import ReactReadMoreReadLess from "react-read-more-read-less";
+import { useParams } from "react-router-dom";
+import axios from "../../axios";
+import numeral from "numeral";
+import Loading from "../../assets/images/Loading.gif";
 function Description() {
-  const [description, setDescription] = useState([
-    `Triple Camera Setup - 48MP (F2.0) Main Camera +8MP (F2.2) Ultra Wide Camera +5MP(F2.2) Depth Camera and 20MP (F2.2) front facing Punch Hole Camera`,
-    "6.4-inch(16.21 centimeters) Super Amoled - Infinity U Cut Display , FHD+ Resolution (2340 x 1080) , 404 ppi pixel density and 16M color support",
-    "Android 10.0 operating system with Exynos 9611,2.3GHz,1.7GHz Octa-Core processor, 6GB RAM, 128GB internal memory expandable up to 512GB and dual SIM",
-    "6000 mAh Battery",
-    "1 year manufacturer warranty for device and 6 months manufacturer warranty for in-box accessories including batteries from the date of purchase",
-  ]);
+  const { product_id } = useParams();
+  const [product, setProduct] = useState({});
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    let unmounted = false;
+
+    async function fetchData() {
+      const req = await axios
+        .get(`/products/${product_id}`)
+        .then((res) => {
+          if (!unmounted) {
+            setProduct(res.data);
+          }
+          setLoading(false);
+        })
+        .catch((error) => alert(error));
+    }
+    fetchData();
+
+    return () => {
+      unmounted = true;
+    };
+  }, []);
+  if (loading) {
+    return <img src={Loading} alt="loading" className="loading" />;
+  }
+  // const [description, setDescription] = useState([
+  //   `Triple Camera Setup - 48MP (F2.0) Main Camera +8MP (F2.2) Ultra Wide Camera +5MP(F2.2) Depth Camera and 20MP (F2.2) front facing Punch Hole Camera`,
+  //   "6.4-inch(16.21 centimeters) Super Amoled - Infinity U Cut Display , FHD+ Resolution (2340 x 1080) , 404 ppi pixel density and 16M color support",
+  //   "Android 10.0 operating system with Exynos 9611,2.3GHz,1.7GHz Octa-Core processor, 6GB RAM, 128GB internal memory expandable up to 512GB and dual SIM",
+  //   "6000 mAh Battery",
+  //   "1 year manufacturer warranty for device and 6 months manufacturer warranty for in-box accessories including batteries from the date of purchase",
+  // ]);
+
   return (
-    <div className="description">
+    <div className="description" key={product._id}>
       <div className="description__left">
         <div className="description__imageContainer">
-          <img
-            className="description__image"
-            src="https://images-na.ssl-images-amazon.com/images/I/71QLvGIAq5L._SL1500_.jpg"
-            alt=""
-          />
+          <img className="description__image" src={product.img} alt="" />
         </div>
       </div>
       <div className="description__right">
-        <div className="product__title">
-          Samsung Galaxy M21 (Raven Black, 6GB RAM, 128GB Storage)
-        </div>
+        <div className="product__title">{product.name}</div>
         <div className="product__brand">
-          Brand : <span className="brand__name">Samsung</span>
+          Brand : <span className="brand__name">{product.seller}</span>
         </div>
         <div className="product__rating">
-          <Rating name="read-only" value={4} readOnly />
+          <Rating
+            name="read-only"
+            value={product.rating}
+            readOnly
+            precision={0.1}
+          />
         </div>
         <Divider />
         <div className="product__price">
           <div className="product__mrp">
-            M.R.P. : <strike className="mrp">₹ 15,999.00</strike>
+            M.R.P. :{" "}
+            <strike className="mrp">
+              ₹ {numeral(product.originalPrice).format("0,0")}
+            </strike>
           </div>
+          <br />
           <div className="productPrice">
-            Price : <span className="price"> ₹ 13,999.00</span>
+            Price :{" "}
+            <span className="price">
+              ₹{" "}
+              {numeral(
+                product.originalPrice -
+                  product.originalPrice * (product.discount / 100)
+              ).format("0,0.00")}
+            </span>
           </div>
+          <br />
           <div className="product__priceSave">
-            You Save : <span className="price"> ₹ 2,000</span>
+            You Save :{" "}
+            <span className="price">
+              {" "}
+              ₹{" "}
+              {numeral(product.originalPrice * (product.discount / 100)).format(
+                "0,0.00"
+              )}
+            </span>
           </div>
         </div>
         <div className="product__delivery">Estimating delivery date</div>
@@ -69,8 +118,11 @@ function Description() {
             <span className="return">No-Contact Delivery</span>
           </div>
         </div>
-        <div className="product__inStock">In Stock</div>
-        <div className="product__outOfStock">Out Of Stock</div>
+        {product.stock ? (
+          <div className="product__inStock">In Stock</div>
+        ) : (
+          <div className="product__outOfStock">Out Of Stock</div>
+        )}
         <br />
         <div className="product__description">
           <h2>Specification</h2>
@@ -87,7 +139,7 @@ function Description() {
               expanded={false}
             >
               {" "}
-              {description.map((item) => (
+              {product.description.map((item) => (
                 <div className="desc">
                   <FiberManualRecordIcon className="dot__icon" />
                   {item}

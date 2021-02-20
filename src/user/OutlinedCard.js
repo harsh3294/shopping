@@ -7,6 +7,7 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Rating from "@material-ui/lab/Rating";
 import numeral from "numeral";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles({
   root: {
@@ -42,9 +43,19 @@ function truncate(string, n) {
   return string?.length > n ? string.substr(0, n - 1) + "..." : string;
 }
 
-export default function OutlinedCard({ id, name, rating, price, img }) {
+export default function OutlinedCard({
+  id,
+  name,
+  rating,
+  price,
+  img,
+  discount,
+}) {
   const classes = useStyles();
-
+  const history = useHistory();
+  const product = () => {
+    history.push(`/product-detail/${id}`);
+  };
   return (
     <Card className={classes.root} variant="outlined">
       <CardContent>
@@ -54,8 +65,10 @@ export default function OutlinedCard({ id, name, rating, price, img }) {
           // width="220px"
           className="card__img"
         />
+
         <div className="product__detail">
           <Typography
+            onClick={product}
             className={classes.title}
             color="textSecondary"
             gutterBottom
@@ -72,7 +85,7 @@ export default function OutlinedCard({ id, name, rating, price, img }) {
               />
             </Typography>
             <Typography className={classes.pos} color="textSecondary">
-              ₹ {numeral(price).format("0,0")}
+              ₹ {numeral(price - price * (discount / 100)).format("0,0.00")}
             </Typography>
           </div>
         </div>

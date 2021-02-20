@@ -32,7 +32,7 @@ function App() {
             <Route path="/cart">
               <Cart />
             </Route>
-            <Route path="/product-detail">
+            <Route path="/product-detail/:product_id">
               <Description />
             </Route>
             <Route path="/">

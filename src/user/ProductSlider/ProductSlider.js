@@ -7,6 +7,8 @@ import { DATA } from "../DATA";
 import axios from "../../axios";
 import numeral from "numeral";
 import Rating from "@material-ui/lab/Rating";
+import { useHistory } from "react-router-dom";
+import Loading from "../../assets/images/Loading.gif";
 // import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
 function ProductSlider() {
   const [mobiles, setMobiles] = useState([]);
@@ -95,14 +97,26 @@ function ProductSlider() {
   //   </div>
   //   // <MediaCard image={item.imgSrc} p1={item.name} p2={item.des} />
   // ));
+  const history = useHistory();
+
   let scientists = mobiles.map((item) => (
     <div key={item._id}>
       <img style={imgStyle} src={item.img}></img>
-      <p style={textBoxStyle}>{truncate(item.name, 50)}</p>
+      <p
+        style={textBoxStyle}
+        onClick={() => {
+          history.push(`/product-detail/${item._id}`);
+        }}
+      >
+        {truncate(item.name, 50)}
+      </p>
       <Rating style={rating} name="read-only" value={item.rating} readOnly />
       <p style={textBoxStyle2}>
         {" "}
-        ₹ {numeral(item.originalPrice).format("0,0")}
+        ₹{" "}
+        {numeral(
+          item.originalPrice - item.originalPrice * (item.discount / 100)
+        ).format("0,0.00")}
       </p>
     </div>
     // <MediaCard image={item.imgSrc} p1={item.name} p2={item.des} />
@@ -157,7 +171,7 @@ function ProductSlider() {
     />
   );
   if (loading) {
-    return <h1>Loading</h1>;
+    return <img src={Loading} alt="loading" className="loading" />;
   }
   return (
     <>
