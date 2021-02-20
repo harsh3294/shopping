@@ -44,7 +44,6 @@ app.get("/products", (req, res) => {
     }
   });
 });
-
 app.post("/products/mobiles", (req, res) => {
   const product = req.body;
   Mobiles.create(product, (err, data) => {
@@ -65,5 +64,16 @@ app.get("/products/mobiles", (req, res) => {
     }
   });
 });
+app.get("/products/:product_id", (req, res) => {
+  const product_id = req.params.product_id;
+  Products.findById(product_id, (err, data) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(200).send(data);
+    }
+  });
+});
+
 //Listener
 app.listen(port, () => console.log(` listening on localhost : ${port}`));
