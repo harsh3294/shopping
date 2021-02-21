@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import Products from "./products.js";
 import Cors from "cors";
 import Mobiles from "./products/mobiles.js";
+import Users from "./user/user.js";
 //APP config
 
 const app = express();
@@ -64,9 +65,32 @@ app.get("/products/mobiles", (req, res) => {
     }
   });
 });
+
+app.post("/user", (req, res) => {
+  const user = req.body;
+  Users.create(user, (err, data) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(201).send(data);
+    }
+  });
+});
+
 app.get("/products/:product_id", (req, res) => {
   const product_id = req.params.product_id;
   Products.findById(product_id, (err, data) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(200).send(data);
+    }
+  });
+});
+app.get("/user/:uid", (req, res) => {
+  const uid = req.params.uid;
+
+  Users.find({ uid: uid }, (err, data) => {
     if (err) {
       res.status(500).send(err);
     } else {
