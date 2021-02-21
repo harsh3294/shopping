@@ -10,6 +10,8 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import "./Header.css";
 import SideBar from "../Sidebar/SideBar";
 import { Link } from "react-router-dom";
+import { login, logout, selectUser } from "../../features/userSlice";
+import { useSelector } from "react-redux";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -28,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ButtonAppBar() {
   const classes = useStyles();
+  const user = useSelector(selectUser);
 
   return (
     <div className={classes.root}>
@@ -52,15 +55,19 @@ export default function ButtonAppBar() {
             </IconButton>
           </Link>
 
-          <Link to="/login">
-            <Button
-              color="inherit"
-              className="header__login"
-              endIcon={<ExitToAppIcon />}
-            >
-              Login
-            </Button>
-          </Link>
+          {!user ? (
+            <Link to="/login">
+              <Button
+                color="inherit"
+                className="header__login"
+                endIcon={<ExitToAppIcon />}
+              >
+                Login
+              </Button>
+            </Link>
+          ) : (
+            user?.name
+          )}
         </Toolbar>
       </AppBar>
     </div>

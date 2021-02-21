@@ -1,12 +1,65 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./util.css";
 import "./Login.css";
 import Background from "./background.jpg";
 import PermIdentityIcon from "@material-ui/icons/PermIdentity";
 import LockIcon from "@material-ui/icons/Lock";
 import { Divider } from "@material-ui/core";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { auth } from "../../FirebaseConfig/firebase";
+import { login, logout, selectUser } from "../../features/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "../../axios";
 function Login() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const history = useHistory();
+  const user = useSelector(selectUser);
+  const dispatch = useDispatch();
+  const [loading, setLoading] = useState(true);
+
+  const signIn = (e) => {
+    e.preventDefault();
+    auth
+      .signInWithEmailAndPassword(username, password)
+      .then((authUser) => {
+        const unsuscribe = auth.onAuthStateChanged((userAuth) => {
+          if (userAuth) {
+            let unmounted = false;
+            function fetchData() {
+              const req = axios
+                .get(`/user/${userAuth.uid}`)
+                .then((res) => {
+                  if (!unmounted) {
+                    dispatch(
+                      login({
+                        uid: res.data[0].uid,
+                        name: res.data[0].name,
+                      })
+                    );
+                  }
+                  setLoading(false);
+                  history.push("/");
+                })
+                .catch((error) => alert(error));
+            }
+            fetchData();
+
+            return () => {
+              unmounted = true;
+            };
+            //login
+          } else {
+            //logout
+            dispatch(logout());
+          }
+        });
+        return unsuscribe;
+      })
+      .catch((error) => {
+        alert(error.message);
+      });
+  };
   return (
     <div className="limiter">
       <div
@@ -35,6 +88,7 @@ function Login() {
             <div
               className="wrap-input100 validate-input m-b-23"
               style={{ marginBottom: "23px" }}
+              data-validate="Username is required"
             >
               <span className="label-input100">Username</span>
               <input
@@ -42,20 +96,26 @@ function Login() {
                 type="text"
                 name="username"
                 placeholder="Type your username"
+                onChange={(e) => setUsername(e.target.value)}
               />
               <span className="focus-input100 focus__icon">
                 <PermIdentityIcon />
               </span>
             </div>
 
-            <div className="wrap-input100 validate-input">
+            <div
+              className="wrap-input100 validate-input"
+              data-validate="Password is required"
+            >
               <span className="label-input100">Password</span>
               <input
                 className="input100"
                 type="password"
                 name="password"
                 placeholder="Type your password"
+                onChange={(e) => setPassword(e.target.value)}
               />
+
               <span className="focus-input100 focus__icon">
                 <LockIcon />
               </span>
@@ -71,7 +131,9 @@ function Login() {
             <div className="container-login100-form-btn">
               <div className="wrap-login100-form-btn">
                 <div className="login100-form-bgbtn"></div>
-                <button className="login100-form-btn">Login</button>
+                <button className="login100-form-btn" onClick={signIn}>
+                  Login
+                </button>
               </div>
             </div>
             <Divider style={{ marginTop: "40px" }} />

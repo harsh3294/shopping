@@ -1,27 +1,31 @@
-import React, { useState } from "react";
+import React, { createRef, useState } from "react";
 import CarouselSlider from "react-carousel-slider";
 import "./Carousel.css";
 function Carousel() {
   const [image, setImage] = useState([
     {
+      id: 1,
       imgSrc:
         "https://images-eu.ssl-images-amazon.com/images/G/31/img21/Wireless/Xiaomi/RedmiNote9Series/Mob_Hero_1242x450._CB660800169_SY250_.jpg",
     },
     {
+      id: 2,
       imgSrc:
         "https://images-eu.ssl-images-amazon.com/images/G/31/img20/Wireless/WLA/Jan21/Headset/D20517472_WLA_BAU_OnePlus_Buds_Z_Mobile_hero_1242x450._CB660829695_SY250_.jpg",
     },
     {
+      id: 3,
       imgSrc:
         "https://images-eu.ssl-images-amazon.com/images/G/31/img20/Wireless/JanART21/TailBrands/mobhero_1242x450._CB660604674_SY250_.jpg",
     },
     {
+      id: 4,
       imgSrc:
         "https://images-eu.ssl-images-amazon.com/images/G/31/img20/Wireless/Xiaomi/Redmi_9Power/PostJanArt/D19338206_WLM_Redmi_9Power_Launch_mobhero._CB662599013_SY250_.jpg",
     },
   ]);
   let manner = {
-    autoSliding: { interval: "3s" },
+    autoSliding: { interval: "5s" },
     duration: "2s",
   };
   let itemsStyle = {

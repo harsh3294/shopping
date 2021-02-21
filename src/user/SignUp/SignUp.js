@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import "./util.css";
 import "./SignUp.css";
 import Background from "./background.jpg";
@@ -6,8 +6,41 @@ import PermIdentityIcon from "@material-ui/icons/PermIdentity";
 import LockIcon from "@material-ui/icons/Lock";
 import CreateIcon from "@material-ui/icons/Create";
 import { Divider } from "@material-ui/core";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { auth } from "../../FirebaseConfig/firebase";
+import axios from "../../axios";
 function Login() {
+  const emailRef = useRef(null);
+  const nameRef = useRef(null);
+  const passwordRef = useRef(null);
+  const history = useHistory();
+  const register = (e) => {
+    e.preventDefault();
+    auth
+      .createUserWithEmailAndPassword(
+        emailRef.current.value,
+        passwordRef.current.value
+      )
+      .then((authUser) => {
+        console.log(authUser.user.uid);
+        console.log(nameRef);
+        function sendData() {
+          const req = axios
+            .post(`/user`, {
+              name: nameRef.current.value,
+              uid: authUser.user.uid,
+            })
+            .then((res) => {
+              history.push("/login");
+            })
+            .catch((error) => alert(error));
+        }
+        sendData();
+      })
+      .catch((error) => {
+        alert(error.message);
+      });
+  };
   return (
     <div className="limiter">
       <div
@@ -38,6 +71,7 @@ function Login() {
             >
               <span className="label-input100">Enter Name</span>
               <input
+                ref={nameRef}
                 className="input100"
                 type="text"
                 name="fname"
@@ -55,6 +89,7 @@ function Login() {
               <input
                 className="input100"
                 type="email"
+                ref={emailRef}
                 name="username"
                 placeholder="Type your username"
               />
@@ -66,6 +101,7 @@ function Login() {
             <div className="wrap-input100 validate-input">
               <span className="label-input100">Password</span>
               <input
+                ref={passwordRef}
                 className="input100"
                 type="password"
                 name="password"
@@ -86,7 +122,9 @@ function Login() {
             <div className="container-login100-form-btn">
               <div className="wrap-login100-form-btn">
                 <div className="login100-form-bgbtn"></div>
-                <button className="login100-form-btn">Sign Up</button>
+                <button className="login100-form-btn" onClick={register}>
+                  Sign Up
+                </button>
               </div>
             </div>
             <Divider style={{ marginTop: "40px" }} />
