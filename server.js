@@ -8,10 +8,11 @@ import Users from "./user/user.js";
 
 const app = express();
 const port = process.env.PORT || 8001;
-// gnxOlJnWEwODsJEd
+// blV85jMz6Yo8vHt3
+// mongodb+srv://admin:<password>@cluster0.bft6n.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
 const connection_url =
-  "mongodb+srv://admin:enwKEfJIzcHDGn9h@cluster0.bft6n.mongodb.net/shoppers?retryWrites=true&w=majority";
-
+  "mongodb+srv://admin:blV85jMz6Yo8vHt3@cluster0.bft6n.mongodb.net/shoppers?retryWrites=true&w=majority";
+// "mongodb+srv://admin:enwKEfJIzcHDGn9h@cluster0.bft6n.mongodb.net/shoppers?retryWrites=true&w=majority";
 //Middleware
 app.use(express.json());
 app.use(Cors());
@@ -22,6 +23,7 @@ mongoose.connect(connection_url, {
   useCreateIndex: true,
   useUnifiedTopology: true,
 });
+
 //API endpoints
 app.get("/", (req, res) => res.status(200).send("hello harsh 6da"));
 
@@ -45,6 +47,7 @@ app.get("/products", (req, res) => {
     }
   });
 });
+
 app.post("/products/mobiles", (req, res) => {
   const product = req.body;
   Mobiles.create(product, (err, data) => {
