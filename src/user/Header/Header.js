@@ -12,6 +12,8 @@ import SideBar from "../Sidebar/SideBar";
 import { Link } from "react-router-dom";
 import { login, logout, selectUser } from "../../features/userSlice";
 import { useSelector } from "react-redux";
+import LoginLogoutDropdown from "./LoginLogoutDropdown";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -66,7 +68,7 @@ export default function ButtonAppBar() {
               </Button>
             </Link>
           ) : (
-            user?.name
+            <LoginLogoutDropdown />
           )}
         </Toolbar>
       </AppBar>

@@ -44,7 +44,6 @@ function Login() {
                 .catch((error) => alert(error));
             }
             fetchData();
-
             return () => {
               unmounted = true;
             };
