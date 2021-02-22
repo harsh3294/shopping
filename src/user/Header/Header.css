@@ -16,14 +16,17 @@
 .header__cart {
   font-weight: bold;
   size: 20px;
-  margin-right: 5px;
+
   position: relative;
+}
+.header__iconCart {
+  margin-right: 10px;
 }
 .header__cartCount {
   font-size: 16px;
   position: absolute;
   top: 0;
-  padding-right: 5px;
+  /* padding-right: 5px; */
 }
 a {
   text-decoration: none;

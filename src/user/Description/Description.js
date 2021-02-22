@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./Description.css";
 import Rating from "@material-ui/lab/Rating";
 import ShowMoreText from "react-show-more-text";
-import { Divider } from "@material-ui/core";
+import { Button, Divider } from "@material-ui/core";
 import IconReturn from "./../../assets/images/IconReturn.png";
 import IconDelivered from "./../../assets/images/IconDelivered.png";
 import IconNoContact from "./../../assets/images/IconNoContactDelivery.png";
@@ -13,10 +13,51 @@ import { useParams } from "react-router-dom";
 import axios from "../../axios";
 import numeral from "numeral";
 import Loading from "../../assets/images/Loading.gif";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  EMPTY_BASKET,
+  ADD_TO_BASKET,
+  REMOVE_FROM_CART,
+  selectBasket,
+} from "../../features/cartSlice";
+
 function Description() {
   const { product_id } = useParams();
   const [product, setProduct] = useState({});
   const [loading, setLoading] = useState(true);
+
+  const [cartValue, setCartValue] = useState(1);
+  const dispatch = useDispatch();
+  const basket = useSelector(selectBasket);
+  const addToCart = () => {
+    dispatch(
+      ADD_TO_BASKET({
+        id: product._id,
+        name: product.name,
+        img: product.img,
+        originalPrice: product.originalPrice,
+        rating: product.rating,
+        seller: product.seller,
+        discount: product.discount,
+        totalStock: product.totalStock,
+        cartValue: cartValue,
+      })
+    );
+  };
+
+  const decrementCounter = () => {
+    if (cartValue === 1) {
+      //redux
+      return cartValue;
+    } else {
+      setCartValue(cartValue - 1);
+    }
+  };
+
+  const incrementCounter = () => {
+    //redux
+    setCartValue(cartValue + 1);
+  };
   useEffect(() => {
     let unmounted = false;
 
@@ -119,11 +160,44 @@ function Description() {
           </div>
         </div>
         {product.stock ? (
-          <div className="product__inStock">In Stock</div>
+          <>
+            <div className="product__inStock">In Stock</div>
+            <br />
+            <>
+              <div className="cart__button">
+                <h3>Quantity</h3>
+                <div className="cart__addRemoveButton">
+                  <Button
+                    onClick={decrementCounter}
+                    disabled={cartValue !== 1 ? false : true}
+                  >
+                    -
+                  </Button>
+                  <input
+                    type="number"
+                    className="cartValue"
+                    value={cartValue}
+                    readOnly
+                  />
+                  {/* <TextField id="standard-basic" /> */}
+                  <Button
+                    onClick={incrementCounter}
+                    disabled={cartValue !== product.totalStock ? false : true}
+                  >
+                    +
+                  </Button>
+                </div>
+              </div>
+            </>
+            <br />
+            <Button className="addToCart" onClick={addToCart}>
+              Add to Cart
+            </Button>
+          </>
         ) : (
           <div className="product__outOfStock">Out Of Stock</div>
         )}
-        <br />
+
         <div className="product__description">
           <h2>Specification</h2>
           <Divider light className="divider" />

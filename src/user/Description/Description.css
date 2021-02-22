@@ -164,14 +164,34 @@
   padding-bottom: 10px;
 }
 .loading {
-  margin-top: 100px;
+  margin-top: 200px;
   display: block;
   margin-left: auto;
   margin-right: auto;
   width: 50%;
   height: 50%;
 }
-
+.addToCart {
+  cursor: pointer;
+  margin-bottom: 10px !important;
+  border: 1px solid rgba(0, 0, 0, 0.4) !important;
+  width: 150px !important;
+  padding: 3px !important;
+  border-radius: 15px !important;
+  background-color: #f7cf6c !important;
+}
+.addToCart:hover {
+  transition: all 0.3s;
+  color: #ffc73a !important;
+  background-color: white !important;
+}
+.MuiButton-root {
+  padding: 10px !important;
+}
+.MuiButton-label {
+  font-weight: 600 !important;
+  font-size: 15px !important;
+}
 @media (max-width: 991px) {
   .description {
     display: flex;

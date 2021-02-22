@@ -10,6 +10,7 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import "./Header.css";
 import SideBar from "../Sidebar/SideBar";
 import { Link } from "react-router-dom";
+import { selectBasket } from "../../features/cartSlice";
 import { login, logout, selectUser } from "../../features/userSlice";
 import { useSelector } from "react-redux";
 import LoginLogoutDropdown from "./LoginLogoutDropdown";
@@ -33,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
 export default function ButtonAppBar() {
   const classes = useStyles();
   const user = useSelector(selectUser);
+  const basket = useSelector(selectBasket);
 
   return (
     <div className={classes.root}>
@@ -51,12 +53,11 @@ export default function ButtonAppBar() {
             Shoppers
           </Typography>
           <Link to="/cart">
-            <IconButton>
+            <IconButton className="header__iconCart">
               <ShoppingCartIcon className="header__cart" />
-              <span className="header__cartCount">0</span>
+              <span className="header__cartCount">{basket?.length}</span>
             </IconButton>
           </Link>
-
           {!user ? (
             <Link to="/login">
               <Button
