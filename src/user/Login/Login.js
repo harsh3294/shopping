@@ -26,8 +26,8 @@ function Login() {
         const unsuscribe = auth.onAuthStateChanged((userAuth) => {
           if (userAuth) {
             let unmounted = false;
-            function fetchData() {
-              const req = axios
+            async function fetchData() {
+              const req = await axios
                 .get(`/user/${userAuth.uid}`)
                 .then((res) => {
                   if (!unmounted) {
