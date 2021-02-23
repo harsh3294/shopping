@@ -27,6 +27,7 @@ function App() {
   const [loading, setLoading] = useState(true);
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
+
   useEffect(() => {
     const unsuscribe = auth.onAuthStateChanged((userAuth) => {
       if (userAuth) {

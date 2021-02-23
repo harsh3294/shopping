@@ -14,6 +14,7 @@ import axios from "../../axios";
 import numeral from "numeral";
 import Loading from "../../assets/images/Loading.gif";
 import { useDispatch, useSelector } from "react-redux";
+import { selectUser } from "../../features/userSlice";
 import {
   EMPTY_BASKET,
   ADD_TO_BASKET,
@@ -29,10 +30,13 @@ function Description() {
   const [cartValue, setCartValue] = useState(1);
   const dispatch = useDispatch();
   const basket = useSelector(selectBasket);
+  const user = useSelector(selectUser);
+
   const addToCart = () => {
     dispatch(
       ADD_TO_BASKET({
         id: product._id,
+        userid: user.uid,
         name: product.name,
         img: product.img,
         originalPrice: product.originalPrice,

@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-
 export const cartSlice = createSlice({
   name: "cart",
   initialState: {
@@ -10,6 +9,7 @@ export const cartSlice = createSlice({
     EMPTY_BASKET: (state) => {
       state.basket = [];
     },
+
     ADD_TO_BASKET: (state, action) => {
       //   action.payload.id === item.id
       let existed_item = state.basket.find(
