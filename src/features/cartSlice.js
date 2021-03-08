@@ -20,10 +20,11 @@ export const cartSlice = createSlice({
       } else {
         state.basket = [...state.basket, action.payload];
       }
+      console.log(state.basket);
     },
     REMOVE_FROM_CART: (state, action) => {
       const index = state.basket.findIndex(
-        (basketItem) => basketItem.id === action._id
+        (basketItem) => basketItem.id === action.payload.id
       );
       let newBasket = [...state.basket];
       if (index >= 0) {
@@ -33,7 +34,38 @@ export const cartSlice = createSlice({
           `Can't remove product (id:${action.id} ) as its not in basket`
         );
       }
-      state.basket = [...state.basket, newBasket];
+      state.basket = newBasket;
+    },
+    INCREMENT_BASKET_COUNT: (state, action) => {
+      let tempCart = [...state.basket];
+      const selectedProduct = state.basket.find(
+        (item) => action.payload.id === item.id
+      );
+
+      const index = tempCart.indexOf(selectedProduct);
+      const product = tempCart[index];
+
+      product.cartValue = product.cartValue + 1;
+      state.basket = [...tempCart];
+
+      // let existed_item = state.basket.find(
+      //   (item) => action.payload.id === item.id
+      // );
+      // if (existed_item) {
+      //   state.basket = [...state.basket, action.payload];
+      // }
+    },
+    DECREMENT_BASKET_COUNT: (state, action) => {
+      let tempCart = [...state.basket];
+      const selectedProduct = state.basket.find(
+        (item) => action.payload.id === item.id
+      );
+
+      const index = tempCart.indexOf(selectedProduct);
+      const product = tempCart[index];
+
+      product.cartValue = product.cartValue - 1;
+      state.basket = [...tempCart];
     },
   },
 });
@@ -42,6 +74,8 @@ export const {
   EMPTY_BASKET,
   ADD_TO_BASKET,
   REMOVE_FROM_CART,
+  INCREMENT_BASKET_COUNT,
+  DECREMENT_BASKET_COUNT,
 } = cartSlice.actions;
 
 export const selectBasket = (state) => state.cart.basket;

@@ -9,7 +9,7 @@ import IconNoContact from "./../../assets/images/IconNoContactDelivery.png";
 import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
 import IconWaranty from "./../../assets/images/IconWarranty.png";
 import ReactReadMoreReadLess from "react-read-more-read-less";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import axios from "../../axios";
 import numeral from "numeral";
 import Loading from "../../assets/images/Loading.gif";
@@ -26,12 +26,21 @@ function Description() {
   const { product_id } = useParams();
   const [product, setProduct] = useState({});
   const [loading, setLoading] = useState(true);
-
+  const [productExist, setProductExist] = useState(false);
   const [cartValue, setCartValue] = useState(1);
   const dispatch = useDispatch();
   const basket = useSelector(selectBasket);
   const user = useSelector(selectUser);
+  const history = useHistory();
 
+  useEffect(() => {
+    basket.map((product) => {
+      if (product.id === product_id) {
+        setProductExist(true);
+      }
+    });
+  }, [basket]);
+  console.log(productExist);
   const addToCart = () => {
     dispatch(
       ADD_TO_BASKET({
@@ -47,6 +56,9 @@ function Description() {
         cartValue: cartValue,
       })
     );
+  };
+  const goToCart = () => {
+    history.push("/cart");
   };
 
   const decrementCounter = () => {
@@ -82,6 +94,7 @@ function Description() {
       unmounted = true;
     };
   }, []);
+
   if (loading) {
     return <img src={Loading} alt="loading" className="loading" />;
   }
@@ -167,36 +180,42 @@ function Description() {
           <>
             <div className="product__inStock">In Stock</div>
             <br />
-            <>
-              <div className="cart__button">
-                <h3>Quantity</h3>
-                <div className="cart__addRemoveButton">
-                  <Button
-                    onClick={decrementCounter}
-                    disabled={cartValue !== 1 ? false : true}
-                  >
-                    -
-                  </Button>
-                  <input
-                    type="number"
-                    className="cartValue"
-                    value={cartValue}
-                    readOnly
-                  />
-                  {/* <TextField id="standard-basic" /> */}
-                  <Button
-                    onClick={incrementCounter}
-                    disabled={cartValue !== product.totalStock ? false : true}
-                  >
-                    +
-                  </Button>
+            {productExist ? (
+              <Button className="addToCart" onClick={goToCart}>
+                Go to Cart
+              </Button>
+            ) : (
+              <>
+                <div className="cart__button">
+                  <h3>Quantity</h3>
+                  <div className="cart__addRemoveButton">
+                    <Button
+                      onClick={decrementCounter}
+                      disabled={cartValue !== 1 ? false : true}
+                    >
+                      -
+                    </Button>
+                    <input
+                      type="number"
+                      className="cartValue"
+                      value={cartValue}
+                      readOnly
+                    />
+                    {/* <TextField id="standard-basic" /> */}
+                    <Button
+                      onClick={incrementCounter}
+                      disabled={cartValue !== product.totalStock ? false : true}
+                    >
+                      +
+                    </Button>
+                  </div>
                 </div>
-              </div>
-            </>
-            <br />
-            <Button className="addToCart" onClick={addToCart}>
-              Add to Cart
-            </Button>
+                <br />
+                <Button className="addToCart" onClick={addToCart}>
+                  Add to Cart
+                </Button>
+              </>
+            )}
           </>
         ) : (
           <div className="product__outOfStock">Out Of Stock</div>
@@ -239,12 +258,3 @@ function Description() {
 }
 
 export default Description;
-{
-  /* <ReactReadMoreReadLess
-                charLimit={200}
-                readMoreText={"Read more ▼"}
-                readLessText={"Read less ▲"}
-                readMoreClassName="read-more-less--more"
-                readLessClassName="read-more-less--less"
-              ></ReactReadMoreReadLess> */
-}

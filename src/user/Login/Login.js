@@ -41,7 +41,9 @@ function Login() {
                   setLoading(false);
                   history.push("/");
                 })
-                .catch((error) => alert(error));
+                .catch((error) => {
+                  alert(error);
+                });
             }
             fetchData();
             return () => {

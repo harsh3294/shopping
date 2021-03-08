@@ -61,7 +61,7 @@ function App() {
     });
     return unsuscribe;
   }, [dispatch]);
-  console.log(user);
+
   return (
     <Router>
       <Switch>

@@ -10,8 +10,20 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Rating from "@material-ui/lab/Rating";
 import Avatar from "@material-ui/core/Avatar";
+import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
+import numeral from "numeral";
 import Typography from "@material-ui/core/Typography";
-import CancelIcon from "@material-ui/icons/Cancel";
+// import CancelIcon from "@material-ui/icons/Cancel";
+import {
+  EMPTY_BASKET,
+  ADD_TO_BASKET,
+  REMOVE_FROM_CART,
+  INCREMENT_BASKET_COUNT,
+  DECREMENT_BASKET_COUNT,
+  selectBasket,
+} from "../../features/cartSlice";
+import { useDispatch, useSelector } from "react-redux";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -28,159 +40,144 @@ const useStyles = makeStyles((theme) => ({
 }));
 function Cart() {
   const classes = useStyles();
-  const [cartValue, setCartValue] = useState(1);
-  const decrementCounter = () => {
+  const basket = useSelector(selectBasket);
+  console.log(basket);
+  const [cartValue, setCartValue] = useState();
+  const dispatch = useDispatch();
+
+  const decrementCounter = (id) => {
     if (cartValue === 1) {
       //redux
       return cartValue;
     } else {
-      setCartValue(cartValue - 1);
+      dispatch(
+        DECREMENT_BASKET_COUNT({
+          id: id,
+        })
+      );
     }
   };
 
-  const incrementCounter = () => {
+  const incrementCounter = (id) => {
     //redux
-    setCartValue(cartValue + 1);
+    // setCartValue(cartValue + 1);
+
+    dispatch(
+      INCREMENT_BASKET_COUNT({
+        id: id,
+      })
+    );
   };
-  const deleteItem = () => {};
+  const deleteItem = (id) => {
+    dispatch(
+      REMOVE_FROM_CART({
+        id: id,
+      })
+    );
+  };
   return (
     <div className="cart">
       <div className="cart__left">
-        <List className={classes.root}>
-          <ListItem alignItems="flex-start">
-            <ListItemAvatar>
-              <div className="product__image">
-                <img
-                  src="https://images-na.ssl-images-amazon.com/images/I/71QLvGIAq5L._SL1500_.jpg"
-                  alt=""
-                  width={100}
-                  height={150}
-                  className="product__image"
-                />
-              </div>
-            </ListItemAvatar>
-            <ListItemText
-              className={classes.list}
-              primary="Brunch this weekend?Brunch this weekend?Brunch this weekend?"
-              secondary={
-                <React.Fragment>
-                  <Rating
-                    name="read-only"
-                    value={4}
-                    readOnly
-                    style={{ marginTop: "10px" }}
+        {basket.map((product) => (
+          <List className={classes.root}>
+            <ListItem alignItems="flex-start" key={product.id}>
+              <ListItemAvatar>
+                <div className="product__image">
+                  <img
+                    src={product.img}
+                    alt={product.name}
+                    width={100}
+                    height={150}
+                    className="product__image"
                   />
-                  <div className="product__price">
-                    <div className="productPrice">
-                      <span className="price"> ₹ 13,999.00</span>
+                </div>
+              </ListItemAvatar>
+              <ListItemText
+                className={classes.list}
+                primary={product.name}
+                secondary={
+                  <React.Fragment>
+                    <Rating
+                      name="read-only"
+                      value={product.rating}
+                      readOnly
+                      precision={0.1}
+                      style={{ marginTop: "10px" }}
+                    />
+                    <div className="product__price">
+                      <div className="productPrice">
+                        <span className="price">
+                          ₹{" "}
+                          {numeral(
+                            product.originalPrice -
+                              product.originalPrice * (product.discount / 100)
+                          ).format("0,0.00")}
+                        </span>
+                      </div>
+                      <strike className="mrp">
+                        {" "}
+                        ₹ {numeral(product.originalPrice).format("0,0")}
+                      </strike>
+                      <div className="product__priceSave">
+                        You Save :{" "}
+                        <span className="price">
+                          ₹{" "}
+                          {numeral(
+                            product.originalPrice * (product.discount / 100)
+                          ).format("0,0.00")}
+                        </span>
+                      </div>
                     </div>
-                    <strike className="mrp">₹ 15,999.00</strike>
-                    <div className="product__priceSave">
-                      You Save : <span className="price"> ₹ 2,000</span>
-                    </div>
-                  </div>
-                  <div style={{ marginTop: "10px" }} />
-                  <Typography
-                    component="span"
-                    variant="body2"
-                    className={classes.inline}
-                    color="textPrimary"
-                  >
-                    Brand :
-                  </Typography>
-                  {" Samsung "}
-                  <br />
-                  <div className="cart__button">
-                    <div className="cart__addRemoveButton">
-                      <Button
-                        onClick={decrementCounter}
-                        disabled={cartValue !== 1 ? false : true}
-                      >
-                        -
-                      </Button>
-                      <input
-                        type="number"
-                        className="cartValue"
-                        value={cartValue}
-                        readOnly
+                    <div style={{ marginTop: "10px" }} />
+                    <Typography
+                      component="span"
+                      variant="body2"
+                      className={classes.inline}
+                      color="textPrimary"
+                    >
+                      Brand :
+                    </Typography>
+                    {product.seller}
+                    <br />
+                    <div className="cart__button">
+                      <div className="cart__addRemoveButton">
+                        <Button
+                          onClick={() => decrementCounter(product.id)}
+                          disabled={product.cartValue !== 1 ? false : true}
+                        >
+                          -
+                        </Button>
+                        <input
+                          type="number"
+                          className="cartValue"
+                          onChange={(e) => setCartValue(e.target.value)}
+                          value={product.cartValue}
+                          readOnly
+                        />
+                        {/* <TextField id="standard-basic" /> */}
+                        <Button
+                          onClick={() => incrementCounter(product.id)}
+                          disabled={
+                            product.cartValue !== product.totalStock
+                              ? false
+                              : true
+                          }
+                        >
+                          +
+                        </Button>
+                      </div>
+                      <DeleteForeverIcon
+                        className="cancelIcon"
+                        onClick={() => deleteItem(product.id)}
                       />
-                      {/* <TextField id="standard-basic" /> */}
-                      <Button onClick={incrementCounter}>+</Button>
                     </div>
-                    <CancelIcon className="cancelIcon" onClick={deleteItem} />
-                  </div>
-                </React.Fragment>
-              }
-            />
-          </ListItem>
-          <Divider variant="inset" component="li" />
-          <ListItem alignItems="flex-start">
-            <ListItemAvatar>
-              <div className="product__image">
-                <img
-                  src="https://images-na.ssl-images-amazon.com/images/I/71QLvGIAq5L._SL1500_.jpg"
-                  alt=""
-                  width={100}
-                  height={150}
-                  className="product__image"
-                />
-              </div>
-            </ListItemAvatar>
-            <ListItemText
-              className={classes.list}
-              primary="Brunch this weekend?Brunch this weekend?Brunch this weekend?"
-              secondary={
-                <React.Fragment>
-                  <Rating
-                    name="read-only"
-                    value={4}
-                    readOnly
-                    style={{ marginTop: "10px" }}
-                  />
-                  <div className="product__price">
-                    <div className="productPrice">
-                      <span className="price"> ₹ 13,999.00</span>
-                    </div>
-                    <strike className="mrp">₹ 15,999.00</strike>
-                    <div className="product__priceSave">
-                      You Save : <span className="price"> ₹ 2,000</span>
-                    </div>
-                  </div>
-                  <div style={{ marginTop: "10px" }} />
-                  <Typography
-                    component="span"
-                    variant="body2"
-                    className={classes.inline}
-                    color="textPrimary"
-                  >
-                    Brand :
-                  </Typography>
-                  {" Samsung "}
-                  <br />
-                  <div className="cart__button">
-                    <div className="cart__addRemoveButton">
-                      <Button
-                        onClick={decrementCounter}
-                        disabled={cartValue !== 1 ? false : true}
-                      >
-                        -
-                      </Button>
-                      <input
-                        type="number"
-                        className="cartValue"
-                        value={cartValue}
-                        readOnly
-                      />
-                      {/* <TextField id="standard-basic" /> */}
-                      <Button onClick={incrementCounter}>+</Button>
-                    </div>
-                    <CancelIcon className="cancelIcon" onClick={deleteItem} />
-                  </div>
-                </React.Fragment>
-              }
-            />
-          </ListItem>
-        </List>
+                  </React.Fragment>
+                }
+              />
+            </ListItem>
+            <Divider variant="inset" component="li" />
+          </List>
+        ))}
       </div>
       <div className="cart__right"></div>
     </div>
