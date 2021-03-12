@@ -8,11 +8,9 @@ import Users from "./user/user.js";
 
 const app = express();
 const port = process.env.PORT || 8001;
-// blV85jMz6Yo8vHt3
-// mongodb+srv://admin:<password>@cluster0.bft6n.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
+
 const connection_url =
   "mongodb+srv://admin:blV85jMz6Yo8vHt3@cluster0.bft6n.mongodb.net/shoppers?retryWrites=true&w=majority";
-// "mongodb+srv://admin:enwKEfJIzcHDGn9h@cluster0.bft6n.mongodb.net/shoppers?retryWrites=true&w=majority";
 //Middleware
 app.use(express.json());
 app.use(Cors());
@@ -48,7 +46,7 @@ app.get("/products", (req, res) => {
   });
 });
 
-app.post("/products/mobiles", (req, res) => {
+app.post("/mobiles", (req, res) => {
   const product = req.body;
   Mobiles.create(product, (err, data) => {
     if (err) {
@@ -59,7 +57,7 @@ app.post("/products/mobiles", (req, res) => {
   });
 });
 
-app.get("/products/mobiles", (req, res) => {
+app.get("/mobiles", (req, res) => {
   Mobiles.find((err, data) => {
     if (err) {
       res.status(500).send(err);
@@ -79,17 +77,6 @@ app.post("/user", (req, res) => {
     }
   });
 });
-
-app.get("/products/:product_id", (req, res) => {
-  const product_id = req.params.product_id;
-  Products.findById(product_id, (err, data) => {
-    if (err) {
-      res.status(500).send(err);
-    } else {
-      res.status(200).send(data);
-    }
-  });
-});
 app.get("/user/:uid", (req, res) => {
   const uid = req.params.uid;
 
@@ -101,6 +88,55 @@ app.get("/user/:uid", (req, res) => {
     }
   });
 });
+app.get("/products/:product_id", (req, res) => {
+  const product_id = req.params.product_id;
+  Products.findById(product_id, (err, data) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(200).send(data);
+    }
+  });
+});
+app.get("/:products/:product_id", (req, res) => {
+  const product_id = req.params.product_id;
+  Products.findById(product_id, (err, data) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(200).send(data);
+    }
+  });
+});
+// app.get("/user/:uid", (req, res) => {
+//   const uid = req.params.uid;
+
+//   Users.find({ uid: uid }, (err, data) => {
+//     if (err) {
+//       res.status(500).send(err);
+//     } else {
+//       res.status(200).send(data);
+//     }
+//   });
+// });
+
+app.get("/products/:route/:product_id", (req, res) => {
+  const product_id = req.params.product_id;
+  const route = req.params.route;
+ 
+  switch (route) {
+    case "mobiles":
+      // code block
+      Mobiles.findById(product_id, (err, data) => {
+        if (err) {
+          res.status(500).send(err);
+        } else {
+          res.status(200).send(data);
+        }
+      });
+      break;
+  }
+});
 
 //Listener
-app.listen(port, () => console.log(` listening on localhost : ${port}`));
+app.listen(port, () => console.log(`listening on localhost : ${port}`));
