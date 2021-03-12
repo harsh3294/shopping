@@ -50,11 +50,12 @@ export default function OutlinedCard({
   price,
   img,
   discount,
+  route,
 }) {
   const classes = useStyles();
   const history = useHistory();
   const product = () => {
-    history.push(`/product-detail/${id}`);
+    history.push(`/product-detail/${route}/${id}`);
   };
   return (
     <Card className={classes.root} variant="outlined">

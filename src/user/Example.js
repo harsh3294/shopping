@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     color: "#fff",
   },
 }));
-function Example() {
+function Example({ route }) {
   const classes = useStyles();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -25,7 +25,7 @@ function Example() {
 
     async function fetchData() {
       const req = await axios
-        .get("/products")
+        .get(`/${route}`)
         .then((res) => {
           if (!unmounted) {
             setProducts(res.data);
@@ -40,6 +40,7 @@ function Example() {
       unmounted = true;
     };
   }, []);
+
   if (loading) {
     return <img src={Loading} alt="loading" className="loading" />;
   }
@@ -54,6 +55,7 @@ function Example() {
           rating={item?.rating}
           discount={item?.discount}
           price={item?.originalPrice}
+          route={route}
         />
       ))}
     </Carousel>

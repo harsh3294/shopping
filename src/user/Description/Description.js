@@ -23,7 +23,7 @@ import {
 } from "../../features/cartSlice";
 
 function Description() {
-  const { product_id } = useParams();
+  const { route, product_id } = useParams();
   const [product, setProduct] = useState({});
   const [loading, setLoading] = useState(true);
   const [productExist, setProductExist] = useState(false);
@@ -33,6 +33,7 @@ function Description() {
   const user = useSelector(selectUser);
   const history = useHistory();
 
+  console.log(route, product_id);
   useEffect(() => {
     basket.map((product) => {
       if (product.id === product_id) {
@@ -40,7 +41,7 @@ function Description() {
       }
     });
   }, [basket]);
-  console.log(productExist);
+
   const addToCart = () => {
     dispatch(
       ADD_TO_BASKET({
@@ -79,7 +80,7 @@ function Description() {
 
     async function fetchData() {
       const req = await axios
-        .get(`/products/${product_id}`)
+        .get(`/products/mobiles/${product_id}`)
         .then((res) => {
           if (!unmounted) {
             setProduct(res.data);

@@ -10,7 +10,7 @@ import Rating from "@material-ui/lab/Rating";
 import { useHistory } from "react-router-dom";
 import Loading from "../../assets/images/Loading.gif";
 // import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
-function ProductSlider() {
+function ProductSlider({ route }) {
   const [mobiles, setMobiles] = useState([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
@@ -18,14 +18,14 @@ function ProductSlider() {
 
     async function fetchData() {
       const req = await axios
-        .get("/products/mobiles")
+        .get(`/${route}`)
         .then((res) => {
           if (!unmounted) {
             setMobiles(res.data);
           }
           setLoading(false);
         })
-        .catch((error) => alert(error));
+        .catch((error) => alert("Hello"));
     }
     fetchData();
 
@@ -105,7 +105,7 @@ function ProductSlider() {
       <p
         style={textBoxStyle}
         onClick={() => {
-          history.push(`/product-detail/${item._id}`);
+          history.push(`/product-detail/${route}/${item._id}`);
         }}
       >
         {truncate(item.name, 50)}

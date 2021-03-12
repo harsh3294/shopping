@@ -11,6 +11,7 @@ import "./LoginLogoutDropdown.css";
 import { auth } from "../../FirebaseConfig/firebase";
 import { Avatar, IconButton } from "@material-ui/core";
 import { logout, selectUser } from "../../features/userSlice";
+import { Divider } from "@material-ui/core";
 
 import { useDispatch, useSelector } from "react-redux";
 const useStyles = makeStyles((theme) => ({
@@ -105,6 +106,8 @@ export default function MenuListComposition() {
                   id="menu-list-grow"
                   onKeyDown={handleListKeyDown}
                 >
+                  <MenuItem disabled>{user.name}</MenuItem>
+                  <Divider light />
                   <MenuItem onClick={handleClose}>Profile</MenuItem>
                   <MenuItem onClick={handleClose}>My account</MenuItem>
                   <MenuItem onClick={handlelogout}>Logout</MenuItem>

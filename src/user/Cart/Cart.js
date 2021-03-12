@@ -13,6 +13,7 @@ import Avatar from "@material-ui/core/Avatar";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import numeral from "numeral";
 import Typography from "@material-ui/core/Typography";
+import EmptyCart from "../../assets/images/empty_cart_image.jpg";
 // import CancelIcon from "@material-ui/icons/Cancel";
 import {
   EMPTY_BASKET,
@@ -75,6 +76,43 @@ function Cart() {
       })
     );
   };
+
+  if (basket.length === 0) {
+    return (
+      <div
+        style={{
+          paddingTop: "170px",
+          minHeight: "350px",
+          textAlign: "center",
+          fontSize: "45px",
+          paddingLeft: "20px",
+          paddingRight: "20px",
+          fontWeight: "999",
+          backgroundColor: "rgb(246,246,246)",
+        }}
+      >
+        <img
+          src={EmptyCart}
+          alt=""
+          style={{
+            marginLeft: "auto",
+            marginRight: "auto",
+          }}
+        />
+        <h1
+          className="cart__empty"
+          style={{
+            marginTop: "20px",
+            textAlign: "center",
+            fontSize: "55px",
+            fontWeight: "999",
+          }}
+        >
+          Your Cart is Empty
+        </h1>
+      </div>
+    );
+  }
   return (
     <div className="cart">
       <div className="cart__left">

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
 import Header from "../src/user/Header/Header";
 import Carousel from "./user/Carousel";
 import Example from "./user/Example";
@@ -23,11 +25,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { auth } from "./FirebaseConfig/firebase";
 import axios from "./axios";
 
+const useStyles = makeStyles({
+  root: {
+    width: "15%",
+    maxWidth: 500,
+    textAlign: "center",
+    marginLeft: 50,
+    backgroundColor: "rgba(128,128,128,0.15)",
+  },
+});
+
 function App() {
   const [loading, setLoading] = useState(true);
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
-
+  const classes = useStyles();
   useEffect(() => {
     const unsuscribe = auth.onAuthStateChanged((userAuth) => {
       if (userAuth) {
@@ -80,7 +92,7 @@ function App() {
             <Route path="/cart">
               <Cart />
             </Route>
-            <Route path="/product-detail/:product_id">
+            <Route path="/product-detail/:route/:product_id">
               <Description />
             </Route>
             <Route path="/">
@@ -90,9 +102,19 @@ function App() {
                 <br />
                 <Carousel />
                 <br />
-                <Example />
+                <div className={classes.root}>
+                  <Typography variant="h3" component="h4" gutterBottom>
+                    Mobiles
+                  </Typography>
+                </div>
+                <Example route="mobiles" />
                 <br />
-                <ProductSlider />
+                <div className={classes.root}>
+                  <Typography variant="h3" component="h4" gutterBottom>
+                    Mobiles
+                  </Typography>
+                </div>
+                <ProductSlider route="mobiles" />
               </>
             </Route>
           </Switch>
