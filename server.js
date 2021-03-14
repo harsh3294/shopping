@@ -4,6 +4,7 @@ import Products from "./products.js";
 import Cors from "cors";
 import Mobiles from "./products/mobiles.js";
 import Users from "./user/user.js";
+import Accessories from "./products/accessories.js";
 //APP config
 
 const app = express();
@@ -59,6 +60,26 @@ app.post("/mobiles", (req, res) => {
 
 app.get("/mobiles", (req, res) => {
   Mobiles.find((err, data) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(200).send(data);
+    }
+  });
+});
+app.post("/accessories", (req, res) => {
+  const product = req.body;
+  Accessories.create(product, (err, data) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(201).send(data);
+    }
+  });
+});
+
+app.get("/accessories", (req, res) => {
+  Accessories.find((err, data) => {
     if (err) {
       res.status(500).send(err);
     } else {
@@ -123,11 +144,21 @@ app.get("/:products/:product_id", (req, res) => {
 app.get("/products/:route/:product_id", (req, res) => {
   const product_id = req.params.product_id;
   const route = req.params.route;
- 
+
   switch (route) {
     case "mobiles":
       // code block
       Mobiles.findById(product_id, (err, data) => {
+        if (err) {
+          res.status(500).send(err);
+        } else {
+          res.status(200).send(data);
+        }
+      });
+      break;
+    case "accessories":
+      // code block
+      Accessories.findById(product_id, (err, data) => {
         if (err) {
           res.status(500).send(err);
         } else {
