@@ -54,6 +54,7 @@ export default function OutlinedCard({
 }) {
   const classes = useStyles();
   const history = useHistory();
+  console.log(route);
   const product = () => {
     history.push(`/product-detail/${route}/${id}`);
   };

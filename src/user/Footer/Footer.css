@@ -150,7 +150,50 @@
   margin-top: 5px;
   color: rgba(255, 196, 0, 0.438);
 }
-@media (max-width: 990px) {
+@media (min-width: 992px) and (max-width: 1200px) {
+  .footer {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: stretch;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+  }
+  .footer__shop {
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
+
+    padding: 20px;
+    left: 0;
+    right: 0;
+  }
+  .footer__contact {
+    padding-top: 50px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+  }
+  .footer__support {
+    display: flex;
+    padding: 20px;
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+  }
+}
+
+@media (max-width: 991px) {
   .footer {
     display: flex;
     flex: 1;

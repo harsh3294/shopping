@@ -115,6 +115,12 @@ function App() {
                   </Typography>
                 </div>
                 <ProductSlider route="mobiles" />
+                <div className={classes.root}>
+                  <Typography variant="h3" component="h4" gutterBottom>
+                    Accessories
+                  </Typography>
+                </div>
+                <Example route="accessories" />
               </>
             </Route>
           </Switch>

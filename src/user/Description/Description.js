@@ -80,7 +80,7 @@ function Description() {
 
     async function fetchData() {
       const req = await axios
-        .get(`/products/mobiles/${product_id}`)
+        .get(`/products/${route}/${product_id}`)
         .then((res) => {
           if (!unmounted) {
             setProduct(res.data);
@@ -228,7 +228,7 @@ function Description() {
           <div className="content-css">
             <ShowMoreText
               /* Default options */
-              lines={3}
+              lines={2}
               className="content-css"
               anchorClass="my-anchor-css-class"
               more="Read more ▼"
