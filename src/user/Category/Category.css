@@ -1,0 +1,27 @@
+.categoryName {
+  margin-left: 10px !important;
+  border-radius: 100px !important;
+  background-color: rgba(245, 245, 245, 0.6) !important;
+  box-shadow: 1px 1px rgba(0, 0, 0, 0.6) !important;
+  font-size: 18px !important;
+  padding: 5px;
+  margin-bottom: 3px;
+  border: 0.1px solid rgba(0, 0, 0, 0.1) !important;
+}
+.categorys {
+  margin-top: 5px;
+  overflow-x: scroll;
+  display: flex;
+  /* overflow: auto, */
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.categorys::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.categorys {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}

@@ -24,14 +24,16 @@ import { login, logout, selectUser } from "./features/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { auth } from "./FirebaseConfig/firebase";
 import axios from "./axios";
+import Category from "./user/Category/Category";
 
 const useStyles = makeStyles({
   root: {
-    width: "15%",
-    maxWidth: 500,
+    width: "auto",
+    maxWidth: 350,
     textAlign: "center",
-    marginLeft: 50,
-    backgroundColor: "rgba(128,128,128,0.15)",
+    minWidth: 100,
+
+    // marginLeft: 7,
   },
 });
 
@@ -92,32 +94,38 @@ function App() {
             <Route path="/cart">
               <Cart />
             </Route>
+            <Route path="/category/:category">
+              <DisplayProduct />
+            </Route>
             <Route path="/product-detail/:route/:product_id">
               <Description />
             </Route>
             <Route path="/">
               <>
                 <br />
+
                 <br />
+                <br />
+                <Category />
                 <br />
                 <Carousel />
                 <br />
                 <div className={classes.root}>
                   <Typography variant="h3" component="h4" gutterBottom>
-                    Mobiles
+                    <span className="category__name">Mobiles</span>
                   </Typography>
                 </div>
                 <Example route="mobiles" />
                 <br />
                 <div className={classes.root}>
                   <Typography variant="h3" component="h4" gutterBottom>
-                    Mobiles
+                    <span className="category__name">Mobiles</span>
                   </Typography>
                 </div>
                 <ProductSlider route="mobiles" />
                 <div className={classes.root}>
                   <Typography variant="h3" component="h4" gutterBottom>
-                    Accessories
+                    <span className="category__name">Accessories</span>
                   </Typography>
                 </div>
                 <Example route="accessories" />
