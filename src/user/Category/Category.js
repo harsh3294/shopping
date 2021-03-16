@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Category.css";
-import { makeStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
+
 import axios from "../../axios";
 import { useHistory } from "react-router";
 function Category() {
