@@ -8,7 +8,7 @@ function Category() {
   const [categorys, setCategorys] = useState([
     {
       name: "Mobiles",
-      product: "mobile",
+      product: "mobiles",
     },
     {
       name: "Accessories",

@@ -9,10 +9,12 @@ import Rating from "@material-ui/lab/Rating";
 import "./DisplayProduct.css";
 import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
+import numeral from "numeral";
+import { useHistory, useParams } from "react-router";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: "100%",
+    width: "98%",
     backgroundColor: theme.palette.background.paper,
   },
   inline: {
@@ -22,155 +24,94 @@ const useStyles = makeStyles((theme) => ({
   },
   list: {
     paddingLeft: 40,
+    cursor: "pointer",
   },
 }));
 
-export default function DisplayList() {
+export default function DisplayList(data, productcategory) {
   const classes = useStyles();
+  const history = useHistory();
+  const { category } = useParams();
 
+  const viewProduct = (id) => {
+    console.log(id);
+    let productid = id;
+    history.push("/product-detail/" + category + "/" + productid);
+  };
   return (
     <List className={classes.root}>
-      <ListItem alignItems="flex-start">
-        <ListItemAvatar>
-          <div className="product__image">
-            <img
-              src="https://images-na.ssl-images-amazon.com/images/I/71QLvGIAq5L._SL1500_.jpg"
-              alt=""
-              width={100}
-              height={150}
-              className="product__image"
-            />
-          </div>
-        </ListItemAvatar>
-        <ListItemText
-          className={classes.list}
-          primary="Brunch this weekend?Brunch this weekend?Brunch this weekend?"
-          secondary={
-            <React.Fragment>
-              <Rating
-                name="read-only"
-                value={4}
-                readOnly
-                style={{ marginTop: "10px" }}
-              />
-              <div className="product__price">
-                <div className="productPrice">
-                  <span className="price"> ₹ 13,999.00</span>
-                </div>
-                <strike className="mrp">₹ 15,999.00</strike>
-                <div className="product__priceSave">
-                  You Save : <span className="price"> ₹ 2,000</span>
-                </div>
+      {data.data.map((product) => (
+        <React.Fragment>
+          <ListItem alignItems="flex-start">
+            <ListItemAvatar>
+              <div className="product__image">
+                <img
+                  src={product.img}
+                  alt=""
+                  width={100}
+                  height={150}
+                  className="product__image"
+                />
               </div>
-              <div style={{ marginTop: "10px" }} />
-              <Typography
-                component="span"
-                variant="body2"
-                className={classes.inline}
-                color="textPrimary"
-              >
-                Brand :
-              </Typography>
-              {" Samsung "}
-            </React.Fragment>
-          }
-        />
-      </ListItem>
-      <Divider variant="inset" component="li" />
-      <ListItem alignItems="flex-start">
-        <ListItemAvatar>
-          <div className="product__image">
-            <img
-              src="https://images-na.ssl-images-amazon.com/images/I/71QLvGIAq5L._SL1500_.jpg"
-              alt=""
-              width={100}
-              height={150}
-              className="product__image"
-            />
-          </div>
-        </ListItemAvatar>
-        <ListItemText
-          className={classes.list}
-          primary="Brunch this weekend?Brunch this weekend?Brunch this weekend?"
-          secondary={
-            <React.Fragment>
-              <Rating
-                name="read-only"
-                value={4}
-                readOnly
-                style={{ marginTop: "10px" }}
-              />
-              <div className="product__price">
-                <div className="productPrice">
-                  <span className="price"> ₹ 13,999.00</span>
-                </div>
-                <strike className="mrp">₹ 15,999.00</strike>
-                <div className="product__priceSave">
-                  You Save : <span className="price"> ₹ 2,000</span>
-                </div>
-              </div>
-              <div style={{ marginTop: "10px" }} />
-              <Typography
-                component="span"
-                variant="body2"
-                className={classes.inline}
-                color="textPrimary"
-              >
-                Brand :
-              </Typography>
-              {" Samsung "}
-            </React.Fragment>
-          }
-        />
-      </ListItem>
+            </ListItemAvatar>
 
-      <Divider variant="inset" component="li" />
-      <ListItem alignItems="flex-start">
-        <ListItemAvatar>
-          <div className="product__image">
-            <img
-              src="https://images-na.ssl-images-amazon.com/images/I/71QLvGIAq5L._SL1500_.jpg"
-              alt=""
-              width={100}
-              height={150}
-              className="product__image"
+            <ListItemText
+              className={classes.list}
+              onClick={() => viewProduct(product._id)}
+              // onClick={(event) => {
+              //   history.replace(`/product-detail/${category}/${product._id}`);
+              // }}
+              primary={product.name}
+              secondary={
+                <React.Fragment>
+                  <Rating
+                    name="read-only"
+                    value={product.rating}
+                    readOnly
+                    precision={0.1}
+                    style={{ marginTop: "10px" }}
+                  />
+                  <div className="product__price">
+                    <div className="productPrice">
+                      <span className="price">
+                        ₹{" "}
+                        {numeral(
+                          product.originalPrice -
+                            product.originalPrice * (product.discount / 100)
+                        ).format("0,0.00")}
+                      </span>
+                    </div>
+                    <strike className="mrp">
+                      ₹ {numeral(product.originalPrice).format("0,0")}
+                    </strike>
+                    <div className="product__priceSave">
+                      You Save :{" "}
+                      <span className="price">
+                        {" "}
+                        ₹{" "}
+                        {numeral(
+                          product.originalPrice * (product.discount / 100)
+                        ).format("0,0.00")}
+                      </span>
+                    </div>
+                  </div>
+                  <div style={{ marginTop: "10px" }} />
+                  <Typography
+                    component="span"
+                    variant="body2"
+                    className={classes.inline}
+                    color="textPrimary"
+                  >
+                    Brand :
+                  </Typography>{" "}
+                  {product.seller}
+                </React.Fragment>
+              }
             />
-          </div>
-        </ListItemAvatar>
-        <ListItemText
-          className={classes.list}
-          primary="Brunch this weekend?Brunch this weekend?Brunch this weekend?"
-          secondary={
-            <React.Fragment>
-              <Rating
-                name="read-only"
-                value={4}
-                readOnly
-                style={{ marginTop: "10px" }}
-              />
-              <div className="product__price">
-                <div className="productPrice">
-                  <span className="price"> ₹ 13,999.00</span>
-                </div>
-                <strike className="mrp">₹ 15,999.00</strike>
-                <div className="product__priceSave">
-                  You Save : <span className="price"> ₹ 2,000</span>
-                </div>
-              </div>
-              <div style={{ marginTop: "10px" }} />
-              <Typography
-                component="span"
-                variant="body2"
-                className={classes.inline}
-                color="textPrimary"
-              >
-                Brand :
-              </Typography>
-              {" Samsung "}
-            </React.Fragment>
-          }
-        />
-      </ListItem>
+          </ListItem>
+          <Divider variant="inset" component="li" />
+        </React.Fragment>
+      ))}
     </List>
   );
 }

@@ -46,7 +46,7 @@ function Example({ route }) {
   }
   return (
     <Carousel height={410} width={300} id={0} className="carousel">
-      {products.map((item) => (
+      {products.slice(0, 5).map((item) => (
         <OutlinedCard
           key={item?._id}
           id={item?._id}

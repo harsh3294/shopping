@@ -25,7 +25,7 @@ function ProductSlider({ route }) {
           }
           setLoading(false);
         })
-        .catch((error) => alert("Hello"));
+        .catch((error) => alert(error));
     }
     fetchData();
 
@@ -110,7 +110,13 @@ function ProductSlider({ route }) {
       >
         {truncate(item.name, 50)}
       </p>
-      <Rating style={rating} name="read-only" value={item.rating} readOnly />
+      <Rating
+        style={rating}
+        name="read-only"
+        precision={0.1}
+        value={item.rating}
+        readOnly
+      />
       <p style={textBoxStyle2}>
         {" "}
         ₹{" "}
