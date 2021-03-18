@@ -69,32 +69,33 @@
 .MuiDivider-root {
   background-color: rgba(0, 0, 0, 0.4) !important;
 }
-.product__price {
+.description__product__price {
   display: flex !important;
   width: 100% !important;
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-around !important;
 }
 
-.product__mrp {
-  font-size: 18px;
+.description__product__mrp {
+  font-size: 16px;
   letter-spacing: 1.2px;
 }
-.mrp,
-.price {
+.description__mrp,
+.description__price {
   color: #b12704;
 }
-.productPrice {
+.description__productPrice {
   margin-top: 12px;
   margin-left: 30px;
   margin-top: 3px;
   font-weight: 700;
   font-size: 20px;
+
   letter-spacing: 1.2px;
 }
 
-.product__priceSave {
+.description__product__priceSave {
   margin-top: 3px;
   font-size: 16px;
   font-weight: 555;
@@ -180,6 +181,29 @@
   border-radius: 15px !important;
   background-color: #f7cf6c !important;
 }
+.description__cart__button {
+  display: flex;
+  flex-direction: row;
+}
+.description__cart__addRemoveButton {
+  border: 1px solid black;
+  border-radius: 30px;
+  padding-right: 10px;
+  margin-left: 50px;
+}
+
+.description__cartValue {
+  /* border: 1px solid black !important;
+  padding: 5px; */
+  width: 40px;
+  /* text-align: center !important; */
+  padding: 3px !important;
+  text-align: right;
+  margin: auto;
+  align-items: center;
+  font-weight: 600;
+  font-size: 15px;
+}
 .addToCart:hover {
   transition: all 0.3s;
   color: #ffc73a !important;
@@ -207,7 +231,7 @@
   .return {
     font-size: 10px;
   }
-  .product__price {
+  .description__product__price {
     display: flex !important;
     width: 100% !important;
 

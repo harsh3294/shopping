@@ -48,7 +48,7 @@ export default function DisplayList(data, productcategory) {
                 <img
                   src={product.img}
                   alt=""
-                  width={100}
+                  width={130}
                   height={150}
                   className="product__image"
                 />

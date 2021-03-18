@@ -128,17 +128,17 @@ function Description() {
           />
         </div>
         <Divider />
-        <div className="product__price">
-          <div className="product__mrp">
+        <div className="description__product__price">
+          <div className="description__product__mrp">
             M.R.P. :{" "}
-            <strike className="mrp">
+            <strike className="description__mrp">
               ₹ {numeral(product.originalPrice).format("0,0")}
             </strike>
           </div>
           <br />
-          <div className="productPrice">
+          <div className="description__productPrice">
             Price :{" "}
-            <span className="price">
+            <span className="description__price">
               ₹{" "}
               {numeral(
                 product.originalPrice -
@@ -147,9 +147,9 @@ function Description() {
             </span>
           </div>
           <br />
-          <div className="product__priceSave">
+          <div className="description__product__priceSave">
             You Save :{" "}
-            <span className="price">
+            <span className="description__price">
               {" "}
               ₹{" "}
               {numeral(product.originalPrice * (product.discount / 100)).format(
@@ -187,9 +187,9 @@ function Description() {
               </Button>
             ) : (
               <>
-                <div className="cart__button">
+                <div className="description__cart__button">
                   <h3>Quantity</h3>
-                  <div className="cart__addRemoveButton">
+                  <div className="description__cart__addRemoveButton">
                     <Button
                       onClick={decrementCounter}
                       disabled={cartValue !== 1 ? false : true}
@@ -198,11 +198,11 @@ function Description() {
                     </Button>
                     <input
                       type="number"
-                      className="cartValue"
+                      className="description__cartValue"
                       value={cartValue}
                       readOnly
                     />
-                    {/* <TextField id="standard-basic" /> */}
+
                     <Button
                       onClick={incrementCounter}
                       disabled={cartValue !== product.totalStock ? false : true}
