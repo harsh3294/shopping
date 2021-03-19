@@ -5,6 +5,7 @@ import Cors from "cors";
 import Mobiles from "./products/mobiles.js";
 import Users from "./user/user.js";
 import Accessories from "./products/accessories.js";
+import MensWear from "./products/mensWear.js";
 //APP config
 
 const app = express();
@@ -88,6 +89,27 @@ app.get("/accessories", (req, res) => {
   });
 });
 
+app.post("/menswear", (req, res) => {
+  const product = req.body;
+  MensWear.create(product, (err, data) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(201).send(data);
+    }
+  });
+});
+
+app.get("/menswear", (req, res) => {
+  MensWear.find((err, data) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(200).send(data);
+    }
+  });
+});
+
 app.post("/user", (req, res) => {
   const user = req.body;
   Users.create(user, (err, data) => {
@@ -159,6 +181,16 @@ app.get("/products/:route/:product_id", (req, res) => {
     case "accessories":
       // code block
       Accessories.findById(product_id, (err, data) => {
+        if (err) {
+          res.status(500).send(err);
+        } else {
+          res.status(200).send(data);
+        }
+      });
+      break;
+    case "menswear":
+      // code block
+      MensWear.findById(product_id, (err, data) => {
         if (err) {
           res.status(500).send(err);
         } else {
