@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./Description.css";
 import Rating from "@material-ui/lab/Rating";
 import ShowMoreText from "react-show-more-text";
-import { Button, Divider } from "@material-ui/core";
+import { Button, Divider, Typography } from "@material-ui/core";
 import IconReturn from "./../../assets/images/IconReturn.png";
 import IconDelivered from "./../../assets/images/IconDelivered.png";
 import IconNoContact from "./../../assets/images/IconNoContactDelivery.png";
@@ -21,8 +21,21 @@ import {
   REMOVE_FROM_CART,
   selectBasket,
 } from "../../features/cartSlice";
-
+import { makeStyles } from "@material-ui/core/styles";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
+const useStyles = makeStyles((theme) => ({
+  formControl: {
+    minWidth: 120,
+    marginLeft: 30,
+  },
+  selectEmpty: {},
+}));
 function Description() {
+  const classes = useStyles();
+
   const { route, product_id } = useParams();
   const [product, setProduct] = useState({});
   const [loading, setLoading] = useState(true);
@@ -32,7 +45,11 @@ function Description() {
   const basket = useSelector(selectBasket);
   const user = useSelector(selectUser);
   const history = useHistory();
+  const [size, setSize] = React.useState("");
 
+  const handleChange = (event) => {
+    setSize(event.target.value);
+  };
   console.log(route, product_id);
   useEffect(() => {
     basket.map((product) => {
@@ -95,7 +112,6 @@ function Description() {
       unmounted = true;
     };
   }, []);
-
   if (loading) {
     return <img src={Loading} alt="loading" className="loading" />;
   }
@@ -154,7 +170,8 @@ function Description() {
               ₹{" "}
               {numeral(product.originalPrice * (product.discount / 100)).format(
                 "0,0.00"
-              )}
+              )}{" "}
+              ({product.discount}%)
             </span>
           </div>
         </div>
@@ -177,6 +194,33 @@ function Description() {
             <span className="return">No-Contact Delivery</span>
           </div>
         </div>
+        {product.category === "shirts" && (
+          <>
+            <br />
+            <div className="description__size">
+              <Typography
+                variant="h4"
+                component="h4"
+                className="description__typographySize"
+              >
+                Size
+              </Typography>
+              <FormControl className={classes.formControl}>
+                <InputLabel id="demo-simple-select-label">Size</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={size}
+                  onChange={handleChange}
+                >
+                  {product.size.map((size) => (
+                    <MenuItem value={size.size}>{size.size}</MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </div>
+          </>
+        )}
         {product.stock ? (
           <>
             <div className="product__inStock">In Stock</div>
@@ -187,7 +231,40 @@ function Description() {
               </Button>
             ) : (
               <>
-                <div className="description__cart__button">
+                {product.category !== "shirts" && (
+                  <>
+                    <div className="description__cart__button">
+                      <h3>Quantity</h3>
+                      <div className="description__cart__addRemoveButton">
+                        <Button
+                          onClick={decrementCounter}
+                          disabled={cartValue !== 1 ? false : true}
+                        >
+                          -
+                        </Button>
+                        <input
+                          type="number"
+                          className="description__cartValue"
+                          value={cartValue}
+                          readOnly
+                        />
+                        <Button
+                          onClick={incrementCounter}
+                          disabled={
+                            cartValue !== product.totalStock ? false : true
+                          }
+                        >
+                          +
+                        </Button>
+                      </div>
+                    </div>
+                    <br />
+                    <Button className="addToCart" onClick={addToCart}>
+                      Add to Cart
+                    </Button>
+                  </>
+                )}
+                {/* <div className="description__cart__button">
                   <h3>Quantity</h3>
                   <div className="description__cart__addRemoveButton">
                     <Button
@@ -202,7 +279,6 @@ function Description() {
                       value={cartValue}
                       readOnly
                     />
-
                     <Button
                       onClick={incrementCounter}
                       disabled={cartValue !== product.totalStock ? false : true}
@@ -210,11 +286,11 @@ function Description() {
                       +
                     </Button>
                   </div>
-                </div>
+                </div> 
                 <br />
                 <Button className="addToCart" onClick={addToCart}>
                   Add to Cart
-                </Button>
+                </Button>*/}
               </>
             )}
           </>

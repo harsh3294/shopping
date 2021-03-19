@@ -129,6 +129,12 @@ function App() {
                   </Typography>
                 </div>
                 <Example route="accessories" />
+                <div className={classes.root}>
+                  <Typography variant="h3" component="h4" gutterBottom>
+                    <span className="category__name">Mens Wear</span>
+                  </Typography>
+                </div>
+                <Example route="menswear" />
               </>
             </Route>
           </Switch>

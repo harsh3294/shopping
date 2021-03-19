@@ -191,7 +191,13 @@
   padding-right: 10px;
   margin-left: 50px;
 }
-
+.description__size {
+  display: flex;
+  flex-direction: row;
+}
+.description__typographySize {
+  padding-top: 10px;
+}
 .description__cartValue {
   /* border: 1px solid black !important;
   padding: 5px; */

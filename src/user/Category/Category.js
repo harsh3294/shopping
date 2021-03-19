@@ -16,8 +16,8 @@ function Category() {
       product: "accessories",
     },
     {
-      name: "Clothing",
-      product: "clothing",
+      name: "Mens Wear",
+      product: "menswear",
     },
   ]);
   const product = (category) => {
