@@ -4,15 +4,20 @@
 .cart {
   /* padding-top: 80px; */
   margin-top: 80px;
-  min-height: 540px;
+  min-height: 700px;
   display: flex;
   flex-direction: row;
+  width: 100% !important;
+}
+.cart__left {
+  flex: 1;
 }
 .cart__empty {
   font-family: "Akaya Telivigala", cursive;
 }
 .cart__button {
   display: flex;
+  width: 80%;
   flex-direction: row;
 }
 .MuiButtonBase-root {
@@ -23,7 +28,10 @@
   font-weight: 700 !important;
   padding: 0px !important;
 }
-
+.mrp,
+.price {
+  color: #b12704;
+}
 .cart__addRemoveButton {
   display: flex;
   flex-direction: row;
@@ -45,9 +53,15 @@
 .cartValue:focus {
   cursor: default;
 }
+.cart__size {
+  display: flex;
+  flex-direction: row;
+}
 .cancelIcon {
   color: red;
   cursor: pointer;
+  margin-top: 10px;
+  font-size: 24px !important;
 }
 .MuiDivider-root,
 .MuiDivider-inset {
@@ -79,8 +93,10 @@
 }
 
 .product__price {
-  width: 50%;
+  width: 50% !important;
   display: flex;
+  padding: 0;
+  margin: 0;
   flex-direction: row;
   justify-content: space-around;
 }
@@ -90,11 +106,16 @@
   font-size: 13px;
   margin-top: 10px;
 }
-.product__price {
-  padding: 0;
-  margin: 0;
+.cart__size {
+  display: flex;
+  flex-direction: row;
+  padding-top: 10px;
 }
-
+.cart__typographySize {
+  padding-top: 15px;
+  color: black;
+  font-size: 18px !important;
+}
 @media (max-width: 991px) {
   .cart {
     min-height: 460px;
@@ -124,23 +145,27 @@
     font-size: 13px;
     margin-top: 2px;
   }
+  .cart__button {
+    display: flex;
+    width: 80%;
+    flex-direction: row;
+  }
   .product__image {
     left: 0;
     align-items: flex-start;
     padding-left: 5px;
   }
   .product__price {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-  }
-  .product__price {
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
     margin-top: 6px;
     margin-left: 10px;
+    padding: 5px;
   }
 
   .product__mrp {
-    font-size: 12px;
+    font-size: 14px;
     letter-spacing: 1.2px;
   }
 
@@ -148,8 +173,10 @@
   .price {
     color: #b12704;
   }
+
   .productPrice {
     margin-top: 3px;
+    margin-bottom: 3px;
     font-weight: 700;
     font-size: 12px;
     letter-spacing: 1.2px;

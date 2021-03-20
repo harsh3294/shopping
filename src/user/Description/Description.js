@@ -46,9 +46,14 @@ function Description() {
   const user = useSelector(selectUser);
   const history = useHistory();
   const [size, setSize] = React.useState("");
+  const [colors, setColors] = React.useState("");
 
   const handleChange = (event) => {
     setSize(event.target.value);
+  };
+
+  const handleColorChange = (event) => {
+    setColors(event.target.value);
   };
   console.log(route, product_id);
   useEffect(() => {
@@ -72,9 +77,33 @@ function Description() {
         discount: product.discount,
         totalStock: product.totalStock,
         cartValue: cartValue,
+        category: product.category,
       })
     );
   };
+
+  const addToCartMensWear = () => {
+    dispatch(
+      ADD_TO_BASKET({
+        id: product._id,
+        userid: user.uid,
+        name: product.name,
+        img: product.img,
+        originalPrice: product.originalPrice,
+        rating: product.rating,
+        seller: product.seller,
+        discount: product.discount,
+        totalStock: product.totalStock,
+        cartValue: cartValue,
+        size: size,
+        color: colors,
+        dataSize: product.size,
+        dataColor: product.color,
+        category: product.category,
+      })
+    );
+  };
+
   const goToCart = () => {
     history.push("/cart");
   };
@@ -199,7 +228,7 @@ function Description() {
             <br />
             <div className="description__size">
               <Typography
-                variant="h4"
+                variant="h5"
                 component="h4"
                 className="description__typographySize"
               >
@@ -221,50 +250,138 @@ function Description() {
             </div>
           </>
         )}
-        {product.stock ? (
+        {product.category === "shirts" && (
           <>
-            <div className="product__inStock">In Stock</div>
+            <br />
+            <div className="description__size">
+              <Typography
+                variant="h5"
+                component="h4"
+                className="description__typographySize"
+              >
+                Colors
+              </Typography>
+              <FormControl className={classes.formControl}>
+                <InputLabel id="demo-simple-select-label">Colors</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={colors}
+                  onChange={handleColorChange}
+                >
+                  {product.color.map((color) => (
+                    <MenuItem value={color}>{color}</MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </div>
+          </>
+        )}
+        {product.category === "shirts" && (
+          <>
+            <br />
+            <div className="description__size">
+              <Typography
+                variant="h5"
+                component="h4"
+                className="description__typographySize"
+              >
+                Quantity
+              </Typography>
+            </div>
             <br />
             {productExist ? (
               <Button className="addToCart" onClick={goToCart}>
                 Go to Cart
               </Button>
             ) : (
-              <>
-                {product.category !== "shirts" && (
-                  <>
-                    <div className="description__cart__button">
-                      <h3>Quantity</h3>
-                      <div className="description__cart__addRemoveButton">
-                        <Button
-                          onClick={decrementCounter}
-                          disabled={cartValue !== 1 ? false : true}
-                        >
-                          -
-                        </Button>
-                        <input
-                          type="number"
-                          className="description__cartValue"
-                          value={cartValue}
-                          readOnly
-                        />
-                        <Button
-                          onClick={incrementCounter}
-                          disabled={
-                            cartValue !== product.totalStock ? false : true
-                          }
-                        >
-                          +
-                        </Button>
+              product.size.map((productsize) => (
+                <>
+                  {productsize.size === size && (
+                    <>
+                      {" "}
+                      <div className="description__cart__button">
+                        <div className="description__cart__addRemoveButton">
+                          <Button
+                            onClick={decrementCounter}
+                            disabled={cartValue !== 1 ? false : true}
+                          >
+                            -
+                          </Button>
+                          <input
+                            type="number"
+                            className="description__cartValue"
+                            value={cartValue}
+                            readOnly
+                          />
+                          <Button
+                            onClick={incrementCounter}
+                            disabled={
+                              cartValue !== productsize.totalStock
+                                ? false
+                                : true
+                            }
+                          >
+                            +
+                          </Button>
+                        </div>
                       </div>
-                    </div>
-                    <br />
-                    <Button className="addToCart" onClick={addToCart}>
-                      Add to Cart
-                    </Button>
-                  </>
-                )}
-                {/* <div className="description__cart__button">
+                      <br />
+                      <Button className="addToCart" onClick={addToCartMensWear}>
+                        Add to Cart
+                      </Button>
+                    </>
+                  )}
+                </>
+              ))
+            )}
+          </>
+        )}
+        {product.stock ? (
+          product.category !== "shirts" && (
+            <>
+              <div className="product__inStock">In Stock</div>
+              <br />
+              {productExist ? (
+                <Button className="addToCart" onClick={goToCart}>
+                  Go to Cart
+                </Button>
+              ) : (
+                <>
+                  {product.category !== "shirts" && (
+                    <>
+                      <div className="description__cart__button">
+                        <h3>Quantity</h3>
+                        <div className="description__cart__addRemoveButton">
+                          <Button
+                            onClick={decrementCounter}
+                            disabled={cartValue !== 1 ? false : true}
+                          >
+                            -
+                          </Button>
+                          <input
+                            type="number"
+                            className="description__cartValue"
+                            value={cartValue}
+                            readOnly
+                          />
+                          <Button
+                            onClick={incrementCounter}
+                            disabled={
+                              cartValue !== product.totalStock ? false : true
+                            }
+                          >
+                            +
+                          </Button>
+                        </div>
+                      </div>
+                      <br />
+                      <Button className="addToCart" onClick={addToCart}>
+                        Add to Cart
+                      </Button>
+                    </>
+                  )}
+                  {/* <div className="description__cart__button">
                   <h3>Quantity</h3>
                   <div className="description__cart__addRemoveButton">
                     <Button
@@ -291,9 +408,10 @@ function Description() {
                 <Button className="addToCart" onClick={addToCart}>
                   Add to Cart
                 </Button>*/}
-              </>
-            )}
-          </>
+                </>
+              )}
+            </>
+          )
         ) : (
           <div className="product__outOfStock">Out Of Stock</div>
         )}

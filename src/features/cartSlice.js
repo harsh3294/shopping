@@ -67,6 +67,30 @@ export const cartSlice = createSlice({
       product.cartValue = product.cartValue - 1;
       state.basket = [...tempCart];
     },
+    SET_SIZE: (state, action) => {
+      let tempCart = [...state.basket];
+      const selectedProduct = state.basket.find(
+        (item) => action.payload.id === item.id
+      );
+
+      const index = tempCart.indexOf(selectedProduct);
+      const product = tempCart[index];
+
+      product.size = action.payload.size;
+      state.basket = [...tempCart];
+    },
+    SET_COLOR: (state, action) => {
+      let tempCart = [...state.basket];
+      const selectedProduct = state.basket.find(
+        (item) => action.payload.id === item.id
+      );
+
+      const index = tempCart.indexOf(selectedProduct);
+      const product = tempCart[index];
+
+      product.color = action.payload.color;
+      state.basket = [...tempCart];
+    },
   },
 });
 
@@ -76,6 +100,8 @@ export const {
   REMOVE_FROM_CART,
   INCREMENT_BASKET_COUNT,
   DECREMENT_BASKET_COUNT,
+  SET_SIZE,
+  SET_COLOR,
 } = cartSlice.actions;
 
 export const selectBasket = (state) => state.cart.basket;

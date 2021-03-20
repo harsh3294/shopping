@@ -18,17 +18,26 @@ import EmptyCart from "../../assets/images/empty_cart_image.jpg";
 import {
   EMPTY_BASKET,
   ADD_TO_BASKET,
+  SET_SIZE,
+  SET_COLOR,
   REMOVE_FROM_CART,
   INCREMENT_BASKET_COUNT,
   DECREMENT_BASKET_COUNT,
   selectBasket,
 } from "../../features/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
-
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
     backgroundColor: theme.palette.background.paper,
+  },
+  formControl: {
+    minWidth: 120,
+    marginLeft: 30,
   },
   inline: {
     display: "inline",
@@ -41,11 +50,35 @@ const useStyles = makeStyles((theme) => ({
 }));
 function Cart() {
   const classes = useStyles();
+  const [size, setSize] = React.useState("");
+  const [colors, setColors] = React.useState("");
   const basket = useSelector(selectBasket);
   console.log(basket);
   const [cartValue, setCartValue] = useState();
   const dispatch = useDispatch();
+  const handleChange = (id, event) => {
+    console.log(event, id);
+    setSize(event.target.value);
+    console.log("Size=", size);
+    dispatch(
+      SET_SIZE({
+        id: id,
+        size: size,
+      })
+    );
+  };
 
+  const handleColorChange = (id, event) => {
+    console.log(event, id);
+    setColors(event.target.value);
+    console.log("COlors=", colors);
+    dispatch(
+      SET_COLOR({
+        id: id,
+        color: colors,
+      })
+    );
+  };
   const decrementCounter = (id) => {
     if (cartValue === 1) {
       //redux
@@ -145,24 +178,27 @@ function Cart() {
                     <div className="product__price">
                       <div className="productPrice">
                         <span className="price">
-                          ₹{" "}
+                          Our Price: ₹{" "}
                           {numeral(
                             product.originalPrice -
                               product.originalPrice * (product.discount / 100)
                           ).format("0,0.00")}
                         </span>
                       </div>
-                      <strike className="mrp">
-                        {" "}
-                        ₹ {numeral(product.originalPrice).format("0,0")}
-                      </strike>
+                      <div>
+                        Original Price:{"  "}
+                        <strike className="mrp">
+                          ₹ {numeral(product.originalPrice).format("0,0")}
+                        </strike>
+                      </div>
                       <div className="product__priceSave">
                         You Save :{" "}
                         <span className="price">
                           ₹{" "}
                           {numeral(
                             product.originalPrice * (product.discount / 100)
-                          ).format("0,0.00")}
+                          ).format("0,0.00")}{" "}
+                          ({product.discount}%)
                         </span>
                       </div>
                     </div>
@@ -177,38 +213,168 @@ function Cart() {
                     </Typography>
                     {product.seller}
                     <br />
-                    <div className="cart__button">
-                      <div className="cart__addRemoveButton">
-                        <Button
-                          onClick={() => decrementCounter(product.id)}
-                          disabled={product.cartValue !== 1 ? false : true}
-                        >
-                          -
-                        </Button>
-                        <input
-                          type="number"
-                          className="cartValue"
-                          onChange={(e) => setCartValue(e.target.value)}
-                          value={product.cartValue}
-                          readOnly
-                        />
-                        {/* <TextField id="standard-basic" /> */}
-                        <Button
-                          onClick={() => incrementCounter(product.id)}
-                          disabled={
-                            product.cartValue !== product.totalStock
-                              ? false
-                              : true
-                          }
-                        >
-                          +
-                        </Button>
-                      </div>
-                      <DeleteForeverIcon
-                        className="cancelIcon"
-                        onClick={() => deleteItem(product.id)}
-                      />
-                    </div>
+                    {product.category === "shirts" && (
+                      <>
+                        {product.category === "shirts" && (
+                          <>
+                            <br />
+                            <div className="cart__size">
+                              <Typography
+                                variant="h5"
+                                component="h4"
+                                className="cart__typographySize"
+                              >
+                                Size
+                              </Typography>
+                              <FormControl className={classes.formControl}>
+                                <InputLabel id="demo-simple-select-label">
+                                  Size
+                                </InputLabel>
+                                <Select
+                                  labelId="demo-simple-select-label"
+                                  id="demo-simple-select"
+                                  value={product.size}
+                                  onChange={(e) => handleChange(product.id, e)}
+                                >
+                                  {product.dataSize.map((size) => (
+                                    <MenuItem value={size.size}>
+                                      {size.size}
+                                    </MenuItem>
+                                  ))}
+                                </Select>
+                              </FormControl>
+                            </div>
+                            <div className="cart__size">
+                              <Typography
+                                variant="h5"
+                                component="h4"
+                                className="cart__typographySize"
+                              >
+                                Colors
+                              </Typography>
+                              <FormControl className={classes.formControl}>
+                                <InputLabel id="demo-simple-select-label">
+                                  Colors
+                                </InputLabel>
+                                <Select
+                                  labelId="demo-simple-select-label"
+                                  id="demo-simple-select"
+                                  value={product.color}
+                                  onChange={(e) =>
+                                    handleColorChange(product.id, e)
+                                  }
+                                >
+                                  {product.dataColor.map((color) => (
+                                    <MenuItem value={color}>{color}</MenuItem>
+                                  ))}
+                                </Select>
+                              </FormControl>
+                            </div>
+
+                            {/* Quantity */}
+                            {product.dataSize.map((productSize) => (
+                              <>
+                                {productSize.size === product.size && (
+                                  <div className="cart__button">
+                                    <Typography
+                                      variant="h5"
+                                      component="h4"
+                                      className="cart__typographySize"
+                                    >
+                                      Quantity
+                                    </Typography>
+                                    <div className="cart__addRemoveButton">
+                                      <Button
+                                        onClick={() =>
+                                          decrementCounter(product.id)
+                                        }
+                                        disabled={
+                                          product.cartValue !== 1 ? false : true
+                                        }
+                                      >
+                                        -
+                                      </Button>
+                                      <input
+                                        type="number"
+                                        className="cartValue"
+                                        onChange={(e) =>
+                                          setCartValue(e.target.value)
+                                        }
+                                        value={product.cartValue}
+                                        readOnly
+                                      />
+                                      {/* <TextField id="standard-basic" /> */}
+                                      <Button
+                                        onClick={() =>
+                                          incrementCounter(product.id)
+                                        }
+                                        disabled={
+                                          product.cartValue !==
+                                          productSize.totalStock
+                                            ? false
+                                            : true
+                                        }
+                                      >
+                                        +
+                                      </Button>
+                                    </div>
+                                    <DeleteForeverIcon
+                                      className="cancelIcon"
+                                      onClick={() => deleteItem(product.id)}
+                                    />
+                                  </div>
+                                )}
+                              </>
+                            ))}
+                            {/* Quantity */}
+                          </>
+                        )}
+                      </>
+                    )}
+
+                    {product.category !== "shirts" && (
+                      <>
+                        <div className="cart__button">
+                          <Typography
+                            variant="h5"
+                            component="h4"
+                            className="cart__typographySize"
+                          >
+                            Quantity
+                          </Typography>
+                          <div className="cart__addRemoveButton">
+                            <Button
+                              onClick={() => decrementCounter(product.id)}
+                              disabled={product.cartValue !== 1 ? false : true}
+                            >
+                              -
+                            </Button>
+                            <input
+                              type="number"
+                              className="cartValue"
+                              onChange={(e) => setCartValue(e.target.value)}
+                              value={product.cartValue}
+                              readOnly
+                            />
+                            {/* <TextField id="standard-basic" /> */}
+                            <Button
+                              onClick={() => incrementCounter(product.id)}
+                              disabled={
+                                product.cartValue !== product.totalStock
+                                  ? false
+                                  : true
+                              }
+                            >
+                              +
+                            </Button>
+                          </div>
+                          <DeleteForeverIcon
+                            className="cancelIcon"
+                            onClick={() => deleteItem(product.id)}
+                          />
+                        </div>
+                      </>
+                    )}
                   </React.Fragment>
                 }
               />
@@ -217,7 +383,6 @@ function Cart() {
           </List>
         ))}
       </div>
-      <div className="cart__right"></div>
     </div>
   );
 }
