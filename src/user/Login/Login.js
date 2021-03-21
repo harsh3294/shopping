@@ -23,6 +23,7 @@ function Login() {
     auth
       .signInWithEmailAndPassword(username, password)
       .then((authUser) => {
+        console.log(authUser);
         const unsuscribe = auth.onAuthStateChanged((userAuth) => {
           if (userAuth) {
             let unmounted = false;

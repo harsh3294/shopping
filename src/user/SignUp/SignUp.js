@@ -24,6 +24,7 @@ function Login() {
       .then((authUser) => {
         console.log(authUser.user.uid);
         console.log(nameRef);
+
         function sendData() {
           const req = axios
             .post(`/user`, {

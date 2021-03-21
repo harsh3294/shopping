@@ -71,19 +71,22 @@ export default function DisplayList(data, productcategory) {
                     precision={0.1}
                     style={{ marginTop: "10px" }}
                   />
-                  <div className="product__price">
+                  <div className="display__product__price">
                     <div className="productPrice">
                       <span className="price">
-                        ₹{" "}
+                        Our Price: ₹{" "}
                         {numeral(
                           product.originalPrice -
                             product.originalPrice * (product.discount / 100)
                         ).format("0,0.00")}
                       </span>
                     </div>
-                    <strike className="mrp">
-                      ₹ {numeral(product.originalPrice).format("0,0")}
-                    </strike>
+                    <div>
+                      Original Price:{" "}
+                      <strike className="mrp">
+                        ₹ {numeral(product.originalPrice).format("0,0")}
+                      </strike>
+                    </div>
                     <div className="product__priceSave">
                       You Save :{" "}
                       <span className="price">
@@ -91,7 +94,8 @@ export default function DisplayList(data, productcategory) {
                         ₹{" "}
                         {numeral(
                           product.originalPrice * (product.discount / 100)
-                        ).format("0,0.00")}
+                        ).format("0,0.00")}{" "}
+                        ({product.discount}%)
                       </span>
                     </div>
                   </div>

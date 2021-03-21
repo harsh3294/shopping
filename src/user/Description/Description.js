@@ -26,6 +26,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
+import moment from "moment";
 const useStyles = makeStyles((theme) => ({
   formControl: {
     minWidth: 120,
@@ -175,14 +176,14 @@ function Description() {
         <Divider />
         <div className="description__product__price">
           <div className="description__product__mrp">
-            M.R.P. :{" "}
+            Original M.R.P. :{" "}
             <strike className="description__mrp">
               ₹ {numeral(product.originalPrice).format("0,0")}
             </strike>
           </div>
           <br />
           <div className="description__productPrice">
-            Price :{" "}
+            Our Price :{" "}
             <span className="description__price">
               ₹{" "}
               {numeral(
@@ -204,7 +205,13 @@ function Description() {
             </span>
           </div>
         </div>
-        <div className="product__delivery">Estimating delivery date</div>
+        {product.stock && (
+          <div className="product__delivery">
+            Estimated delivery date : By{" "}
+            {moment().add(product.deliveredBy, "day").calendar()}
+          </div>
+        )}
+
         <div className="product__delivery__info">
           <div className="product__info">
             <img src={IconReturn} alt="" />
