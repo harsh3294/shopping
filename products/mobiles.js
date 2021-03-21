@@ -10,5 +10,6 @@ const mobileSchema = mongoose.Schema({
   stock: Boolean,
   totalStock: Number,
   category: String,
+  deliveredBy: Number,
 });
 export default mongoose.model("mobile", mobileSchema);

@@ -12,5 +12,6 @@ const mensWearSchema = mongoose.Schema({
   category: String,
   size: Array,
   color: Array,
+  deliveredBy: Number,
 });
 export default mongoose.model("menswear", mensWearSchema);
