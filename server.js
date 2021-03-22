@@ -6,6 +6,9 @@ import Mobiles from "./products/mobiles.js";
 import Users from "./user/user.js";
 import Accessories from "./products/accessories.js";
 import MensWear from "./products/mensWear.js";
+import { key } from "./stripe_key.js";
+import Stripe from "stripe";
+const stripe = Stripe(key);
 //APP config
 
 const app = express();
@@ -131,6 +134,19 @@ app.get("/user/:uid", (req, res) => {
     }
   });
 });
+
+app.post("/payments/create", async (request, response) => {
+  const total = request.query.total;
+  console.log("payment request recieved ", total);
+  const paymentIntent = await stripe.paymentIntents.create({
+    amount: total, // sub units of the currency
+    currency: "inr",
+  });
+  response.status(201).send({
+    clientSecret: paymentIntent.client_secret,
+  });
+});
+
 app.get("/products/:product_id", (req, res) => {
   const product_id = req.params.product_id;
   Products.findById(product_id, (err, data) => {
