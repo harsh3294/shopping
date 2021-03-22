@@ -23,6 +23,7 @@ import {
   REMOVE_FROM_CART,
   INCREMENT_BASKET_COUNT,
   DECREMENT_BASKET_COUNT,
+  getBasketTotal,
   selectBasket,
 } from "../../features/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -30,6 +31,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
+import { Link } from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -53,9 +55,13 @@ function Cart() {
   const [size, setSize] = React.useState("");
   const [colors, setColors] = React.useState("");
   const basket = useSelector(selectBasket);
+  // const total = useSelector(amount);
+  const total = useSelector(getBasketTotal);
+  console.log("the total is ", total);
   console.log(basket);
   const [cartValue, setCartValue] = useState();
   const dispatch = useDispatch();
+
   const handleChange = (id, event) => {
     console.log(event, id);
     setSize(event.target.value);
@@ -383,6 +389,7 @@ function Cart() {
           </List>
         ))}
       </div>
+      <Link to="/checkout">checkout</Link>
     </div>
   );
 }

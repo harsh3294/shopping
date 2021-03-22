@@ -9,7 +9,17 @@ export const cartSlice = createSlice({
     EMPTY_BASKET: (state) => {
       state.basket = [];
     },
-
+    // GET_BASKET_TOTAL: (state) => {
+    //   state.basket.forEach((product, index) => {
+    //     var subtotal =
+    //       (product.originalPrice -
+    //         product.originalPrice * (product.discount / 100)) *
+    //       product.cartValue;
+    //     state.amount = state.amount + subtotal;
+    //   });
+    //   console.log(state.amount);
+    //   return state.amount;
+    // },
     ADD_TO_BASKET: (state, action) => {
       //   action.payload.id === item.id
       let existed_item = state.basket.find(
@@ -106,6 +116,14 @@ export const {
 
 export const selectBasket = (state) => state.cart.basket;
 //to calculate the total amount of the basket
-// export const getBasketTotal = (basket) => basket?.reduce((amount, item) => item.price + amount, 0);
+export const getBasketTotal = (state) =>
+  state.cart.basket?.reduce(
+    (amount, product) =>
+      (product.originalPrice -
+        product.originalPrice * (product.discount / 100)) *
+        product.cartValue +
+      amount,
+    0
+  );
 
 export default cartSlice.reducer;

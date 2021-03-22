@@ -25,6 +25,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { auth } from "./FirebaseConfig/firebase";
 import axios from "./axios";
 import Category from "./user/Category/Category";
+import Checkout from "./user/Checkout/Checkout";
 
 const useStyles = makeStyles({
   root: {
@@ -85,12 +86,16 @@ function App() {
         <Route path="/sign-up">
           <SignUp />
         </Route>
+        <Route path="/checkout">
+          <Checkout />
+        </Route>
         <>
           <Header />
           <Switch>
             <Route path="/product">
               <DisplayProduct />
             </Route>
+
             <Route path="/cart">
               <Cart />
             </Route>
