@@ -6,6 +6,7 @@ import Mobiles from "./products/mobiles.js";
 import Users from "./user/user.js";
 import Accessories from "./products/accessories.js";
 import MensWear from "./products/mensWear.js";
+import Orders from "./products/orders.js";
 import { key } from "./stripe_key.js";
 import Stripe from "stripe";
 const stripe = Stripe(key);
@@ -113,6 +114,27 @@ app.get("/menswear", (req, res) => {
   });
 });
 
+app.post("/orders", (req, res) => {
+  const order = req.body;
+  Orders.create(order, (err, data) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(201).send(data);
+    }
+  });
+});
+
+app.get("/orders", (req, res) => {
+  Orders.find((err, data) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(200).send(data);
+    }
+  });
+});
+
 app.post("/user", (req, res) => {
   const user = req.body;
   Users.create(user, (err, data) => {
@@ -144,6 +166,19 @@ app.post("/payments/create", async (request, response) => {
   });
   response.status(201).send({
     clientSecret: paymentIntent.client_secret,
+  });
+});
+
+app.get("/orders/:uid", (req, res) => {
+  const user_uid = req.params.uid;
+  console.log(user_uid);
+  Orders.find({ uid: user_uid }, (err, data) => {
+    console.log(data);
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(200).send(data);
+    }
   });
 });
 
