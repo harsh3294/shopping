@@ -129,7 +129,7 @@ export default function Checkout() {
               <React.Fragment>
                 {getStepContent(activeStep)}
                 <div className={classes.buttons}>
-                  {activeStep !== 0 && (
+                  {activeStep !== 0 && activeStep <= 1 && (
                     <Button onClick={handleBack} className={classes.button}>
                       Back
                     </Button>

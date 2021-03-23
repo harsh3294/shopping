@@ -11,6 +11,8 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import { makeStyles } from "@material-ui/core/styles";
 // import TypeWriter from "react-typewriter";
 import Typewriter from "typewriter-effect";
+import { selectUser } from "../../features/userSlice";
+import { getAddressForm } from "../../features/addressForm";
 const useStyles = makeStyles((theme) => ({
   backdrop: {
     zIndex: theme.zIndex.drawer + 1,
@@ -33,6 +35,9 @@ function Payment() {
   const [processing, setProcessing] = useState("");
   //   const [{ basket, user }, dispatch] = useStateValue();
   const basket = useSelector(selectBasket);
+  const addressdetail = useSelector(getAddressForm);
+
+  const user = useSelector(selectUser);
   const total = useSelector(getBasketTotal);
   const [error, setError] = useState(null);
   const [disabled, setDisabled] = useState(true);
@@ -70,6 +75,19 @@ function Payment() {
       .then(({ paymentIntent }) => {
         // paymentIntent = payment confirmation
         // console.log(paymentIntent);
+        const req = axios
+          .post(`/orders`, {
+            uid: user.uid,
+            date: new Date().toString(),
+            orderList: basket,
+            status: 0,
+            deliveryDate: null,
+            placedBy: addressdetail,
+          })
+          .then((res) => {
+            console.log(res);
+          })
+          .catch((error) => alert(error));
         setSucceeded(true);
         setError(null);
         setProcessing(false);
@@ -126,7 +144,7 @@ function Payment() {
                 {error && <div>{error}</div>}
               </form>
             ) : (
-              <h1>Payment Process is completed </h1>
+              <h1>Orders is placed successfully.</h1>
             )}
           </div>
         </div>
