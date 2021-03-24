@@ -4,15 +4,19 @@ import { Link, useHistory } from "react-router-dom";
 import CurrencyFormat from "react-currency-format";
 import axios from "../../axios";
 import { useElements, useStripe, CardElement } from "@stripe/react-stripe-js";
-import { useSelector } from "react-redux";
-import { getBasketTotal, selectBasket } from "../../features/cartSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  EMPTY_BASKET,
+  getBasketTotal,
+  selectBasket,
+} from "../../features/cartSlice";
 import Backdrop from "@material-ui/core/Backdrop";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { makeStyles } from "@material-ui/core/styles";
 // import TypeWriter from "react-typewriter";
 import Typewriter from "typewriter-effect";
 import { selectUser } from "../../features/userSlice";
-import { getAddressForm } from "../../features/addressForm";
+import { getAddressForm, ORDER_ID } from "../../features/addressForm";
 import emailjs from "emailjs-com";
 import OrderId from "order-id";
 const useStyles = makeStyles((theme) => ({
@@ -47,31 +51,31 @@ function Payment() {
   //   const [{ basket, user }, dispatch] = useStateValue();
   const basket = useSelector(selectBasket);
   const addressdetail = useSelector(getAddressForm);
-
+  const dispatch = useDispatch();
   const user = useSelector(selectUser);
   const total = useSelector(getBasketTotal);
   const [error, setError] = useState(null);
   const [disabled, setDisabled] = useState(true);
   const stripe = useStripe();
   const elements = useElements();
-  basket.forEach(myFunction);
-  var orderDetails;
-
-  function myFunction(product, index) {
+  var orderDetails = "";
+  var order = basket.forEach((product, index) => {
     orderDetails +=
-      "<tr> <td style='border: 1px solid black; text-align:center'>" +
-      product.name +
+      "<tr><td style='border: 1px solid black; text-align:center'>" +
+      product?.name +
       "</td> <td style='border: 1px solid black; text-align:center'>₹ " +
-      (product.originalPrice -
-        product.originalPrice * (product.discount / 100)) +
+      (product?.originalPrice -
+        product?.originalPrice * (product?.discount / 100)) +
       "</td> <td style='border: 1px solid black; text-align:center'>" +
-      product.cartValue +
+      product?.cartValue +
       "</td> <td style='border: 1px solid black; text-align:center'>₹ " +
-      (product.originalPrice -
-        product.originalPrice * (product.discount / 100)) *
-        product.cartValue +
+      (product?.originalPrice -
+        product?.originalPrice * (product?.discount / 100)) *
+        product?.cartValue +
       "</td> </tr>";
-  }
+    return orderDetails;
+  });
+  console.log(orderDetails);
 
   useEffect(() => {
     // generate the special stripe secret which allows us to charge a customer
@@ -114,11 +118,14 @@ function Payment() {
             status: 0,
             deliveryDate: null,
             placedBy: addressdetail,
+            orderTotal: total,
           })
           .then((res) => {
             console.log(res);
           })
           .catch((error) => alert(error));
+        dispatch(ORDER_ID({ orderid: order__id }));
+        dispatch(EMPTY_BASKET());
         sendEmail(order__id);
         setSucceeded(true);
         setError(null);

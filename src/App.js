@@ -26,7 +26,7 @@ import { auth } from "./FirebaseConfig/firebase";
 import axios from "./axios";
 import Category from "./user/Category/Category";
 import Checkout from "./user/Checkout/Checkout";
-import Order from "./Order/Order";
+import Orders from "./user/Order/Orders";
 
 const useStyles = makeStyles({
   root: {
@@ -99,7 +99,7 @@ function App() {
               <DisplayProduct />
             </Route>
             <Route path="/orders">
-              <Order />
+              <Orders />
             </Route>
             <Route path="/cart">
               <Cart />

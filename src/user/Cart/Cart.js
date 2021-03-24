@@ -9,6 +9,7 @@ import Divider from "@material-ui/core/Divider";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Rating from "@material-ui/lab/Rating";
+import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import Avatar from "@material-ui/core/Avatar";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import numeral from "numeral";
@@ -31,7 +32,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -61,7 +62,7 @@ function Cart() {
   console.log(basket);
   const [cartValue, setCartValue] = useState();
   const dispatch = useDispatch();
-
+  const history = useHistory();
   const handleChange = (id, event) => {
     console.log(event, id);
     setSize(event.target.value);
@@ -389,7 +390,13 @@ function Cart() {
           </List>
         ))}
       </div>
-      <Link to="/checkout">checkout</Link>
+      <Button
+        onClick={() => history.push("/checkout")}
+        className="cart__checkoutButton"
+      >
+        <ShoppingCartIcon className="cart__checkoutCartIcon" />
+        Go For Checkout
+      </Button>
     </div>
   );
 }

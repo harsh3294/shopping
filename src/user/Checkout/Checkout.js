@@ -13,6 +13,9 @@ import Typography from "@material-ui/core/Typography";
 import AddressForm from "./AddressForm";
 import PaymentForm from "./PaymentForm";
 import Review from "./Review";
+import { useSelector } from "react-redux";
+import { getOrderId } from "../../features/addressForm";
+import { useHistory } from "react-router";
 
 function Copyright() {
   return (
@@ -82,7 +85,9 @@ function getStepContent(step) {
 export default function Checkout() {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
-
+  const order_id = useSelector(getOrderId);
+  const history = useHistory();
+  console.log(order_id.orderid);
   const handleNext = () => {
     setActiveStep(activeStep + 1);
   };
@@ -120,10 +125,22 @@ export default function Checkout() {
                   Thank you for your order.
                 </Typography>
                 <Typography variant="subtitle1">
-                  Your order number is #2001539. We have emailed your order
-                  confirmation, and will send you an update when your order has
-                  shipped.
+                  Your order number is {order_id.orderid}. We have emailed your
+                  order confirmation, and will send you an update when your
+                  order has shipped.
                 </Typography>
+                <br />
+                <Button
+                  onClick={() => history.push("/orders")}
+                  style={{
+                    alignItems: "center",
+                    textAlign: "center",
+                    margin: "auto",
+                    width: "100%",
+                  }}
+                >
+                  Go To Orders Page
+                </Button>
               </React.Fragment>
             ) : (
               <React.Fragment>

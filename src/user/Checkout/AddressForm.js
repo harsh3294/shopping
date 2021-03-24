@@ -107,7 +107,7 @@ export default function AddressForm() {
             id="contactNumber"
             name="contactNumber"
             label="Contact Number"
-            type="number"
+            type="text"
             fullWidth
             required
             autoComplete="shipping contactNumber"
