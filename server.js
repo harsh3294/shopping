@@ -171,9 +171,8 @@ app.post("/payments/create", async (request, response) => {
 
 app.get("/orders/:uid", (req, res) => {
   const user_uid = req.params.uid;
-  console.log(user_uid);
+
   Orders.find({ uid: user_uid }, (err, data) => {
-    console.log(data);
     if (err) {
       res.status(500).send(err);
     } else {
