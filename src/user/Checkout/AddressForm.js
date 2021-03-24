@@ -109,6 +109,7 @@ export default function AddressForm() {
             label="Contact Number"
             type="number"
             fullWidth
+            required
             autoComplete="shipping contactNumber"
             onChange={handleChange}
             value={addressForm.contactNumber}

@@ -48,6 +48,7 @@ function App() {
     const unsuscribe = auth.onAuthStateChanged((userAuth) => {
       if (userAuth) {
         //login
+        console.log(userAuth);
         let unmounted = false;
         async function fetchData() {
           const req = await axios
@@ -58,6 +59,7 @@ function App() {
                   login({
                     uid: res.data[0].uid,
                     name: res.data[0].name,
+                    email: userAuth.email,
                   })
                 );
               }

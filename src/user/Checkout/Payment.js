@@ -13,10 +13,21 @@ import { makeStyles } from "@material-ui/core/styles";
 import Typewriter from "typewriter-effect";
 import { selectUser } from "../../features/userSlice";
 import { getAddressForm } from "../../features/addressForm";
+import emailjs from "emailjs-com";
+import OrderId from "order-id";
 const useStyles = makeStyles((theme) => ({
   backdrop: {
     zIndex: theme.zIndex.drawer + 1,
     color: "#fff",
+  },
+  listItem: {
+    padding: theme.spacing(1, 0),
+  },
+  total: {
+    fontWeight: 700,
+  },
+  title: {
+    marginTop: theme.spacing(2),
   },
 }));
 function Payment() {
@@ -28,8 +39,8 @@ function Payment() {
   const handleToggle = () => {
     setOpen(!open);
   };
-
   const history = useHistory();
+  const order_id = OrderId("my-secret");
   const [clientSecret, setClientSecret] = useState(true);
   const [succeeded, setSucceeded] = useState(false);
   const [processing, setProcessing] = useState("");
@@ -43,6 +54,24 @@ function Payment() {
   const [disabled, setDisabled] = useState(true);
   const stripe = useStripe();
   const elements = useElements();
+  basket.forEach(myFunction);
+  var orderDetails;
+
+  function myFunction(product, index) {
+    orderDetails +=
+      "<tr> <td style='border: 1px solid black; text-align:center'>" +
+      product.name +
+      "</td> <td style='border: 1px solid black; text-align:center'>₹ " +
+      (product.originalPrice -
+        product.originalPrice * (product.discount / 100)) +
+      "</td> <td style='border: 1px solid black; text-align:center'>" +
+      product.cartValue +
+      "</td> <td style='border: 1px solid black; text-align:center'>₹ " +
+      (product.originalPrice -
+        product.originalPrice * (product.discount / 100)) *
+        product.cartValue +
+      "</td> </tr>";
+  }
 
   useEffect(() => {
     // generate the special stripe secret which allows us to charge a customer
@@ -75,9 +104,11 @@ function Payment() {
       .then(({ paymentIntent }) => {
         // paymentIntent = payment confirmation
         // console.log(paymentIntent);
+        const order__id = order_id.generate();
         const req = axios
           .post(`/orders`, {
             uid: user.uid,
+            orderId: order__id,
             date: new Date().toString(),
             orderList: basket,
             status: 0,
@@ -88,10 +119,64 @@ function Payment() {
             console.log(res);
           })
           .catch((error) => alert(error));
+        sendEmail(order__id);
         setSucceeded(true);
         setError(null);
         setProcessing(false);
       });
+  };
+  const sendEmail = (id) => {
+    var templateParams = {
+      to_name: user.name,
+      to_email: user.email,
+      order_id: id,
+      message: `<div class="orders">
+      <table
+        style="width:100%; border: 1px solid black;
+  text-align:center;"
+      >
+        <tr>
+          <th
+            style=" border: 1px solid black;
+  text-align:center;"
+          >
+            Product Name
+          </th>
+          <th
+            style=" border: 1px solid black;
+  text-align:center;"
+          >
+            Product Price
+          </th>
+          <th
+            style=" border: 1px solid black;
+  text-align:center;"
+          >
+            Quantity
+          </th>
+          <th
+            style=" border: 1px solid black;
+  text-align:center;"
+          >
+            Total Price
+          </th>
+        </tr>
+        ${orderDetails}
+        <tr>
+          <td colspan="4" style="text-align:right;padding-right:30px ">
+            <b>Total : ₹ ${total}</b>
+          </td>
+        </tr>
+      </table>
+    </div>`,
+    };
+    console.log(templateParams);
+    emailjs.send(
+      "service_jraq3xw",
+      "template_ybl8um8",
+      templateParams,
+      "user_stwODU4rLf8nbtB6AkfaN"
+    );
   };
 
   return (
