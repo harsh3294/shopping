@@ -2,10 +2,29 @@ import React, { useEffect, useState } from "react";
 import "./Home.css";
 import axios from "../../axios";
 import Loading from "../../images/Loading.gif";
+import { makeStyles } from "@material-ui/core/styles";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormHelperText from "@material-ui/core/FormHelperText";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
+const useStyles = makeStyles((theme) => ({
+  formControl: {
+    minWidth: 50,
+  },
+  selectEmpty: {
+    marginTop: theme.spacing(1),
+  },
+}));
 function Home() {
   const [orders, setOrders] = useState([]);
-
+  const classes = useStyles();
   const [loading, setLoading] = useState(true);
+
+  const handleChange = (orderId, event) => {
+    console.log(orderId, "=", event.target.value);
+  };
+
   useEffect(() => {
     let unmounted = false;
 
@@ -65,6 +84,38 @@ function Home() {
               ))}
             </td>
             <td>{order.date}</td>
+            <td>
+              <FormControl variant="outlined" className={classes.formControl}>
+                <InputLabel id="demo-simple-select-outlined-label">
+                  Status
+                </InputLabel>
+                <Select
+                  labelId="demo-simple-select-outlined-label"
+                  id="demo-simple-select-outlined"
+                  value={order?.status}
+                  onChange={(event) => handleChange(order?.orderId, event)}
+                  label="Status"
+                >
+                  <MenuItem value={0}>Pending</MenuItem>
+                  <MenuItem value={1}>Out From The Warehouse</MenuItem>
+                  <MenuItem value={2}>
+                    Product have Reached to your city
+                  </MenuItem>
+                  <MenuItem value={3}>Out For Delivery</MenuItem>
+                  <MenuItem value={4}>Delivered</MenuItem>
+                </Select>
+              </FormControl>
+              {/* <select
+                value={order?.status}
+                onChange={(event) => handleChange(order?.orderId, event)}
+              >
+                <option value="0">Pending</option>
+                <option value="1">Out From The Warehouse</option>
+                <option value="2">Product have Reached to your city</option>
+                <option value="3">Out For Delivery</option>
+                <option value="4">Delivered</option>
+              </select> */}
+            </td>
           </tr>
         ))}
       </table>
