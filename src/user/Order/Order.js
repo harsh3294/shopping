@@ -117,7 +117,7 @@ function Order({ order }) {
           <h3 className="order__total">Order Total: {value}</h3>
         )}
         decimalScale={2}
-        value={order?.total / 100}
+        value={order?.orderTotal}
         displayType={"text"}
         thousandSeparator={true}
         prefix={"₹"}
