@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./Home.css";
+import "./DeliveredOrders.css";
 import axios from "../../axios";
 import Loading from "../../images/Loading.gif";
 import { makeStyles } from "@material-ui/core/styles";
@@ -16,22 +16,10 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(1),
   },
 }));
-function Home() {
+function DeliveredOrders() {
   const [orders, setOrders] = useState([]);
   const classes = useStyles();
   const [loading, setLoading] = useState(true);
-  const [statusUpdate, setStatusUpdate] = useState(false);
-
-  const handleChange = async (orderId, event) => {
-    console.log(orderId, "=", event.target.value);
-    const req = await axios
-      .put(`/orders/${orderId}`, { status: event.target.value })
-      .then((res) => {
-        console.log(res.status);
-        setStatusUpdate(true);
-      })
-      .catch((error) => alert(error));
-  };
 
   useEffect(() => {
     let unmounted = false;
@@ -45,7 +33,6 @@ function Home() {
             setOrders(res.data);
           }
           setLoading(false);
-          setStatusUpdate(false);
         })
         .catch((error) => alert(error));
     }
@@ -54,7 +41,7 @@ function Home() {
     return () => {
       unmounted = true;
     };
-  }, [statusUpdate]);
+  }, []);
   if (loading) {
     return <img src={Loading} alt="loading" className="loading" />;
   }
@@ -85,7 +72,7 @@ function Home() {
           })
           .map(
             (order) =>
-              order.status !== 4 && (
+              order.status === 4 && (
                 <tr key={order._id}>
                   <td>{order?.orderId}</td>
                   <td>
@@ -114,43 +101,7 @@ function Home() {
                   </td>
                   <td>₹ {order?.orderTotal}</td>
                   <td>{order.date}</td>
-                  <td>
-                    <FormControl
-                      variant="outlined"
-                      className={classes.formControl}
-                    >
-                      <InputLabel id="demo-simple-select-outlined-label">
-                        Status
-                      </InputLabel>
-                      <Select
-                        labelId="demo-simple-select-outlined-label"
-                        id="demo-simple-select-outlined"
-                        value={order?.status}
-                        onChange={(event) =>
-                          handleChange(order?.orderId, event)
-                        }
-                        label="Status"
-                      >
-                        <MenuItem value={0}>Pending</MenuItem>
-                        <MenuItem value={1}>Out From The Warehouse</MenuItem>
-                        <MenuItem value={2}>
-                          Product have Reached to your city
-                        </MenuItem>
-                        <MenuItem value={3}>Out For Delivery</MenuItem>
-                        <MenuItem value={4}>Delivered</MenuItem>
-                      </Select>
-                    </FormControl>
-                    {/* <select
-                value={order?.status}
-                onChange={(event) => handleChange(order?.orderId, event)}
-              >
-                <option value="0">Pending</option>
-                <option value="1">Out From The Warehouse</option>
-                <option value="2">Product have Reached to your city</option>
-                <option value="3">Out For Delivery</option>
-                <option value="4">Delivered</option>
-              </select> */}
-                  </td>
+                  <td>Delivered</td>
                 </tr>
               )
           )}
@@ -159,4 +110,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default DeliveredOrders;

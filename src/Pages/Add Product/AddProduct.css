@@ -1,0 +1,7 @@
+.description__icon {
+  display: flex;
+  flex-direction: row;
+}
+.description__icon > h3 {
+  margin-right: 50px;
+}

@@ -21,6 +21,8 @@ import NotificationsIcon from "@material-ui/icons/Notifications";
 import { mainListItems, secondaryListItems } from "./listItems";
 import Home from "../Pages/Home/Home";
 import Order from "../Pages/Order/Order";
+import DeliveredOrders from "../Pages/Delivered Orders/DeliveredOrders";
+import AddProduct from "../Pages/Add Product/AddProduct";
 
 function Copyright() {
   return (
@@ -133,6 +135,12 @@ export default function Dashboard({ name }) {
     switch (name) {
       case "dashboard":
         setPage(<Home />);
+        break;
+      case "Delivered Orders":
+        setPage(<DeliveredOrders />);
+        break;
+      case "Add Product":
+        setPage(<AddProduct />);
         break;
       case "Orders":
         setPage(<Order />);
