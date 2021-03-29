@@ -181,6 +181,28 @@ app.get("/orders/:uid", (req, res) => {
   });
 });
 
+app.get("/orders/orderid/:order_id", (req, res) => {
+  const orderid = req.params.order_id;
+  Orders.find({ orderId: orderid }, (err, data) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(200).send(data);
+    }
+  });
+});
+
+app.put("/orders/:order_id", (req, res) => {
+  const orderid = req.params.order_id;
+  Orders.findOneAndUpdate({ orderId: orderid }, req.body, (err, data) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(200).send(data);
+    }
+  });
+});
+
 app.get("/products/:product_id", (req, res) => {
   const product_id = req.params.product_id;
   Products.findById(product_id, (err, data) => {
