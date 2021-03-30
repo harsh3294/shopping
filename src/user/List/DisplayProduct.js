@@ -38,8 +38,8 @@ function DisplayProduct() {
   console.log(product_category);
   return (
     <div className="display">
-      <div className="display__left"> This is a left container</div>
-      <Divider orientation="vertical" flexItem />
+      {/* <div className="display__left"> This is a left container</div>
+      <Divider orientation="vertical" flexItem /> */}
       <div className="display__right">
         <DisplayList data={products} productcategory={product_category} />
       </div>

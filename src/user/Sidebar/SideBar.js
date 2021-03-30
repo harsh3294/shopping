@@ -6,6 +6,7 @@ import Button from "@material-ui/core/Button";
 import MenuIcon from "@material-ui/icons/Menu";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
+import ScheduleIcon from "@material-ui/icons/Schedule";
 import ListItemText from "@material-ui/core/ListItemText";
 import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
 import "./SideBar.css";
@@ -71,6 +72,19 @@ export default function TemporaryDrawer() {
                 <ShoppingCartIcon className="sidebar__menuIcon" />
               </ListItemIcon>
               <ListItemText primary="Cart" className="sidebar__menuName" />
+            </div>
+          </Link>
+        </ListItem>
+        <ListItem button>
+          <Link to="/pending-orders">
+            <div className="sidebar__menuItem">
+              <ListItemIcon>
+                <ScheduleIcon className="sidebar__menuIcon" />
+              </ListItemIcon>
+              <ListItemText
+                primary="Pending Orders"
+                className="sidebar__menuName"
+              />
             </div>
           </Link>
         </ListItem>

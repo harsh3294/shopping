@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../features/userSlice";
-import "./Orders.css";
 import axios from "../../axios";
 import Loading from "../../assets/images/Loading.gif";
-import Order from "./Order";
-function Orders() {
+import "./PendingOrders.css";
+import PendingOrder from "./PendingOrder";
+function PendingOrders() {
   const [ordersDetail, setOrdersDetail] = useState([]);
   const user = useSelector(selectUser);
 
@@ -35,15 +35,15 @@ function Orders() {
     return <img src={Loading} alt="loading" className="loading" />;
   }
   return (
-    <div className="orders__main">
-      <div className="orders__heading">Your Orders</div>
-      <div className="orders__order">
+    <div className="pendingorders__main">
+      <div className="pendingorders__heading">Your Orders</div>
+      <div className="pendingorders__order">
         {ordersDetail?.map(
-          (order) => order?.status === 4 && <Order order={order} />
+          (order) => order?.status !== 4 && <PendingOrder order={order} />
         )}
       </div>
     </div>
   );
 }
 
-export default Orders;
+export default PendingOrders;

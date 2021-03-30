@@ -10,7 +10,6 @@ import SignUp from "./user/SignUp/SignUp";
 import Footer from "./user/Footer/Footer";
 import ProductSlider from "./user/ProductSlider/ProductSlider";
 import Description from "./user/Description/Description";
-import DisplayList from "./user/List/DisplayList";
 import DisplayProduct from "./user/List/DisplayProduct";
 import Cart from "./user/Cart/Cart";
 import {
@@ -27,6 +26,7 @@ import axios from "./axios";
 import Category from "./user/Category/Category";
 import Checkout from "./user/Checkout/Checkout";
 import Orders from "./user/Order/Orders";
+import PendingOrders from "./user/Pending Orders/PendingOrders";
 
 const useStyles = makeStyles({
   root: {
@@ -100,6 +100,9 @@ function App() {
             </Route>
             <Route path="/orders">
               <Orders />
+            </Route>
+            <Route path="/pending-orders">
+              <PendingOrders />
             </Route>
             <Route path="/cart">
               <Cart />
