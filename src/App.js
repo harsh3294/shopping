@@ -15,6 +15,12 @@ function App() {
   return (
     <Router>
       <Switch>
+        <Route path="/delivery">
+          <Dashboard name="Delivery" />
+        </Route>{" "}
+        <Route path="/delivery-user">
+          <Dashboard name="Delivery User" />
+        </Route>
         <Route path="/add-product">
           <Dashboard name="Add Product" />
         </Route>

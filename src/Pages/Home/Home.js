@@ -31,6 +31,16 @@ function Home() {
         setStatusUpdate(true);
       })
       .catch((error) => alert(error));
+if(event.target.value===2){
+  const req2 = await axios
+  .post(`/delivery`, { orderid: orderId })
+  .then((res) => {
+    console.log(res.status);
+    // setStatusUpdate(true);
+  })
+  .catch((error) => alert(error));
+}
+   
   };
 
   useEffect(() => {

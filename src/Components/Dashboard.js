@@ -24,7 +24,8 @@ import Order from "../Pages/Order/Order";
 import DeliveredOrders from "../Pages/Delivered Orders/DeliveredOrders";
 import AddProduct from "../Pages/Add Product/AddProduct";
 import ListProducts from "../Pages/List Products/ListProducts";
-
+import Delivery from "../Pages/Delivery/Delivery";
+import DeliveryUser from "../Pages/Delivery User/DeliveryUser";
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -137,11 +138,17 @@ export default function Dashboard({ name }) {
       case "dashboard":
         setPage(<Home />);
         break;
+      case "Delivery":
+        setPage(<Delivery />);
+        break;
       case "Delivered Orders":
         setPage(<DeliveredOrders />);
         break;
       case "Add Product":
         setPage(<AddProduct />);
+        break;
+      case "Delivery User":
+        setPage(<DeliveryUser />);
         break;
       case "List Products":
         setPage(<ListProducts />);

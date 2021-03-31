@@ -1,5 +1,6 @@
 import firebase from "firebase";
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyC2mHDa7wfQu77ClHO8ce0YUqiJnSfwKlo",
   authDomain: "shoppers-admin-3c5d3.firebaseapp.com",
@@ -10,5 +11,7 @@ const firebaseConfig = {
   measurementId: "G-RJTJJPLYH8",
 };
 const firebaseApp = firebase.initializeApp(firebaseConfig);
-const storage = firebase.storage();
-export default storage;
+// const storage = firebase.storage();
+const auth = firebase.auth();
+export default auth;
+// export default storage;

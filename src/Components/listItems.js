@@ -4,15 +4,12 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListSubheader from "@material-ui/core/ListSubheader";
 import DashboardIcon from "@material-ui/icons/Dashboard";
-import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-import PeopleIcon from "@material-ui/icons/People";
-import BarChartIcon from "@material-ui/icons/BarChart";
-import LayersIcon from "@material-ui/icons/Layers";
 import AllInboxIcon from "@material-ui/icons/AllInbox";
-import AssignmentIcon from "@material-ui/icons/Assignment";
 import { Link } from "react-router-dom";
 import BorderColorIcon from "@material-ui/icons/BorderColor";
 import CreateIcon from "@material-ui/icons/Create";
+import LocalShippingIcon from "@material-ui/icons/LocalShipping";
+import PermIdentityIcon from "@material-ui/icons/PermIdentity";
 export const mainListItems = (
   <div>
     <ListItem button>
@@ -60,6 +57,27 @@ export const mainListItems = (
 
 export const secondaryListItems = (
   <div>
+    <ListSubheader inset>Delivery Process</ListSubheader>
+    <ListItem button>
+      <Link to="/delivery">
+        <div style={{ display: "flex", flexDirection: "row" }}>
+          <ListItemIcon>
+            <LocalShippingIcon />
+          </ListItemIcon>
+          <ListItemText primary="Delivery" />
+        </div>
+      </Link>
+    </ListItem>
+    <ListItem button>
+      <Link to="/delivery-user">
+        <div style={{ display: "flex", flexDirection: "row" }}>
+          <ListItemIcon>
+            <PermIdentityIcon />
+          </ListItemIcon>
+          <ListItemText primary="Add Delivery Boy" />
+        </div>
+      </Link>
+    </ListItem>
     {/* <ListSubheader inset>Saved reports</ListSubheader>
     <ListItem button>
       <ListItemIcon>
