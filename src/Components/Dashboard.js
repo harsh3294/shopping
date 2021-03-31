@@ -23,6 +23,7 @@ import Home from "../Pages/Home/Home";
 import Order from "../Pages/Order/Order";
 import DeliveredOrders from "../Pages/Delivered Orders/DeliveredOrders";
 import AddProduct from "../Pages/Add Product/AddProduct";
+import ListProducts from "../Pages/List Products/ListProducts";
 
 function Copyright() {
   return (
@@ -142,8 +143,8 @@ export default function Dashboard({ name }) {
       case "Add Product":
         setPage(<AddProduct />);
         break;
-      case "Orders":
-        setPage(<Order />);
+      case "List Products":
+        setPage(<ListProducts />);
         break;
       default:
         setPage(<Home />);

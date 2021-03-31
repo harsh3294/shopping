@@ -21,8 +21,8 @@ function App() {
         <Route path="/delivered-orders">
           <Dashboard name="Delivered Orders" />
         </Route>
-        <Route path="/orders">
-          <Dashboard name="Orders" />
+        <Route path="/list-products">
+          <Dashboard name="List Products" />
         </Route>
         <Route path="/">
           <Dashboard name="DashBoard" />

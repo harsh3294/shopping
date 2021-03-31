@@ -1,0 +1,184 @@
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 120%;
+  /* background-color: rgba(255, 255, 255, 0.4); */
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(0.5px);
+  -webkit-backdrop-filter: blur(0.5px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+td,
+th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 10px;
+  min-width: 150px;
+
+  vertical-align: top;
+}
+ul {
+  text-align: left;
+  /* border: 1px solid #dddddd; */
+  padding: 10px;
+}
+ol {
+  text-align: left;
+  /* border: 1px solid #dddddd; */
+  padding: 10px;
+}
+.desc__td {
+  min-width: 600px !important;
+}
+
+.list__modal__Paper {
+  position: "absolute";
+  margin-top: 20px;
+  overflow-y: scroll;
+  align-items: center;
+  width: 90vw;
+  height: 95%;
+  padding: 20px 40px 30px;
+  background-color: white;
+  border: "2px solid #000";
+  margin-left: 5vw;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  /* box-shadow: theme.shadows[5];
+    padding: theme.spacing(2, 4, 3); */
+}
+
+.List__modal {
+  justify-content: center;
+  margin-bottom: 100px;
+
+  align-items: center;
+  /* background-color: white; */
+  /* display: block; */
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+.list__modal__button {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 15px;
+}
+.list__modal__button > Button {
+  margin-right: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+.list__modal__button > .MuiSvgIcon-root {
+  margin-top: 5px;
+  cursor: pointer;
+  color: red !important;
+}
+.updateData__img {
+  /* width: 180px !important; */
+  height: 300px !important;
+  object-fit: contain;
+}
+.img_container {
+  /* display: block; */
+  /* width: 50%; */
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  /* height: auto; */
+  justify-content: center;
+}
+
+.modal__Paper {
+  position: "absolute";
+  margin-top: 150px;
+  align-items: center;
+  width: 500px;
+  height: 200px;
+  padding: 20px 40px 30px;
+  background-color: white;
+  border: "2px solid #000";
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  /* box-shadow: theme.shadows[5];
+    padding: theme.spacing(2, 4, 3); */
+}
+
+.modal {
+  justify-content: center;
+  align-items: center;
+  /* background-color: white; */
+  /* display: block; */
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+.modal__button {
+  display: flex;
+  flex-direction: row;
+}
+.modal__button > Button {
+  margin-right: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+.modal__button > .MuiSvgIcon-root {
+  margin-top: 5px;
+  cursor: pointer;
+  color: red !important;
+}
+
+@media (max-width: 991px) {
+  .modal__Paper {
+    position: "absolute";
+    margin-top: 150px;
+    align-items: center;
+    width: 450px;
+    height: 200px;
+    padding: 20px 40px 30px;
+    background-color: white;
+    border: "2px solid #000";
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    /* box-shadow: theme.shadows[5];
+        padding: theme.spacing(2, 4, 3); */
+  }
+
+  .modal {
+    justify-content: center;
+    align-items: center;
+    /* background-color: white; */
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    padding: 10px;
+    margin-left: 10px;
+    /* margin-right: 100px; */
+  }
+  .list__modal__Paper {
+    position: "absolute";
+    margin-top: 10px;
+    align-items: center;
+    width: 90vw;
+    height: 95%;
+    padding: 20px 40px 30px;
+    background-color: white;
+    border: "2px solid #000";
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    /* box-shadow: theme.shadows[5];
+      padding: theme.spacing(2, 4, 3); */
+  }
+
+  .list__modal {
+    justify-content: center;
+    align-items: center;
+    /* background-color: white; */
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    padding: 10px;
+    margin-left: -10px;
+    /* margin-right: 100px; */
+  }
+}

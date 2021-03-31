@@ -11,6 +11,7 @@ import LayersIcon from "@material-ui/icons/Layers";
 import AllInboxIcon from "@material-ui/icons/AllInbox";
 import AssignmentIcon from "@material-ui/icons/Assignment";
 import { Link } from "react-router-dom";
+import BorderColorIcon from "@material-ui/icons/BorderColor";
 import CreateIcon from "@material-ui/icons/Create";
 export const mainListItems = (
   <div>
@@ -35,12 +36,12 @@ export const mainListItems = (
       </Link>
     </ListItem>
     <ListItem button>
-      <Link to="/orders">
+      <Link to="/list-products">
         <div style={{ display: "flex", flexDirection: "row" }}>
           <ListItemIcon>
-            <ShoppingCartIcon />
+            <BorderColorIcon />
           </ListItemIcon>
-          <ListItemText primary="Orders" />
+          <ListItemText primary="View Products" />
         </div>
       </Link>
     </ListItem>
