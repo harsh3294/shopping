@@ -9,6 +9,8 @@ import MensWear from "./products/mensWear.js";
 import Orders from "./products/orders.js";
 import { key } from "./stripe_key.js";
 import Stripe from "stripe";
+import DeliveryUser from "./delivery-user.js";
+import Delivery from "./delivery.js";
 const stripe = Stripe(key);
 //APP config
 
@@ -149,6 +151,49 @@ app.get("/user/:uid", (req, res) => {
   const uid = req.params.uid;
 
   Users.find({ uid: uid }, (err, data) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(200).send(data);
+    }
+  });
+});
+
+app.post("/delivery/user", (req, res) => {
+  const user = req.body;
+  DeliveryUser.create(user, (err, data) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(201).send(data);
+    }
+  });
+});
+app.get("/delivery/user", (req, res) => {
+  // const uid = req.params.uid;
+
+  DeliveryUser.find((err, data) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(200).send(data);
+    }
+  });
+});
+
+app.post("/delivery", (req, res) => {
+  const delivery = req.body;
+  Delivery.create(delivery, (err, data) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(201).send(data);
+    }
+  });
+});
+
+app.get("/delivery", (req, res) => {
+  Delivery.find((err, data) => {
     if (err) {
       res.status(500).send(err);
     } else {
