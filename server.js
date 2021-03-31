@@ -203,6 +203,64 @@ app.put("/orders/:order_id", (req, res) => {
   });
 });
 
+app.put("/product/:category/:product_id", (req, res) => {
+  const productid = req.params.product_id;
+  const category = req.params.category;
+  switch (category) {
+    case "mobiles":
+      // code block
+      Mobiles.findByIdAndUpdate(productid, req.body, (err, data) => {
+        if (err) {
+          res.status(500).send(err);
+        } else {
+          res.status(200).send(data);
+        }
+      });
+      break;
+    case "accessories":
+      // code block
+      Accessories.findByIdAndUpdate(productid, req.body, (err, data) => {
+        if (err) {
+          res.status(500).send(err);
+        } else {
+          res.status(200).send(data);
+        }
+      });
+      break;
+    default:
+      break;
+  }
+});
+
+app.delete("/product/:category/:product_id", (req, res) => {
+  const productid = req.params.product_id;
+  const category = req.params.category;
+  switch (category) {
+    case "mobiles":
+      // code block
+      Mobiles.findByIdAndRemove(productid, (err, data) => {
+        if (err) {
+          res.status(500).send(err);
+        } else {
+          res.status(200).send(data);
+        }
+      });
+      break;
+    case "accessories":
+      // code block
+      Accessories.findByIdAndRemove(productid, (err, data) => {
+        if (err) {
+          res.status(500).send(err);
+        } else {
+          res.status(200).send(data);
+        }
+      });
+      break;
+    default:
+      break;
+  }
+});
+
 app.get("/products/:product_id", (req, res) => {
   const product_id = req.params.product_id;
   Products.findById(product_id, (err, data) => {
