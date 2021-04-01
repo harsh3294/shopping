@@ -22,7 +22,7 @@ function Home() {
   const [loading, setLoading] = useState(true);
   const [statusUpdate, setStatusUpdate] = useState(false);
 
-  const handleChange = async (orderId, event) => {
+  const handleChange = async (orderId, event, orderPlacedBy) => {
     console.log(orderId, "=", event.target.value);
     const req = await axios
       .put(`/orders/${orderId}`, { status: event.target.value })
@@ -31,16 +31,15 @@ function Home() {
         setStatusUpdate(true);
       })
       .catch((error) => alert(error));
-if(event.target.value===2){
-  const req2 = await axios
-  .post(`/delivery`, { orderid: orderId })
-  .then((res) => {
-    console.log(res.status);
-    // setStatusUpdate(true);
-  })
-  .catch((error) => alert(error));
-}
-   
+    if (event.target.value === 2) {
+      const req2 = await axios
+        .post(`/delivery`, { orderid: orderId, placedBy: orderPlacedBy })
+        .then((res) => {
+          console.log(res.status);
+          // setStatusUpdate(true);
+        })
+        .catch((error) => alert(error));
+    }
   };
 
   useEffect(() => {
@@ -137,7 +136,7 @@ if(event.target.value===2){
                         id="demo-simple-select-outlined"
                         value={order?.status}
                         onChange={(event) =>
-                          handleChange(order?.orderId, event)
+                          handleChange(order?.orderId, event, order?.placedBy)
                         }
                         label="Status"
                       >

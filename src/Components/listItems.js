@@ -10,6 +10,11 @@ import BorderColorIcon from "@material-ui/icons/BorderColor";
 import CreateIcon from "@material-ui/icons/Create";
 import LocalShippingIcon from "@material-ui/icons/LocalShipping";
 import PermIdentityIcon from "@material-ui/icons/PermIdentity";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import auth from "../firebase";
+const handleLogout = () => {
+  auth.signOut();
+};
 export const mainListItems = (
   <div>
     <ListItem button>
@@ -77,6 +82,17 @@ export const secondaryListItems = (
           <ListItemText primary="Add Delivery Boy" />
         </div>
       </Link>
+    </ListItem>
+    <ListItem button>
+      <div
+        style={{ display: "flex", flexDirection: "row" }}
+        onClick={handleLogout}
+      >
+        <ListItemIcon>
+          <ExitToAppIcon />
+        </ListItemIcon>
+        <ListItemText primary="Logout" />
+      </div>
     </ListItem>
     {/* <ListSubheader inset>Saved reports</ListSubheader>
     <ListItem button>

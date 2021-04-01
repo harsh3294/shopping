@@ -64,6 +64,8 @@ export default function Delivery() {
   const [users, setUsers] = useState([]);
   const leftChecked = intersection(checked, left);
   const rightChecked = intersection(checked, right);
+
+  const [statusUpdate, setStatusUpdate] = useState(false);
   const [userSelected, setUserSelected] = useState();
   const handleToggle = (value) => () => {
     const currentIndex = checked.indexOf(value);
@@ -114,11 +116,11 @@ export default function Delivery() {
     }
     fetchData();
     fetchData1();
-
+    setStatusUpdate(false);
     return () => {
       unmounted = true;
     };
-  }, []);
+  }, [statusUpdate]);
   console.log(users);
   const handleCheckedRight = () => {
     setRight(right.concat(leftChecked));
@@ -184,6 +186,33 @@ export default function Delivery() {
     </Card>
   );
 
+  const handleClick = () => {
+    console.log(userSelected);
+    right.map((item) => {
+      const req2 = axios
+        .delete(`/delivery/find/${item.orderid}`)
+        .then((res) => {
+          console.log(res.status);
+          // setStatusUpdate(true);
+        })
+        .catch((error) => alert(error));
+      const req = axios
+        .post(`/outfordelivery`, {
+          orderid: item.orderid,
+          placedBy: item.placedBy,
+          deliveryBoyUid: userSelected,
+          // firstname: userSelected.firstname,
+          // lastname: userSelected.lastname,
+        })
+        .then((res) => {
+          console.log(res.status);
+          // setStatusUpdate(true);
+        })
+        .catch((error) => alert(error));
+    });
+    setStatusUpdate(true);
+    setRight([]);
+  };
   return (
     <>
       <FormControl variant="outlined" className={classes.formControl}>
@@ -211,7 +240,7 @@ export default function Delivery() {
         alignItems="center"
         className={classes.root}
       >
-        <Grid item>{customList("Choices", left)}</Grid>
+        <Grid item>{customList("Orders", left)}</Grid>
         <Grid item>
           <Grid container direction="column" alignItems="center">
             <Button
@@ -236,7 +265,7 @@ export default function Delivery() {
             </Button>
           </Grid>
         </Grid>
-        <Grid item>{customList("Chosen", right)}</Grid>
+        <Grid item>{customList("Assigned Orders", right)}</Grid>
       </Grid>
       <Grid
         container
@@ -244,6 +273,7 @@ export default function Delivery() {
         justify="center"
         alignItems="center"
         className={classes.root}
+        onClick={handleClick}
       >
         <Button>Proceed</Button>
       </Grid>
