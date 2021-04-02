@@ -377,6 +377,17 @@ function ListProducts() {
                         <MenuItem value={"menswear"}>Mens Wear</MenuItem>
                         <MenuItem value={"accessories"}>Accessories</MenuItem>
                         <MenuItem value={"mobiles"}>Mobiles</MenuItem>
+                        <MenuItem value={"case-covers"}>
+                          Cases & Covers
+                        </MenuItem>
+                        <MenuItem value={"handbag-clutches"}>
+                          Handbags & Clutches
+                        </MenuItem>
+                        <MenuItem value={"television"}>Television</MenuItem>
+                        <MenuItem value={"makeup"}>Makeup</MenuItem>
+                        <MenuItem value={"desktop"}>Desktop</MenuItem>
+                        <MenuItem value={"laptop"}>Laptop</MenuItem>
+                        <MenuItem value={"camera"}>Camera</MenuItem>
                       </Select>
                     </FormControl>
                   </Grid>
@@ -404,7 +415,6 @@ function ListProducts() {
                       id="description"
                       onChange={descriptionChange}
                       value={tempDescription}
-                     
                     />
                   </Grid>
                   <Grid item xs={12} sm={2}>
@@ -462,6 +472,13 @@ function ListProducts() {
         >
           <MenuItem value={"mobiles"}>Mobiles</MenuItem>
           <MenuItem value={"accessories"}>Accessories</MenuItem>
+          <MenuItem value={"case-covers"}>Cases & Covers</MenuItem>
+          <MenuItem value={"handbag-clutches"}>Handbags & Clutches</MenuItem>
+          <MenuItem value={"television"}>Television</MenuItem>
+          <MenuItem value={"makeup"}>Makeup</MenuItem>
+          <MenuItem value={"desktop"}>Desktop</MenuItem>
+          <MenuItem value={"laptop"}>Laptop</MenuItem>
+          <MenuItem value={"camera"}>Camera</MenuItem>
         </Select>
       </FormControl>
       <br />

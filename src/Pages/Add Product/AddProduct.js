@@ -13,7 +13,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import { v4 as uuid } from "uuid";
-import storage from "../../firebase";
+import { storage } from "../../firebase";
 import axios from "../../axios";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import "./AddProduct.css";
@@ -178,6 +178,7 @@ export default function AddProduct() {
       deliveredBy: 0,
     });
     setDescription([]);
+    setFiles([]);
     console.log(productData);
     console.log(description);
   };
@@ -340,6 +341,15 @@ export default function AddProduct() {
                     <MenuItem value={"menswear"}>Mens Wear</MenuItem>
                     <MenuItem value={"accessories"}>Accessories</MenuItem>
                     <MenuItem value={"mobiles"}>Mobiles</MenuItem>
+                    <MenuItem value={"case-covers"}>Cases & Covers</MenuItem>
+                    <MenuItem value={"handbag-clutches"}>
+                      Handbags & Clutches
+                    </MenuItem>
+                    <MenuItem value={"television"}>Television</MenuItem>
+                    <MenuItem value={"makeup"}>Makeup</MenuItem>
+                    <MenuItem value={"desktop"}>Desktop</MenuItem>
+                    <MenuItem value={"laptop"}>Laptop</MenuItem>
+                    <MenuItem value={"camera"}>Camera</MenuItem>
                   </Select>
                 </FormControl>
               </Grid>

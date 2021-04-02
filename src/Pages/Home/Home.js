@@ -8,6 +8,8 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
+import emailjs from "emailjs-com";
+
 const useStyles = makeStyles((theme) => ({
   formControl: {
     minWidth: 50,
@@ -22,7 +24,15 @@ function Home() {
   const [loading, setLoading] = useState(true);
   const [statusUpdate, setStatusUpdate] = useState(false);
 
-  const handleChange = async (orderId, event, orderPlacedBy) => {
+  const handleChange = async (
+    orderId,
+    event,
+    orderPlacedBy,
+    email,
+    firstname,
+    lastname,
+    contactNumber
+  ) => {
     console.log(orderId, "=", event.target.value);
     const req = await axios
       .put(`/orders/${orderId}`, { status: event.target.value })
@@ -39,6 +49,53 @@ function Home() {
           // setStatusUpdate(true);
         })
         .catch((error) => alert(error));
+    }
+    if (event.target.value === 3) {
+      var templateParams = {
+        to_email: email,
+        subject: `Your Shoppers Order has been shipped (Order ID: ${orderId})
+        `,
+        message: `
+        
+<div style="display:flex;
+justify-content:center;
+flex-direction:column;
+text-align:center">
+<h2>Your Order Have Been Shipped</h2>
+<div class="container__message">
+Thank you for shopping with us
+</div>
+<div class="info">
+  <h3>Delivery Information</h3>
+  <table style=" justify-content:center;
+  border:1px solid black;
+  margin-left:auto;
+  margin-right:auto;">
+    <tr>
+      <th>Name</th>
+      <td>${firstname} ${lastname}</td>
+    </tr>
+    <tr>
+      <th>Phone Number</th>
+      <td>${contactNumber}</td>
+    </tr>
+    <tr>
+      <th>Delivery Address</th>
+      <td>${orderPlacedBy[0]?.address1} , ${orderPlacedBy[0]?.city}
+      , ${orderPlacedBy[0]?.zip} , ${orderPlacedBy[0]?.state} - 
+      ${orderPlacedBy[0]?.country}</td>
+    </tr>
+    </div>
+  </table>
+</div>
+ `,
+      };
+      emailjs.send(
+        "service_jraq3xw",
+        "template_rzkuso8",
+        templateParams,
+        "user_stwODU4rLf8nbtB6AkfaN"
+      );
     }
   };
 
@@ -136,7 +193,15 @@ function Home() {
                         id="demo-simple-select-outlined"
                         value={order?.status}
                         onChange={(event) =>
-                          handleChange(order?.orderId, event, order?.placedBy)
+                          handleChange(
+                            order?.orderId,
+                            event,
+                            order?.placedBy,
+                            order?.email,
+                            order?.placedBy[0]?.firstName,
+                            order?.placedBy[0]?.lastName,
+                            order?.placedBy[0]?.contactNumber
+                          )
                         }
                         label="Status"
                       >
@@ -146,7 +211,7 @@ function Home() {
                           Product have Reached to your city
                         </MenuItem>
                         <MenuItem value={3}>Out For Delivery</MenuItem>
-                        <MenuItem value={4}>Delivered</MenuItem>
+                        {/* <MenuItem value={4}>Delivered</MenuItem> */}
                       </Select>
                     </FormControl>
                     {/* <select
