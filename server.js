@@ -11,6 +11,14 @@ import { key } from "./stripe_key.js";
 import Stripe from "stripe";
 import DeliveryUser from "./delivery-user.js";
 import Delivery from "./delivery.js";
+import OutForDelivery from "./outForDelivery.js";
+import CaseCovers from "./products/casesCovers.js";
+import HandbagClutches from "./products/handbagsclutches.js";
+import Television from "./products/television.js";
+import Makeup from "./products/makeup.js";
+import Laptop from "./products/laptop.js";
+import Desktop from "./products/desktop.js";
+
 const stripe = Stripe(key);
 //APP config
 
@@ -32,6 +40,18 @@ mongoose.connect(connection_url, {
 
 //API endpoints
 app.get("/", (req, res) => res.status(200).send("hello harsh 6da"));
+
+app.post("/payments/create", async (request, response) => {
+  const total = request.query.total;
+  console.log("payment request recieved ", total);
+  const paymentIntent = await stripe.paymentIntents.create({
+    amount: total, // sub units of the currency
+    currency: "inr",
+  });
+  response.status(201).send({
+    clientSecret: paymentIntent.client_secret,
+  });
+});
 
 app.post("/products", (req, res) => {
   const product = req.body;
@@ -74,6 +94,28 @@ app.get("/mobiles", (req, res) => {
     }
   });
 });
+
+app.post("/case-covers", (req, res) => {
+  const product = req.body;
+  CaseCovers.create(product, (err, data) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(201).send(data);
+    }
+  });
+});
+
+app.get("/case-covers", (req, res) => {
+  CaseCovers.find((err, data) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(200).send(data);
+    }
+  });
+});
+
 app.post("/accessories", (req, res) => {
   const product = req.body;
   Accessories.create(product, (err, data) => {
@@ -87,6 +129,111 @@ app.post("/accessories", (req, res) => {
 
 app.get("/accessories", (req, res) => {
   Accessories.find((err, data) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(200).send(data);
+    }
+  });
+});
+
+app.post("/handbag-clutches", (req, res) => {
+  const product = req.body;
+  HandbagClutches.create(product, (err, data) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(201).send(data);
+    }
+  });
+});
+
+app.get("/handbag-clutches", (req, res) => {
+  HandbagClutches.find((err, data) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(200).send(data);
+    }
+  });
+});
+
+app.post("/television", (req, res) => {
+  const product = req.body;
+  Television.create(product, (err, data) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(201).send(data);
+    }
+  });
+});
+
+app.get("/television", (req, res) => {
+  Television.find((err, data) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(200).send(data);
+    }
+  });
+});
+
+app.post("/makeup", (req, res) => {
+  const product = req.body;
+  Makeup.create(product, (err, data) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(201).send(data);
+    }
+  });
+});
+
+app.get("/makeup", (req, res) => {
+  Makeup.find((err, data) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(200).send(data);
+    }
+  });
+});
+
+app.post("/laptop", (req, res) => {
+  const product = req.body;
+  Laptop.create(product, (err, data) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(201).send(data);
+    }
+  });
+});
+
+app.get("/laptop", (req, res) => {
+  Laptop.find((err, data) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(200).send(data);
+    }
+  });
+});
+
+app.post("/desktop", (req, res) => {
+  const product = req.body;
+  Desktop.create(product, (err, data) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(201).send(data);
+    }
+  });
+});
+
+app.get("/desktop", (req, res) => {
+  Desktop.find((err, data) => {
     if (err) {
       res.status(500).send(err);
     } else {
@@ -201,16 +348,73 @@ app.get("/delivery", (req, res) => {
     }
   });
 });
-
-app.post("/payments/create", async (request, response) => {
-  const total = request.query.total;
-  console.log("payment request recieved ", total);
-  const paymentIntent = await stripe.paymentIntents.create({
-    amount: total, // sub units of the currency
-    currency: "inr",
+app.delete("/delivery/find/:orderid", (req, res) => {
+  const orderid = req.params.orderid;
+  Delivery.findOneAndRemove({ orderid: orderid }, (err, data) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(200).send(data);
+    }
   });
-  response.status(201).send({
-    clientSecret: paymentIntent.client_secret,
+});
+
+app.post("/outfordelivery", (req, res) => {
+  const order_out_for_delivery = req.body;
+  OutForDelivery.create(order_out_for_delivery, (err, data) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(201).send(data);
+    }
+  });
+});
+app.get("/outfordelivery", (req, res) => {
+  // const uid = req.params.uid;
+
+  OutForDelivery.find((err, data) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(200).send(data);
+    }
+  });
+});
+
+app.get("/outfordelivery/user/:uid", (req, res) => {
+  const uid = req.params.uid;
+
+  OutForDelivery.find({ deliveryBoyUid: uid }, (err, data) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(200).send(data);
+      // console.log(data);
+    }
+  });
+});
+app.get("/outfordelivery/orderid/:orderid", (req, res) => {
+  const orderid = req.params.orderid;
+
+  OutForDelivery.find({ orderid: orderid }, (err, data) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(200).send(data);
+      // console.log(data);
+    }
+  });
+});
+app.delete("/outfordelivery/orderid/:orderid", (req, res) => {
+  const orderid = req.params.orderid;
+
+  OutForDelivery.remove({ orderid: orderid }, (err, data) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(200).send(data);
+      // console.log(data);
+    }
   });
 });
 
@@ -271,6 +475,65 @@ app.put("/product/:category/:product_id", (req, res) => {
           res.status(200).send(data);
         }
       });
+    case "case-covers":
+      // code block
+      CaseCovers.findByIdAndUpdate(productid, req.body, (err, data) => {
+        if (err) {
+          res.status(500).send(err);
+        } else {
+          res.status(200).send(data);
+        }
+      });
+      break;
+    case "handbag-clutches":
+      // code block
+      HandbagClutches.findByIdAndUpdate(productid, req.body, (err, data) => {
+        if (err) {
+          res.status(500).send(err);
+        } else {
+          res.status(200).send(data);
+        }
+      });
+      break;
+    case "television":
+      // code block
+      Television.findByIdAndUpdate(productid, req.body, (err, data) => {
+        if (err) {
+          res.status(500).send(err);
+        } else {
+          res.status(200).send(data);
+        }
+      });
+      break;
+    case "makeup":
+      // code block
+      Makeup.findByIdAndUpdate(productid, req.body, (err, data) => {
+        if (err) {
+          res.status(500).send(err);
+        } else {
+          res.status(200).send(data);
+        }
+      });
+      break;
+    case "laptop":
+      // code block
+      Laptop.findByIdAndUpdate(productid, req.body, (err, data) => {
+        if (err) {
+          res.status(500).send(err);
+        } else {
+          res.status(200).send(data);
+        }
+      });
+      break;
+    case "desktop":
+      // code block
+      Desktop.findByIdAndUpdate(productid, req.body, (err, data) => {
+        if (err) {
+          res.status(500).send(err);
+        } else {
+          res.status(200).send(data);
+        }
+      });
       break;
     default:
       break;
@@ -294,6 +557,66 @@ app.delete("/product/:category/:product_id", (req, res) => {
     case "accessories":
       // code block
       Accessories.findByIdAndRemove(productid, (err, data) => {
+        if (err) {
+          res.status(500).send(err);
+        } else {
+          res.status(200).send(data);
+        }
+      });
+      break;
+    case "case-covers":
+      // code block
+      CaseCovers.findByIdAndRemove(productid, (err, data) => {
+        if (err) {
+          res.status(500).send(err);
+        } else {
+          res.status(200).send(data);
+        }
+      });
+      break;
+    case "handbag-clutches":
+      // code block
+      HandbagClutches.findByIdAndRemove(productid, (err, data) => {
+        if (err) {
+          res.status(500).send(err);
+        } else {
+          res.status(200).send(data);
+        }
+      });
+      break;
+    case "television":
+      // code block
+      Television.findByIdAndRemove(productid, (err, data) => {
+        if (err) {
+          res.status(500).send(err);
+        } else {
+          res.status(200).send(data);
+        }
+      });
+      break;
+    case "makeup":
+      // code block
+      Makeup.findByIdAndRemove(productid, (err, data) => {
+        if (err) {
+          res.status(500).send(err);
+        } else {
+          res.status(200).send(data);
+        }
+      });
+      break;
+    case "laptop":
+      // code block
+      Laptop.findByIdAndRemove(productid, (err, data) => {
+        if (err) {
+          res.status(500).send(err);
+        } else {
+          res.status(200).send(data);
+        }
+      });
+      break;
+    case "desktop":
+      // code block
+      Desktop.findByIdAndRemove(productid, (err, data) => {
         if (err) {
           res.status(500).send(err);
         } else {
@@ -372,6 +695,68 @@ app.get("/products/:route/:product_id", (req, res) => {
           res.status(200).send(data);
         }
       });
+      break;
+    case "case-covers":
+      // code block
+      CaseCovers.findById(product_id, (err, data) => {
+        if (err) {
+          res.status(500).send(err);
+        } else {
+          res.status(200).send(data);
+        }
+      });
+      break;
+    case "handbag-clutches":
+      // code block
+      HandbagClutches.findById(product_id, (err, data) => {
+        if (err) {
+          res.status(500).send(err);
+        } else {
+          res.status(200).send(data);
+        }
+      });
+      break;
+    case "television":
+      // code block
+      Television.findById(product_id, (err, data) => {
+        if (err) {
+          res.status(500).send(err);
+        } else {
+          res.status(200).send(data);
+        }
+      });
+      break;
+    case "makeup":
+      // code block
+      Makeup.findById(product_id, (err, data) => {
+        if (err) {
+          res.status(500).send(err);
+        } else {
+          res.status(200).send(data);
+        }
+      });
+      break;
+    case "laptop":
+      // code block
+      Laptop.findById(product_id, (err, data) => {
+        if (err) {
+          res.status(500).send(err);
+        } else {
+          res.status(200).send(data);
+        }
+      });
+      break;
+    case "desktop":
+      // code block
+      Desktop.findById(product_id, (err, data) => {
+        if (err) {
+          res.status(500).send(err);
+        } else {
+          res.status(200).send(data);
+        }
+      });
+      break;
+    default:
       break;
   }
 });

@@ -6,6 +6,7 @@ const ordersSchema = mongoose.Schema({
   orderList: Array,
   status: Number,
   deliveredDate: String,
+  email: String,
   orderTotal: Number,
   placedBy: Array,
 });
