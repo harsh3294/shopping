@@ -19,7 +19,36 @@ function Category() {
       name: "Mens Wear",
       product: "menswear",
     },
+    {
+      name: "Cases & Covers",
+      product: "case-covers",
+    },
+    {
+      name: "Handbags & Clutches",
+      product: "handbag-clutches",
+    },
+    {
+      name: "Television",
+      product: "television",
+    },
+    {
+      name: "Makeup",
+      product: "makeup",
+    },
+    {
+      name: "Desktop",
+      product: "desktop",
+    },
+    {
+      name: "Laptop",
+      product: "laptop",
+    },
+    {
+      name: "Camera",
+      product: "camera",
+    },
   ]);
+
   const product = (category) => {
     console.log(category);
     history.push(`/category/${category}`);

@@ -30,6 +30,7 @@ function Login() {
             .post(`/user`, {
               name: nameRef.current.value,
               uid: authUser.user.uid,
+              email: authUser.user.email,
             })
             .then((res) => {
               history.push("/login");

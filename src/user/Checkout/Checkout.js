@@ -131,7 +131,7 @@ export default function Checkout() {
                 </Typography>
                 <br />
                 <Button
-                  onClick={() => history.push("/orders")}
+                  onClick={() => history.push("/pending-orders")}
                   style={{
                     alignItems: "center",
                     textAlign: "center",

@@ -10,7 +10,7 @@
 } */
 .categoryName {
   margin-top: 0px !important;
-  margin-left: 30px !important;
+  margin-left: 20px !important;
   margin-bottom: 2px !important;
   text-transform: capitalize !important;
   color: gray !important;
@@ -27,24 +27,25 @@
   background: white;
 }
 .categoryName:hover {
-  width: 120px;
+  width: auto;
   color: white !important;
-  background-color: rgba(0, 0, 0, 0.7) !important;
+  background-color: rgba(0, 0, 0, 0.5) !important;
 }
 .categorys {
   margin-top: 5px;
   overflow-x: scroll;
   display: flex;
+  flex-direction: row;
   /* overflow: auto, */
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
 .categorys::-webkit-scrollbar {
-  display: none;
+  display: none !important;
 }
 
 /* Hide scrollbar for IE, Edge and Firefox */
 .categorys {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
 }

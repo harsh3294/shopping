@@ -56,7 +56,7 @@ function Description() {
   const handleColorChange = (event) => {
     setColors(event.target.value);
   };
-  console.log(route, product_id);
+
   useEffect(() => {
     basket.map((product) => {
       if (product.id === product_id) {

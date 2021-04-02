@@ -50,6 +50,7 @@ function App() {
         //login
         console.log(userAuth);
         let unmounted = false;
+        console.log(userAuth);
         async function fetchData() {
           const req = await axios
             .get(`/user/${userAuth.uid}`)
@@ -59,7 +60,7 @@ function App() {
                   login({
                     uid: res.data[0].uid,
                     name: res.data[0].name,
-                    email: userAuth.email,
+                    email: res.data[0].email,
                   })
                 );
               }

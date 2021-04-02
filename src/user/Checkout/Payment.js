@@ -112,6 +112,7 @@ function Payment() {
         const req = axios
           .post(`/orders`, {
             uid: user.uid,
+            email: user.email,
             orderId: order__id,
             date: new Date().toString(),
             orderList: basket,

@@ -33,6 +33,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import { Link, useHistory } from "react-router-dom";
+import { selectUser } from "../../features/userSlice";
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -56,6 +57,7 @@ function Cart() {
   const [size, setSize] = React.useState("");
   const [colors, setColors] = React.useState("");
   const basket = useSelector(selectBasket);
+  const user = useSelector(selectUser);
   // const total = useSelector(amount);
   const total = useSelector(getBasketTotal);
   console.log("the total is ", total);
@@ -96,6 +98,14 @@ function Cart() {
           id: id,
         })
       );
+    }
+  };
+  const handleCheckout = () => {
+    if (user) {
+      history.push("/checkout");
+    } else {
+      alert("You are not logged in pls do login.....");
+      history.push("/login");
     }
   };
 
@@ -390,10 +400,7 @@ function Cart() {
           </List>
         ))}
       </div>
-      <Button
-        onClick={() => history.push("/checkout")}
-        className="cart__checkoutButton"
-      >
+      <Button onClick={() => handleCheckout()} className="cart__checkoutButton">
         <ShoppingCartIcon className="cart__checkoutCartIcon" />
         Go For Checkout
       </Button>

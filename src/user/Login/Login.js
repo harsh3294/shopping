@@ -36,6 +36,7 @@ function Login() {
                       login({
                         uid: res.data[0].uid,
                         name: res.data[0].name,
+                        email: res.data[0].email,
                       })
                     );
                   }
