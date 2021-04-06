@@ -83,16 +83,16 @@ function DisplayOrders() {
             </td>
             <td>{order?.placedBy[0]?.contactNumber}</td>
             <td>
-              <Button
+              {/* <Button
                 onClick={(event) => {
                   handleClick(event, order.orderid);
                 }}
               >
                 Delivered
-              </Button>
-              {/* <Button onClick={(event) => handleDelivery(event, order.orderid)}>
-                Delivered
               </Button> */}
+              <Button onClick={(event) => handleDelivery(event, order.orderid)}>
+                Delivered
+              </Button>
             </td>
           </tr>
         ))}

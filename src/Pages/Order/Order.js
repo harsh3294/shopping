@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-
+import "./Order.css";
 import { Button } from "@material-ui/core";
-import { useParams } from "react-router";
+import { useHistory, useParams } from "react-router";
 import { firebase } from "../../firebase";
 import Loading from "../../images/Loading.gif";
 import axios from "../../axios";
@@ -12,6 +12,9 @@ function Order() {
   const [requestId, setRequestId] = useState({});
   const { orderid } = useParams();
   const [otpInput, setOtpInput] = useState("");
+  const [verifyotpfield, setVerifyotpfield] = useState(false);
+  const [verifiedOtp, setVerifiedOtp] = useState(false);
+  const history = useHistory();
   useEffect(() => {
     let unmounted = false;
 
@@ -33,88 +36,97 @@ function Order() {
       unmounted = true;
     };
   }, []);
-  const generateotp = (event, contactNumber) => {
-    var myHeaders = new Headers();
-    myHeaders.append("x-as-apikey", "d29abca7-3700-4b6b-af9b-78a0acd190a0");
-    myHeaders.append("Content-Type", "application/json");
 
-    var raw = JSON.stringify({
-      messageFormat:
-        "Hello, this is your OTP ${otp}. Please do not share it with anyone",
-      phoneNumber: `+91${contactNumber}`,
-      otpLength: 6,
-      otpValidityInSeconds: 120,
-    });
-
-    var requestOptions = {
-      method: "POST",
-      headers: myHeaders,
-      body: raw,
-      redirect: "follow",
-    };
-
-    fetch("https://otp.apistack.run/v1/sendOtp", requestOptions)
-      .then((response) => response.text())
-      .then((result) => setRequestId(result))
-      .catch((error) => console.log("error", error));
+  const generateOtp = (event, contactnumber) => {
+    console.log(contactnumber);
+    const req = axios
+      .get(`/sendOtp?phonenumber=${contactnumber}&channel=sms`)
+      .then((res) => {
+        console.log(res.data);
+        setVerifyotpfield(true);
+      })
+      .catch((error) => alert(error));
   };
-  console.log(JSON.stringify(requestId.data));
 
-  const verifyOtp = (event) => {
+  const verifyOtp = (event, contactnumber) => {
+    console.log(contactnumber);
+    console.log(otpInput);
+    const req = axios
+      .get(`/verify?phonenumber=${contactnumber}&otp=${otpInput}`)
+      .then((res) => {
+        console.log(res.data);
+        setVerifiedOtp(true);
+      })
+      .catch((error) => alert(error));
+  };
+
+  const deliveredHandleChange = (event) => {
     event.preventDefault();
-    var myHeaders = new Headers();
-    myHeaders.append("x-as-apikey", "d29abca7-3700-4b6b-af9b-78a0acd190a0");
-    myHeaders.append("Content-Type", "application/json");
-
-    var raw = JSON.stringify({
-      requestId: requestId,
-      otp: otpInput,
-    });
-
-    var requestOptions = {
-      method: "POST",
-      headers: myHeaders,
-      body: raw,
-      redirect: "follow",
-    };
-
-    fetch("https://otp.apistack.run/v1/verifyOtp", requestOptions)
-      .then((response) => response.text())
-      .then((result) => console.log(result))
-      .catch((error) => console.log("error", error));
+    console.log(orderid);
+    const req = axios
+      .delete(`/outfordelivery/orderid/${orderid}`)
+      .then((res) => {
+        console.log(res.data);
+        // alert("Delivered");
+      })
+      .catch((error) => alert(error));
+    const req1 = axios
+      .put(`/orders/${orderid}`, { status: 4 })
+      .then((res) => {
+        console.log(res.data);
+        // alert("Updated");
+        history.push("/");
+      })
+      .catch((error) => alert(error));
   };
+
   if (loading) {
     return <img src={Loading} alt="loading" className="loading" />;
   }
   return (
     <div>
       {orders.map((order) => (
-        <>
-          <h1>{order.orderid}</h1>
+        <div className="box-border-item">
+          <h1>Order id : {order.orderid}</h1>
           <p>
-            {" "}
-            {order?.placedBy[0]?.address1} , {order?.placedBy[0]?.city} ,{" "}
-            {order?.placedBy[0]?.zip} , {order?.placedBy[0]?.state} -{" "}
-            {order?.placedBy[0]?.country}
+            Address : {order?.placedBy[0]?.address1} ,{" "}
+            {order?.placedBy[0]?.city} , {order?.placedBy[0]?.zip} ,{" "}
+            {order?.placedBy[0]?.state} - {order?.placedBy[0]?.country}
           </p>
-          <p>{order?.placedBy[0]?.contactNumber}</p>
+          <p> Phone Number : {order?.placedBy[0]?.contactNumber}</p>
           <p>
             <Button
+              className="opt"
               onClick={(event) =>
-                generateotp(event, order?.placedBy[0]?.contactNumber)
+                generateOtp(event, order?.placedBy[0]?.contactNumber)
               }
             >
-              Delivered
+              Generate OTP
             </Button>
           </p>
-          <input
-            type="text"
-            name="otp"
-            value={otpInput}
-            onChange={(event) => setOtpInput(event.target.value)}
-          />
-          <button onClick={verifyOtp}>Verify Otp</button>
-        </>
+          {verifyotpfield && (
+            <>
+              <input
+                type="text"
+                name="otp"
+                value={otpInput}
+                onChange={(event) => setOtpInput(event.target.value)}
+              />
+              <button
+                onClick={(event) =>
+                  verifyOtp(event, order?.placedBy[0]?.contactNumber)
+                }
+              >
+                Verify Otp
+              </button>
+            </>
+          )}
+          {verifiedOtp && (
+            <Button className="opt" onClick={deliveredHandleChange}>
+              Delivered
+            </Button>
+          )}
+        </div>
       ))}
     </div>
   );
