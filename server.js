@@ -19,7 +19,7 @@ import Makeup from "./products/makeup.js";
 import Laptop from "./products/laptop.js";
 import Desktop from "./products/desktop.js";
 import Twilio from "twilio";
-import config from "./config.js";
+import { config } from "./config.js";
 const client = Twilio(config.accountId, config.authToken);
 
 const stripe = Stripe(key);
