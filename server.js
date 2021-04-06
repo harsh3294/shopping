@@ -18,6 +18,9 @@ import Television from "./products/television.js";
 import Makeup from "./products/makeup.js";
 import Laptop from "./products/laptop.js";
 import Desktop from "./products/desktop.js";
+import Twilio from "twilio";
+import config from "./config.js";
+const client = Twilio(config.accountId, config.authToken);
 
 const stripe = Stripe(key);
 //APP config
@@ -41,16 +44,42 @@ mongoose.connect(connection_url, {
 //API endpoints
 app.get("/", (req, res) => res.status(200).send("hello harsh 6da"));
 
+app.get("/sendOtp", (req, res) => {
+  client.verify
+    .services(config.serviceId)
+    .verifications.create({
+      to: `+91${req.query.phonenumber}`,
+      channel: req.query.channel,
+    })
+    .then((data) => {
+      res.status(200).send(data);
+    });
+});
+
+app.get("/verify", (req, res) => {
+  client.verify
+    .services(config.serviceId)
+    .verificationChecks.create({
+      to: `+91${req.query.phonenumber}`,
+      code: `${req.query.otp}`,
+    })
+    .then((data) => {
+      res.status(200).send(data);
+    });
+});
+
 app.post("/payments/create", async (request, response) => {
   const total = request.query.total;
-  console.log("payment request recieved ", total);
-  const paymentIntent = await stripe.paymentIntents.create({
-    amount: total, // sub units of the currency
-    currency: "inr",
-  });
-  response.status(201).send({
-    clientSecret: paymentIntent.client_secret,
-  });
+  if (total > 0) {
+    console.log("payment request recieved ", total);
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: total, // sub units of the currency
+      currency: "inr",
+    });
+    response.status(201).send({
+      clientSecret: paymentIntent.client_secret,
+    });
+  }
 });
 
 app.post("/products", (req, res) => {
