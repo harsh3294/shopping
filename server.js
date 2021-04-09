@@ -42,7 +42,6 @@ mongoose.connect(connection_url, {
 });
 
 //API endpoints
-app.get("/", (req, res) => res.status(200).send("hello harsh 6da"));
 
 app.get("/sendOtp", (req, res) => {
   client.verify
