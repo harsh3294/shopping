@@ -7,7 +7,7 @@ import Users from "./user/user.js";
 import Accessories from "./products/accessories.js";
 import MensWear from "./products/mensWear.js";
 import Orders from "./products/orders.js";
-import { key } from "./stripe_key.js";
+import { key } from "./stripekey.js";
 import Stripe from "stripe";
 import DeliveryUser from "./delivery-user.js";
 import Delivery from "./delivery.js";
@@ -42,6 +42,7 @@ mongoose.connect(connection_url, {
 });
 
 //API endpoints
+app.get("/", (req, res) => res.status(200).send("hello harsh 6da"));
 
 app.get("/sendOtp", (req, res) => {
   client.verify
