@@ -89,6 +89,9 @@ function Order() {
         <div className="box-border-item">
           <h1>Order id : {order.orderid}</h1>
           <p>
+            Name:{order?.placedBy[0]?.firstName} {order?.placedBy[0]?.lastName}
+          </p>
+          <p>
             Address : {order?.placedBy[0]?.address1} ,{" "}
             {order?.placedBy[0]?.city} , {order?.placedBy[0]?.zip} ,{" "}
             {order?.placedBy[0]?.state} - {order?.placedBy[0]?.country}
