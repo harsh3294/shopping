@@ -180,10 +180,10 @@ function Payment() {
     };
     console.log(templateParams);
     emailjs.send(
-      "service_jraq3xw",
-      "template_ybl8um8",
+      "",
+      "",
       templateParams,
-      "user_stwODU4rLf8nbtB6AkfaN"
+      ""
     );
   };
 
