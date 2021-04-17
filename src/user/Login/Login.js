@@ -140,13 +140,13 @@ function Login() {
               </div>
             </div>
             <Divider style={{ marginTop: "40px" }} />
-            <div
+            {/* <div
               className="txt1 text-center"
               style={{ paddingBottom: "20px", paddingTop: "20px" }}
             >
               <span>Or Login Using</span>
-            </div>
-            <Divider style={{ marginTop: "40px" }} />
+            </div> */}
+            {/* <Divider style={{ marginTop: "40px" }} /> */}
             <div
               className="txt1 text-center"
               style={{ paddingBottom: "20px", paddingTop: "20px" }}

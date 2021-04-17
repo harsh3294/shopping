@@ -22,15 +22,12 @@ function Login() {
         passwordRef.current.value
       )
       .then((authUser) => {
-        console.log(authUser.user.uid);
-        console.log(nameRef);
-
         function sendData() {
           const req = axios
             .post(`/user`, {
               name: nameRef.current.value,
-              uid: authUser.user.uid,
-              email: authUser.user.email,
+              uid: authUser?.user?.uid,
+              email: authUser?.user?.email,
             })
             .then((res) => {
               history.push("/login");

@@ -69,7 +69,7 @@ function Description() {
     dispatch(
       ADD_TO_BASKET({
         id: product._id,
-        userid: user.uid,
+        userid: user?.uid,
         name: product.name,
         img: product.img,
         originalPrice: product.originalPrice,
@@ -87,7 +87,7 @@ function Description() {
     dispatch(
       ADD_TO_BASKET({
         id: product._id,
-        userid: user.uid,
+        userid: user?.uid,
         name: product.name,
         img: product.img,
         originalPrice: product.originalPrice,
@@ -334,9 +334,14 @@ function Description() {
                         </div>
                       </div>
                       <br />
-                      <Button className="addToCart" onClick={addToCartMensWear}>
-                        Add to Cart
-                      </Button>
+                      {user && (
+                        <Button
+                          className="addToCart"
+                          onClick={addToCartMensWear}
+                        >
+                          Add to Cart
+                        </Button>
+                      )}
                     </>
                   )}
                 </>
@@ -383,9 +388,11 @@ function Description() {
                         </div>
                       </div>
                       <br />
-                      <Button className="addToCart" onClick={addToCart}>
-                        Add to Cart
-                      </Button>
+                      {user && (
+                        <Button className="addToCart" onClick={addToCart}>
+                          Add to Cart
+                        </Button>
+                      )}
                     </>
                   )}
                   {/* <div className="description__cart__button">
