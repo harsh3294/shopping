@@ -1,68 +1,9 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
+An Ecommerce website build using MERN Stack
 
-## Available Scripts
+User/Customer:User/Customer can see the list of products .. User/Customer can view the product details .. User/Customer can add the product to cart .. User/Customer can update the product quantity in cart page as well as User/Customer can delete the product from the cart page ..  when User/Customer click on check out it will ask the User/Customer to fill the shipping details like name , address , contact number , state ,city,country after clicking on next button it will display order summary after clicking on next button it will ask user to fill the card details for the payment if payment gets successfully completed then User/Customer will recieve the email with the order id and order details..  Also User/Customer can see the order status just like amazon.. also user can see the previous order list
 
-In the project directory, you can run:
 
-### `npm start`
+Admin: Admin can add,update,or delete the product . admin can change the order status .. Admin can add the delivery boy ...  Admin can assign the delivery orders to the delivery boy . Admin can see the list of delivered orders
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+Delivery boy: It will display list order assigned to that delivery  boy .. as delivery boy click on the delivered button it will redirect to the another page  where delivery boy clicks on the generate opt . An otp will be generate and send to the User/Customer mobile . Then delivery boy will add the opt to verify the customer if otp gets verified then and only then the delivery boy can update the status(product have been delivered)...
