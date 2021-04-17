@@ -91,10 +91,10 @@ Thank you for shopping with us
  `,
       };
       emailjs.send(
-        "service_jraq3xw",
-        "template_rzkuso8",
+        "",
+        "",
         templateParams,
-        "user_stwODU4rLf8nbtB6AkfaN"
+        ""
       );
     }
   };
